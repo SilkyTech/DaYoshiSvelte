@@ -15,16 +15,19 @@
 
 .yoshi {
   position: absolute;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
-  transition: transform 100ms, left 100ms;
+  -webkit-transition: left 200ms;
+  transition: left 200ms;
   z-index: 1;
 }
+
 .yoshi.hit {
-  transform: translate(-50%, -50%);
   left: 10%;
 }
+
 .yoshi > img {
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -35,19 +38,26 @@
 
 .hand {
   position: absolute;
-  transform: translate(0%, -50%);
+  -webkit-transform: translate(0%, -50%);
+          transform: translate(0%, -50%);
   right: 0;
-  transition: transform 100ms, right 100ms;
+  -webkit-transition: right 200ms, -webkit-transform 200ms;
+  transition: right 200ms, -webkit-transform 200ms;
+  transition: transform 200ms, right 200ms;
+  transition: transform 200ms, right 200ms, -webkit-transform 200ms;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
   z-index: 2;
 }
+
 .hand.hit {
-  transform: translate(0%, -50%) scaleX(200%);
+  -webkit-transform: translate(0%, -50%) scaleX(200%);
+          transform: translate(0%, -50%) scaleX(200%);
   right: 50%;
 }
+
 .hand > img {
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -78,6 +88,7 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  z-index: 6;
 }
 
 .notif {
@@ -85,4 +96,54 @@ body {
   z-index: 10;
   text-align: center;
   pointer-events: none;
-}/*# sourceMappingURL=app.css.map */
+}
+
+.bar-full {
+  width: 256px;
+  height: 48px;
+  position: relative;
+  background-color: grey;
+  text-align: center;
+  z-index: 11;
+}
+
+.bar-full > span {
+  z-index: 12;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 256px;
+}
+
+.bar-bar {
+  height: 48px;
+  background-color: green;
+  position: absolute;
+  z-index: 11;
+}
+
+.shop {
+  right: -100%;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 15;
+  -webkit-transition: right 200ms;
+  transition: right 200ms;
+}
+
+.shop.shop-active {
+  right: 0%;
+}
+
+.logo {
+  width: 312px;
+}
+/*# sourceMappingURL=app.css.map */

@@ -22,10 +22,9 @@ $delay: 200ms;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
-  transition: transform $delay, left $delay;
+  transition: left $delay;
 
   &.hit {
-    transform: translate(-50%, -50%);
     left: 10%;
   }
 
@@ -75,10 +74,52 @@ body {
   left: 1rem;
   top: 1rem;
   user-select: none;
+  z-index: 6;
 }
 .notif {
   position: absolute;
   z-index: 10;
   text-align: center;
   pointer-events: none;
+}
+
+.bar-full {
+  width: 256px;
+  height: 48px;
+  position: relative;
+  background-color: grey;
+  text-align: center;
+  z-index: 11;
+  & > span {
+    z-index: 12;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 256px;
+  }
+}
+
+.bar-bar {
+  height:48px;
+  background-color: green;
+  position: absolute;
+  z-index: 11
+}
+
+.shop {
+  right: -100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+  transition: right 200ms;
+
+  &.shop-active {
+    right: 0%;
+  }
+}
+
+.logo {
+  width: 312px;
 }
