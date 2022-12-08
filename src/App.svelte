@@ -29,6 +29,32 @@
 
   let boughtSkins = new Set([0, 1, 2])
 
+  loadSave()
+
+  function loadSave() {
+    let save = localStorage.getItem("save")
+    if (save !== null) {
+      let saveParsed = atob(save)
+      let parts: any[] = saveParsed.split("|")
+      let version = parts.slice(0)
+      hits = (+parts[0]) - (+parts[1])
+      deaths = (+parts[2]) - (+parts[3])
+      boughtSkins = new Set(parts[4].split(',').map(a => parseInt(a)))
+      curSkin = {
+        normal: parts[5].split(",")[0],
+        block: parts[5].split(",")[2],
+        hit: parts[5].split(",")[1]
+      }
+    }
+  }
+
+  function saveSave() {
+    let r1 = Math.floor(Math.random()*9999)
+    let r2 = Math.floor(Math.random()*9999)
+    let save = [hits+r1, r1, deaths+r2, r2, Array.from(boughtSkins).join(","), [curSkin.normal, curSkin.hit, curSkin.block].join(",")]
+    localStorage.setItem("save", btoa(save.join("|")))
+  }
+
   function getSkin() {
     return {
       hit: skins[curSkin.hit],
@@ -65,6 +91,7 @@
     setTimeout(() => {
       yoshiimg = getSkin().normal[1]
     }, 300)
+    saveSave()
   }
 
   function mousemove(e: MouseEvent) {
@@ -112,6 +139,7 @@
       boughtSkins.add(ind)
       boughtSkins = boughtSkins
       console.log(`bought skin: ${ind}`, boughtSkins)
+      saveSave()
     }
   }
 
