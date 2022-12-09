@@ -175,7 +175,7 @@
   <div class={"shop " + (shopactive ? "shop-active" : "")}>
     {#each skins as skin}
       {#if skin[3] !== -1}
-        <button on:click={() => buySkin(skins.indexOf(skin))}>Buy {skin[2]} for {skin[3]} faints</button>
+        <button on:click={() => buySkin(skins.indexOf(skin))}>Buy {skin[2]} for {skin[3]} deaths | {skin[0]}</button>
       {/if}
     {/each}
     <hr>
