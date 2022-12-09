@@ -16,7 +16,10 @@
     ["block", "block/yoshiblock.png", "Blocking Yoshi", -1],
     ["normal", "idle/redyoshi.png", "Red Yoshi", 5],
     ["hit", "hit/cryingyoshi.png", "Crying Yoshi", 15],
-    ["hit", "hit/tearyoshi.png", "Tear Yoshi", 20]
+    ["hit", "hit/tearyoshi.png", "Tear Yoshi", 20],
+    ["normal", "idle/blueyoshi.png", "Blue Yoshi", 15],
+    ["normal", "idle/yellowyoshi.png", "Yellow Yoshi", 35],
+    ["normal", "idle/pinkyoshi.png", "Pink Yoshi", 50],
   ]
   let curSkin = {
     hit: 1,
