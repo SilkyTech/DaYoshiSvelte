@@ -106,6 +106,7 @@ body {
   background-color: grey;
   text-align: center;
   z-index: 11;
+  border-radius: 1rem;
 }
 
 .bar-full > span {
@@ -123,6 +124,7 @@ body {
   background-color: green;
   position: absolute;
   z-index: 11;
+  border-radius: 1rem;
 }
 
 .shop {
@@ -146,5 +148,44 @@ body {
 
 .logo {
   width: 312px;
+}
+
+.intro {
+  display: none;
+}
+
+.shop-item {
+  width: 68px;
+}
+
+.shop-items {
+  display: -ms-grid;
+  display: grid;
+  gap: 8px 8px;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  height: 100vh;
+  overflow: auto;
+  width: calc(94px * 3);
+}
+
+.shop-panel {
+  width: 78px;
+}
+
+.shop-panel > button {
+  border-radius: 0.5rem;
+}
+
+.shop-panel.hit > button {
+  background-color: #9d0000;
+}
+
+.shop-panel.block > button {
+  background-color: #032991;
+}
+
+.shop-panel.normal > button {
+  background-color: green;
 }
 /*# sourceMappingURL=app.css.map */

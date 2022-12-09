@@ -92,6 +92,7 @@ body {
   background-color: grey;
   text-align: center;
   z-index: 11;
+  border-radius: 1rem;
   & > span {
     z-index: 12;
     position: absolute;
@@ -106,7 +107,10 @@ body {
   height:48px;
   background-color: green;
   position: absolute;
-  z-index: 11
+  z-index: 11;
+  
+  border-radius: 1rem;
+  
 }
 
 .shop {
@@ -114,6 +118,7 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
+  
   z-index: 15;
   transition: right 200ms;
 
@@ -124,4 +129,38 @@ body {
 
 .logo {
   width: 312px;
+}
+
+.intro {
+  display: none;
+}
+
+.shop-item {
+  width: 68px;
+  
+} 
+
+.shop-items {
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100vh;
+  overflow: auto;
+  width: calc(94px * 3);
+}
+
+.shop-panel {
+  width: 78px;
+  & > button {
+    border-radius: 0.5rem;
+  }
+  &.hit > button {
+    background-color: rgb(157, 0, 0);
+  }
+  &.block > button {
+    background-color: rgb(3, 41, 145);
+  }
+  &.normal > button {
+    background-color: green;
+  }
 }
