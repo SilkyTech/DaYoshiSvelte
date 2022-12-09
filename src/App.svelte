@@ -1,7 +1,6 @@
 <script lang="ts">
   import Notif from './lib/Notif.svelte'
   import Intro from './lib/Intro.svelte'
-  import { create } from 'lodash';
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
