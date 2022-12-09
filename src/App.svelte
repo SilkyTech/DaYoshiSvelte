@@ -1,6 +1,6 @@
 <script lang="ts">
   import Notif from './lib/Notif.svelte'
-
+  import Intro from './lib/Intro.svelte'
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
@@ -20,6 +20,9 @@
     ["normal", "idle/blueyoshi.png", "Blue Yoshi", 15],
     ["normal", "idle/yellowyoshi.png", "Yellow Yoshi", 35],
     ["normal", "idle/pinkyoshi.png", "Pink Yoshi", 50],
+    ["block", "block/redshell.png", "Red Shell", 20],
+    ["block", "block/blueshell.png", "Blue Shell", 50],
+    ["block", "block/spinyshell.png", "Spiny Shell", 100],
   ]
   let curSkin = {
     hit: 1,
@@ -131,6 +134,8 @@
     setTimeout(() => {
       notifs = notifs.filter(a => a.uuid !== uu)
     }, 400)
+
+    
   }
 
   setInterval(tick, 0);
@@ -151,16 +156,31 @@
     curSkin[skin$[0]] = skin
   }
 
-  $: boughtNums = Array.from(boughtSkins)
+  $: boughtNums = Array.from(boughtSkins).map((a, i) => [skins[a], i]) as [["normal" | "hit" | "block", string, string, number], number][]
+
+  globalThis.dev = (msg: string) => {
+    let args = msg.split(" ")
+    if (args[0] === "add") {
+      if (args[1] === "death") {
+        let amount = parseInt(args[2])
+        deaths += amount
+      }
+      if (args[1] === "hit") {
+        let amount = parseInt(args[2])
+        hits += amount
+      }
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <main on:click={click} on:keypress={(e) => {if (e.key === " ") click()} } on:mousemove={mousemove}>
+  <Intro></Intro>
   <div class="main-info">
     <img src="logo.png" alt="Da Yoshi" class="logo"><br>
     <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${hp}%;`}></div><span>{hp} / 100</span></div></span><br>
     <span class="info-label">Hits: {hits}</span><br>
-    <span class="info-label">Deaths: {deaths}</span>
+    <span class="info-label">Deaths: {deaths}</span><br>
     <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
   </div>
   <div class="yoshi" bind:this={yoshi} unselectable>
@@ -173,14 +193,34 @@
     <Notif label={notif.label} style={notif.style} pos={notifPos[notif.time]}></Notif>
   {/each}
   <div class={"shop " + (shopactive ? "shop-active" : "")}>
-    {#each skins as skin}
+    <div class="shop-items">
+      {#each skins as skin}
       {#if skin[3] !== -1}
-        <button on:click={() => buySkin(skins.indexOf(skin))}>Buy {skin[2]} for {skin[3]} deaths | {skin[0]}</button>
+      <button on:click={() => buySkin(skins.indexOf(skin))}>
+        <img src={skin[1]} alt={skin[2]} class="shop-item"><br>
+          Buy {skin[2]} for {skin[3]} deaths | {skin[0]}
+        </button>
+      {/if}
+      {/each}
+    </div>
+    <hr>
+    Idle:
+    {#each boughtNums as bought}
+      {#if bought[0][0] === "normal"}
+      <button on:click={() => equipSkin(bought[1])}>Equip {bought[0][2]}</button>
       {/if}
     {/each}
-    <hr>
+    Hit:
     {#each boughtNums as bought}
-      <button on:click={() => equipSkin(bought)}>Equip {skins[bought][2]} | {skins[bought][0]}</button>
+      {#if bought[0][0] === "hit"}
+      <button on:click={() => equipSkin(bought[1])}>Equip {bought[0][2]}</button>
+      {/if}
+    {/each}
+    Block:
+    {#each boughtNums as bought}
+      {#if bought[0][0] === "block"}
+      <button on:click={() => equipSkin(bought[1])}>Equip {bought[0][2]}</button>
+      {/if}
     {/each}
   </div>
 </main>

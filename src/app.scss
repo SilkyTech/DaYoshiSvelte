@@ -92,6 +92,7 @@ body {
   background-color: grey;
   text-align: center;
   z-index: 11;
+  border-radius: 1rem;
   & > span {
     z-index: 12;
     position: absolute;
@@ -106,7 +107,10 @@ body {
   height:48px;
   background-color: green;
   position: absolute;
-  z-index: 11
+  z-index: 11;
+  
+  border-radius: 1rem;
+  
 }
 
 .shop {
@@ -124,4 +128,23 @@ body {
 
 .logo {
   width: 312px;
+}
+
+.intro {
+  display: none;
+}
+
+.shop-item {
+  width: 64px;
+  & > img {
+
+  }
+}
+
+.shop-items {
+  display: flex;
+
+  flex-direction: column;
+  height: 50vh;
+  overflow: auto;
 }
