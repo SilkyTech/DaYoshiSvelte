@@ -155,18 +155,37 @@ body {
 }
 
 .shop-item {
-  width: 64px;
+  width: 68px;
 }
 
 .shop-items {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 50vh;
+  display: -ms-grid;
+  display: grid;
+  gap: 8px 8px;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  height: 100vh;
   overflow: auto;
+  width: calc(94px * 3);
+}
+
+.shop-panel {
+  width: 78px;
+}
+
+.shop-panel > button {
+  border-radius: 0.5rem;
+}
+
+.shop-panel.hit > button {
+  background-color: #9d0000;
+}
+
+.shop-panel.block > button {
+  background-color: #032991;
+}
+
+.shop-panel.normal > button {
+  background-color: green;
 }
 /*# sourceMappingURL=app.css.map */

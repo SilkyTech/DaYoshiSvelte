@@ -118,6 +118,7 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
+  
   z-index: 15;
   transition: right 200ms;
 
@@ -135,16 +136,31 @@ body {
 }
 
 .shop-item {
-  width: 64px;
-  & > img {
-
-  }
-}
+  width: 68px;
+  
+} 
 
 .shop-items {
-  display: flex;
-
-  flex-direction: column;
-  height: 50vh;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100vh;
   overflow: auto;
+  width: calc(94px * 3);
+}
+
+.shop-panel {
+  width: 78px;
+  & > button {
+    border-radius: 0.5rem;
+  }
+  &.hit > button {
+    background-color: rgb(157, 0, 0);
+  }
+  &.block > button {
+    background-color: rgb(3, 41, 145);
+  }
+  &.normal > button {
+    background-color: green;
+  }
 }
