@@ -1,11 +1,13 @@
 <script lang="ts">
   import Notif from './lib/Notif.svelte'
   import Intro from './lib/Intro.svelte'
+  import * as constants from "./lib/constants"
+  
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
   let handimg: string = "hand/hand.png";
-  let shopactive: boolean = false;
+  let shopactive: boolean = false, petmenuactive: boolean = false;
   let mouse = { x: 0, y: 0 };
   let frame = 0;
   let notifs: {label: string, style: string, uuid: string, time: number}[] = [];
@@ -26,6 +28,25 @@
     ["block", "block/pinkshell.png", "Pink Shell", 150],
     ["block", "block/greenshell.png", "Green Shell", 5]
   ]
+
+  let pets: {
+    name: string,
+    id: number,
+    perks: (level: number) => {
+      hitMul?: number,
+      hitAdd?: number,
+    },
+    source: string
+  }[] = [
+    {
+      name: "Blue Baby Yoshi",
+      id: 1,
+      perks: (level) => ({hitAdd: level*0.03}),
+      source: "pet/bluebabyyoshi.png"
+    }
+  ]
+  let ownedPets: [number, number][] = [[0, 0]]
+
   let curSkin = {
     hit: 1,
     block: 2,
@@ -37,8 +58,25 @@
   let usedDev = false;
 
   let boughtSkins = new Set([0, 1, 2])
+  let curPet: number = -1;
 
   loadSave()
+
+  function getDamage() {
+    let base = 1;
+    if (curPet !== -1) {
+      let cPet = boughtPets[curPet];
+      let level = getLevels(cPet).level;
+      let outcome = cPet.pet.perks(level);
+      if (outcome.hitAdd) {
+        base += outcome.hitAdd
+      }
+      if (outcome.hitMul) {
+        base *= outcome.hitMul
+      }
+    }
+    return base;
+  }
 
   function loadSave() {
     let save = localStorage.getItem("save")
@@ -55,13 +93,23 @@
         hit: parts[5].split(",")[1]
       }
       usedDev = Boolean(parts[6]);
+      ownedPets = parts[7]?.split(',')?.map((a: string) => a.split("!").map(b => +b)) ?? []
+      curPet = isNaN(+parts[8]) ? -1 : +parts[8]
     }
   }
 
   function saveSave() {
     let r1 = Math.floor(Math.random()*9999)
     let r2 = Math.floor(Math.random()*9999)
-    let save = [hits+r1, r1, deaths+r2, r2, Array.from(boughtSkins).join(","), [curSkin.normal, curSkin.hit, curSkin.block].join(","), usedDev]
+    let save = [
+      hits+r1, r1, 
+      deaths+r2, r2, 
+      Array.from(boughtSkins).join(","), 
+      [curSkin.normal, curSkin.hit, curSkin.block].join(","), 
+      usedDev,
+      ownedPets.map(a => a.join("!")).join(","),
+      curPet
+    ]
     localStorage.setItem("save", btoa(save.join("|")))
   }
 
@@ -82,9 +130,11 @@
       createNotif("Blocked!", "")
     } else {
       hits++;
-      createNotif("Normal Hit | -1 HP", "")
+      createNotif(`Normal Hit | -${getDamage()} HP`, "")
       yoshiimg = getSkin().hit[1]
-      hp--;
+      hp -= getDamage();
+      if (curPet !== -1) ownedPets[curPet][1]++;
+      console.log(curPet)
     }
 
     if (hp < 1) {
@@ -121,8 +171,8 @@
 
     frame += dt;
 
-    if (hand !== null) 
-    hand.style.top = (mouse.y + Math.sin(frame*0.01)*5)+"px";
+    if (hand?.style !== undefined) 
+      hand.style.top = (mouse.y + Math.sin(frame*0.01)*5)+"px";
   }
 
   function createNotif(label: string, style: string) {
@@ -165,6 +215,8 @@
   $: boughtNums = Array.from(boughtSkins).map((a, i) => [skins[a], a]).sort((a, b) => a[0][3] - b[0][3]) as [["normal" | "hit" | "block", string, string, number], number][]
   $: enumSkins = skins.map((a, i) => [a, i, boughtSkins.has(i)]) as [["normal" | "hit" | "block", string, string, number], number, boolean][]
 
+  $: boughtPets = ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
+
   globalThis.dev = (msg: string) => {
     let args = msg.split(" ")
     if (args[0] === "+") {
@@ -176,11 +228,49 @@
         let amount = parseInt(args[2])
         hits += amount
       }
+    } else if (args[0] === "=") {
+      if (args[1] === "death") {
+        let amount = parseInt(args[2])
+        deaths = amount
+      }
+      if (args[1] === "hit") {
+        let amount = parseInt(args[2])
+        hits = amount
+      }
     }
     usedDev = true;
     saveSave()
     console.clear()
   }
+
+  function buyBox(boxType: number) {
+    console.log(boxType)
+    alert("This feature isn't implemented yet! Please remind Silkyway to implement this")
+  }
+
+
+  function equipPet(id: number): void {
+    curPet = id
+  }
+
+  function getLevels(pet: typeof boughtPets[0]) {
+    if (pet === undefined || pet === null) return {level: -1, xp: -1};
+    let j = pet.xp;
+    let lev = 0;
+    let i = 0;
+    for (; i < constants.levelUps.length; i++) {
+      const xpReq = constants.levelUps[i];
+      if (j < xpReq) {
+        break;
+      }
+      j -= xpReq;
+      lev++;
+
+    }
+    return {level: lev, xp: constants.levelUps[i]-j}
+  }
+
+  console.log((() => {let sum = 0; for (let k of constants.levelUps) sum += k; return sum})())
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -188,10 +278,11 @@
   <Intro></Intro>
   <div class="main-info">
     <img src="logo.png" alt="Da Yoshi" class="logo"><br>
-    <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${hp}%;`}></div><span>{hp} / 100</span></div></span><br>
+    <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${hp}%;`}></div><span>{hp.toFixed(2)} / 100</span></div></span><br>
     <span class="info-label">Hits: {hits}</span><br>
     <span class="info-label">Deaths: {deaths}</span><br>
     <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
+    <button on:click={() => petmenuactive = !petmenuactive}>Toggle Pet Menu</button>
     <button on:click={() => setTimeout(() => {localStorage.removeItem("save"); location.reload()}, 0)}>Reset</button>
     {#if usedDev} Used Dev :&lt;{/if}
   </div>
@@ -208,27 +299,45 @@
     <div class="shop-items">
       {#each enumSkins as skin}
       {#if !skin[2]}
-      <div class={"shop-panel " + skin[0][0]}>
-        
-        <button on:click={() => buySkin(skin[1])} >
-          <img src={skin[0][1]} alt={skin[0][2]} class={"shop-item "}><br>
-          Buy {skin[0][2]} for {skin[0][3]} deaths | {skin[0][0]}
-        </button>
-        
-      </div>
-      {:else}
-      <div class="shop-panel equip">
-        
-        <button on:click={() => equipSkin(skin[1])} >
-          <img src={skin[0][1]} alt={skin[0][2]} class="shop-item equip"><br>
-            Equip {skin[0][2]} | {skin[0][0]} Type
+        <div class={"shop-panel " + skin[0][0]}>
+          
+          <button on:click={() => buySkin(skin[1])} >
+            <img src={skin[0][1]} alt={skin[0][2]} class={"shop-item "}><br>
+            Buy {skin[0][2]} for {skin[0][3]} deaths | {skin[0][0]}
           </button>
-        
-      </div>
+          
+        </div>
+      {:else}
+        <div class="shop-panel equip">
+          
+          <button on:click={() => equipSkin(skin[1])} >
+            <img src={skin[0][1]} alt={skin[0][2]} class="shop-item equip"><br>
+              Equip {skin[0][2]} | {skin[0][0]} Type
+            </button>
+          
+        </div>
       
       {/if}
       
       {/each}
     </div>
+  </div>
+  <div class={"petmenu" + (petmenuactive ? " petmenu-active" : "")}>
+    <span class="info-label">Buy Menu:</span><br>
+    <button on:click={() => buyBox(1)}>Buy Common Box | 100 Deaths</button>
+    <button on:click={() => buyBox(2)}>Buy Rare Box | 1000 Deaths</button>
+    <hr>
+    Current Pet: {curPet === -1 ? "None" : boughtPets[curPet].pet.name}<br>
+    Level: {getLevels(boughtPets[curPet]).level}<br>
+    EXP to next Level: {getLevels(boughtPets[curPet]).xp}
+    <hr>
+    {#each boughtPets as pet}
+      <div class="shop-panel equip">
+        <button on:click={() => equipPet(pet.i)}>
+          <img src={pet.pet.source} alt={pet.pet.name} class="shop-item equip"><br>
+          Equip {pet.pet.name} | Level {getLevels(pet).level}
+        </button>
+      </div>
+    {/each}
   </div>
 </main>

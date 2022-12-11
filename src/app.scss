@@ -114,6 +114,7 @@ body {
 }
 
 .shop {
+  padding: 1rem;
   right: -100%;
   position: absolute;
   display: flex;
@@ -123,6 +124,21 @@ body {
   transition: right 200ms;
 
   &.shop-active {
+    right: 0%;
+  }
+}
+
+.petmenu {
+  padding: 1rem;
+  right: -100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  
+  z-index: 15;
+  transition: right 200ms;
+
+  &.petmenu-active {
     right: 0%;
   }
 }

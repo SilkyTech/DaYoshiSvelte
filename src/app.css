@@ -15,19 +15,15 @@
 
 .yoshi {
   position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
-  -webkit-transition: left 200ms;
   transition: left 200ms;
   z-index: 1;
 }
-
 .yoshi.hit {
   left: 10%;
 }
-
 .yoshi > img {
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -39,26 +35,19 @@
 
 .hand {
   position: absolute;
-  -webkit-transform: translate(0%, -50%);
-          transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
   right: 0;
-  -webkit-transition: right 200ms, -webkit-transform 200ms;
-  transition: right 200ms, -webkit-transform 200ms;
   transition: transform 200ms, right 200ms;
-  transition: transform 200ms, right 200ms, -webkit-transform 200ms;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
   z-index: 2;
 }
-
 .hand.hit {
-  -webkit-transform: translate(0%, -50%) scaleX(200%);
-          transform: translate(0%, -50%) scaleX(200%);
+  transform: translate(0%, -50%) scaleX(200%);
   right: 50%;
 }
-
 .hand > img {
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -108,14 +97,12 @@ body {
   z-index: 11;
   border-radius: 1rem;
 }
-
 .bar-full > span {
   z-index: 12;
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 256px;
 }
 
@@ -128,21 +115,28 @@ body {
 }
 
 .shop {
+  padding: 1rem;
   right: -100%;
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   z-index: 15;
-  -webkit-transition: right 200ms;
   transition: right 200ms;
 }
-
 .shop.shop-active {
+  right: 0%;
+}
+
+.petmenu {
+  padding: 1rem;
+  right: -100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+  transition: right 200ms;
+}
+.petmenu.petmenu-active {
   right: 0%;
 }
 
@@ -159,33 +153,26 @@ body {
 }
 
 .shop-items {
-  display: -ms-grid;
   display: grid;
   gap: 8px 8px;
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   height: 100vh;
   overflow: auto;
-  width: calc(94px * 3);
+  width: 282px;
 }
 
 .shop-panel {
   width: 78px;
 }
-
 .shop-panel > button {
   border-radius: 0.5rem;
 }
-
 .shop-panel.hit > button {
-  background-color: #9d0000;
+  background-color: rgb(157, 0, 0);
 }
-
 .shop-panel.block > button {
-  background-color: #032991;
+  background-color: rgb(3, 41, 145);
 }
-
 .shop-panel.normal > button {
   background-color: green;
-}
-/*# sourceMappingURL=app.css.map */
+}/*# sourceMappingURL=app.css.map */
