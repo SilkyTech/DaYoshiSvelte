@@ -62,6 +62,7 @@
       try {
         let saveParsed = atob(save)
         let parts: any[] = saveParsed.split("|")
+        if (parts.length < 6) {return alert("Invalid Save");}
         hits = (+parts[0]) - (+parts[1])
         deaths = (+parts[2]) - (+parts[3])
         boughtSkins = new Set(parts[4].split(',').map(a => parseInt(a)))
