@@ -292,7 +292,13 @@
   function salvage(pet: number) {
     if (confirm(`Are you sure you want to salvage your ${pets[ownedPets[pet][0]].name} for ${pets[ownedPets[pet][0]].salvage} deaths?`)) {
       curPet--;
-      ownedPets = ownedPets.filter((a, i) => i !== pet);
+      ownedPets = ownedPets.filter((a, i) => {
+        if (i !== pet) return true;
+        else {
+          deaths += pets[a[0]].salvage
+          return false
+        };
+      });
       saveSave()
     }
     
