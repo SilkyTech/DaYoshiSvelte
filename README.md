@@ -31,4 +31,6 @@ Run `yarn` in the folder to download all the packages.
 
 ## Launching the app
 To run the server locally, run `yarn run dev`.
+> If it gives you an error about nodemon not being installed then run `npm i nodemon -g`.
+> You may need to give it sudo permissions.
 If you want to host it on the local network then use `yarn run dev --host`
