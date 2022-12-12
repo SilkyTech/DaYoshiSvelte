@@ -37,5 +37,5 @@ To run the server locally, run `yarn run dev`.
 If you want to host it on the local network then use `yarn run dev --host`
 
 # BUGS
-This is still a buggy website, with some teething issues
+This is still a buggy website, with some teething issues.
 Make sure to use the `Issues` tab if you find any :)
