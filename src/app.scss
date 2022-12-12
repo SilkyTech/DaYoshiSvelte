@@ -184,12 +184,15 @@ body {
   }
   &.hit > button {
     background-color: rgb(157, 0, 0);
+    color: white;
   }
   &.block > button {
     background-color: rgb(3, 41, 145);
+    color: white;
   }
   &.normal > button {
     background-color: green;
+    color: white;
   }
 }
 

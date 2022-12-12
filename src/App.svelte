@@ -36,9 +36,10 @@
   let curPet: number = -1;
 
   let boxLeft = 0;
-
+  //console.log(ownedPets)
   loadSave()
-
+  //console.log(ownedPets)
+  
   function getDamage() {
     let base = 1;
     if (curPet !== -1) {
@@ -58,21 +59,31 @@
   function loadSave() {
     let save = localStorage.getItem("save")
     if (save !== null) {
-      let saveParsed = atob(save)
-      let parts: any[] = saveParsed.split("|")
-      let version = parts.slice(0)
-      hits = (+parts[0]) - (+parts[1])
-      deaths = (+parts[2]) - (+parts[3])
-      boughtSkins = new Set(parts[4].split(',').map(a => parseInt(a)))
-      curSkin = {
-        normal: parts[5].split(",")[0],
-        block: parts[5].split(",")[2],
-        hit: parts[5].split(",")[1]
+      try {
+        let saveParsed = atob(save)
+        let parts: any[] = saveParsed.split("|")
+        hits = (+parts[0]) - (+parts[1])
+        deaths = (+parts[2]) - (+parts[3])
+        boughtSkins = new Set(parts[4].split(',').map(a => parseInt(a)))
+        curSkin = {
+          normal: parts[5].split(",")[0],
+          block: parts[5].split(",")[2],
+          hit: parts[5].split(",")[1]
+        }
+        usedDev = (parts[6] === "true" ? true : false);
+        
+        if (parts[7].length !== 0) ownedPets = parts[7]?.split(',').map((a: string) => a.split("!").map(b => +b)) ?? []
+        
+        curPet = isNaN(+parts[8]) ? -1 : +parts[8]
+        usedAutoclicker = (parts[9] === "true" ? true : false)
+      } catch (e) {
+        if (e instanceof DOMException) {
+          localStorage.removeItem("save")
+          alert("Your save is invalid! Resetting your save for you.")
+          location.reload()
+        }
       }
-      usedDev = (parts[6] === "true" ? true : false);
-      ownedPets = parts[7]?.split(',')?.map((a: string) => a.split("!").map(b => +b)) ?? []
-      curPet = isNaN(+parts[8]) ? -1 : +parts[8]
-      usedAutoclicker = (parts[9] === "true" ? true : false)
+      
     }
   }
 
@@ -198,6 +209,7 @@
   function equipSkin(skin: number) {
     let skin$ = skins[skin]
     curSkin[skin$[0]] = skin
+    
   }
 
   $: boughtNums = Array.from(boughtSkins).map((a, i) => [skins[a], a]).sort((a, b) => a[0][3] - b[0][3]) as [["normal" | "hit" | "block", string, string, number], number][]
@@ -279,6 +291,7 @@
 
   function equipPet(id: number): void {
     curPet = id
+    console.log(ownedPets[curPet])
   }
 
   function getLevels(pet: typeof boughtPets[0]) {

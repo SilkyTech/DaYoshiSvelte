@@ -179,12 +179,15 @@ body {
 }
 .shop-panel.hit > button {
   background-color: rgb(157, 0, 0);
+  color: white;
 }
 .shop-panel.block > button {
   background-color: rgb(3, 41, 145);
+  color: white;
 }
 .shop-panel.normal > button {
   background-color: green;
+  color: white;
 }
 
 .gambling {
