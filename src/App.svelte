@@ -28,6 +28,9 @@
   let deaths = 0;
   let hp = 100;
   let usedDev = false;
+  let usedAutoclicker = false;
+
+  
 
   let boughtSkins = new Set([0, 1, 2])
   let curPet: number = -1;
@@ -69,6 +72,7 @@
       usedDev = (parts[6] === "true" ? true : false);
       ownedPets = parts[7]?.split(',')?.map((a: string) => a.split("!").map(b => +b)) ?? []
       curPet = isNaN(+parts[8]) ? -1 : +parts[8]
+      usedAutoclicker = (parts[9] === "true" ? true : false)
     }
   }
 
@@ -82,7 +86,8 @@
       [curSkin.normal, curSkin.hit, curSkin.block].join(","), 
       usedDev,
       ownedPets.map(a => a.join("!")).join(","),
-      curPet
+      curPet,
+      usedAutoclicker
     ]
     localStorage.setItem("save", btoa(save.join("|")))
   }
@@ -96,6 +101,7 @@
   }
 
   function click(e: MouseEvent) {
+    
     if (
       (() => {
         let b = false;
@@ -106,6 +112,8 @@
         return b;
       })()  
     ) return;
+    
+
     hand.classList.add("hit");
     let missChance = Math.random() < 0.2;
     if (missChance) {
@@ -303,10 +311,45 @@
     }
     
   }
+  let cl2;
+  {
+    let count = 0;
+    let numSec = 1;
+    let start = 0;
+    getCPS();
+
+    function getCPS() {
+      
+      setTimeout(function() {
+        if (count > 20) {
+          usedAutoclicker = true;
+          saveSave();
+        }
+        count = 0;
+        getCPS();
+        
+      }, numSec*1000);
+    }
+
+    function cl(e: MouseEvent) {count++;
+    start++;}
+
+    cl2 = cl
+  }
+  
+
+  function handleKeypress(e: KeyboardEvent) {
+    console.log(e)
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<main on:click={click} on:mousemove={mousemove}>
+<main on:click={
+  (e) => {
+    click(e)
+    cl2(e)
+  }
+} on:mousemove={mousemove} on:keypress={handleKeypress}>
   <Intro></Intro>
   <div class="main-info">
     <img src="logo.png" alt="Da Yoshi" class="logo"><br>
@@ -315,7 +358,9 @@
     <span class="info-label">Deaths: {deaths}</span><br>
     <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
     <button on:click={() => petmenuactive = !petmenuactive}>Toggle Pet Menu</button>
-    <button on:click={() => setTimeout(() => {localStorage.removeItem("save"); location.reload()}, 0)}>Reset</button>
+    <button on:click={() => setTimeout(() => {localStorage.removeItem("save"); location.reload()}, 0)}>Reset</button><br>
+    <button on:click={() => setTimeout(() => {localStorage.setItem("save", prompt("Save String: ")); location.reload()}, 0)}>Import Save</button>
+    <button on:click={() => setTimeout(async () => {await navigator.clipboard.writeText(localStorage.getItem("save")); alert(`Copied into clipboard: ` + localStorage.getItem("save"));}, 0)}>Export Save</button>
     {#if usedDev}<br>Used Dev :&lt;{/if}
   </div>
   <div class="yoshi" bind:this={yoshi} unselectable>
@@ -343,7 +388,9 @@
       {:else}
         <div class="shop-panel equip">
           
-          <button on:click={() => equipSkin(skin[1])} >
+          <button on:click={() => equipSkin(skin[1])} disabled={
+            curSkin.normal === skin[1] || curSkin.hit === skin[1] || curSkin.block === skin[1]
+          }>
             <img src={skin[0][1]} alt={skin[0][2]} class="shop-item equip"><br>
               Equip {skin[0][2]} | {skin[0][0]} Type
             </button>
