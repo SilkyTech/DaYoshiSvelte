@@ -50,11 +50,17 @@ $delay: 200ms;
   & > img {
     user-select: none; 
     pointer-events: none;
-    
   }
+  & > .pet-hand {
+    position: absolute;
+    width: 64px;
+    right: 200px;
+  }
+
   user-select: none; 
   z-index: 2
 }
+
 
 main {
   width: 100vw;
@@ -163,6 +169,7 @@ body {
   display: grid;
   gap: 8px 8px;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(666, 1fr);
   height: 100vh;
   overflow: auto;
   width: calc(94px * 3);
@@ -207,3 +214,11 @@ body {
   }
   
 }
+
+button {
+  color: black;
+  &[disabled] {
+    color: white;
+  }
+}
+

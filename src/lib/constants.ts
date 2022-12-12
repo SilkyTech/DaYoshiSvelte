@@ -61,5 +61,54 @@ export const levelUps = [
 ]
 
 export const boxChances: {[id: number]: [number, number][]} = {
-    1: [[0, 19], [1, 19]]
+    1: [[0, 19], [1, 4], [2, 1]],
+    2: [[0, 20], [1, 10], [2, 3]]
 }
+
+export const skins: ["normal" | "hit" | "block", string, string, number][] = [
+    ["normal", "idle/yoshi.png", "Normal Yoshi", -1],
+    ["hit", "hit/sadyoshi.png", "Sad Yoshi", -1],
+    ["block", "block/yoshiblock.png", "Egged Yoshi", -1],
+    ["normal", "idle/redyoshi.png", "Red Yoshi", 5],
+    ["hit", "hit/cryingyoshi.png", "Crying Yoshi", 15],
+    ["hit", "hit/tearyoshi.png", "Tear Yoshi", 20],
+    ["normal", "idle/blueyoshi.png", "Blue Yoshi", 15],
+    ["normal", "idle/yellowyoshi.png", "Yellow Yoshi", 35],
+    ["normal", "idle/pinkyoshi.png", "Pink Yoshi", 50],
+    ["block", "block/redshell.png", "Red Shell", 20],
+    ["block", "block/blueshell.png", "Blue Shell", 50],
+    ["block", "block/spinyshell.png", "Spiny Shell", 100],
+    ["block", "block/pinkshell.png", "Pink Shell", 150],
+    ["block", "block/greenshell.png", "Green Shell", 5]
+]
+
+export const pets: {
+    name: string,
+    perks: (level: number) => {
+        hitMul?: number,
+        hitAdd?: number,
+    },
+    source: string,
+    description: string,
+    salvage: number
+}[] = [
+    {
+        name: "Blue Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.03}),
+        source: "pet/bluebabyyoshi.png",
+        description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.03*{Pet Level} more damage.",
+        salvage: 10
+    }, {
+        name: "Green Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.01}),
+        source: "pet/greenbabyyoshi.png",
+        description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.01*{Pet Level}.",
+        salvage: 50
+    }, {
+        name: "Pink Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
+        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
+        source: "pet/pinkbabyyoshi.png",
+        salvage: 70
+    }
+]

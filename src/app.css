@@ -55,6 +55,11 @@
           user-select: none;
   pointer-events: none;
 }
+.hand > .pet-hand {
+  position: absolute;
+  width: 64px;
+  right: 200px;
+}
 
 main {
   width: 100vw;
@@ -159,6 +164,7 @@ body {
   display: grid;
   gap: 8px 8px;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(666, 1fr);
   height: 100vh;
   overflow: auto;
   width: 282px;
@@ -197,4 +203,11 @@ body {
 }
 .gambling > .gamble-panel.chosen {
   border: 1rem solid red;
+}
+
+button {
+  color: black;
+}
+button[disabled] {
+  color: white;
 }/*# sourceMappingURL=app.css.map */

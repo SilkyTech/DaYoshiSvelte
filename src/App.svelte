@@ -2,6 +2,7 @@
   import Notif from './lib/Notif.svelte'
   import Intro from './lib/Intro.svelte'
   import * as constants from "./lib/constants"
+  import { skins, pets } from './lib/constants'
   
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
@@ -13,49 +14,9 @@
   let frame = 0;
   let notifs: {label: string, style: string, uuid: string, time: number}[] = [];
   let notifPos: {[time: number]: {x: number, y: number}} = {}
-  let skins: ["normal" | "hit" | "block", string, string, number][] = [
-    ["normal", "idle/yoshi.png", "Normal Yoshi", -1],
-    ["hit", "hit/sadyoshi.png", "Sad Yoshi", -1],
-    ["block", "block/yoshiblock.png", "Egged Yoshi", -1],
-    ["normal", "idle/redyoshi.png", "Red Yoshi", 5],
-    ["hit", "hit/cryingyoshi.png", "Crying Yoshi", 15],
-    ["hit", "hit/tearyoshi.png", "Tear Yoshi", 20],
-    ["normal", "idle/blueyoshi.png", "Blue Yoshi", 15],
-    ["normal", "idle/yellowyoshi.png", "Yellow Yoshi", 35],
-    ["normal", "idle/pinkyoshi.png", "Pink Yoshi", 50],
-    ["block", "block/redshell.png", "Red Shell", 20],
-    ["block", "block/blueshell.png", "Blue Shell", 50],
-    ["block", "block/spinyshell.png", "Spiny Shell", 100],
-    ["block", "block/pinkshell.png", "Pink Shell", 150],
-    ["block", "block/greenshell.png", "Green Shell", 5]
-  ]
+  
 
-  let pets: {
-    name: string,
-    perks: (level: number) => {
-      hitMul?: number,
-      hitAdd?: number,
-    },
-    source: string,
-    description: string,
-  }[] = [
-    {
-      name: "Blue Baby Yoshi",
-      perks: (level) => ({hitAdd: level*0.03}),
-      source: "pet/bluebabyyoshi.png",
-      description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.03*{Pet Level} more damage."
-    }, {
-      name: "Green Baby Yoshi",
-      perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.01}),
-      source: "pet/greenbabyyoshi.png",
-      description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.01*{Pet Level}."
-    }, {
-      name: "Pink Baby Yoshi",
-      perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
-      description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
-      source: "pet/pinkbabyyoshi.png"
-    }
-  ]
+  
   let ownedPets: [number, number][] = []
 
   let curSkin = {
@@ -135,7 +96,16 @@
   }
 
   function click(e: MouseEvent) {
-    if (e.target instanceof HTMLButtonElement) return;
+    if (
+      (() => {
+        let b = false;
+        // @ts-ignore
+        e.path.forEach(a => {
+          if (a instanceof HTMLButtonElement) b = true;
+        })
+        return b;
+      })()  
+    ) return;
     hand.classList.add("hit");
     let missChance = Math.random() < 0.2;
     if (missChance) {
@@ -255,11 +225,20 @@
 
   function buyBox(boxType: number) {
     boxLeft = 0;
-    if (boxType === 1) {
-      if (deaths >= 100) {
-        deaths -= 100;
-        boxOpen(1)
-      }
+    switch(boxType) {
+      case 1:
+        if (deaths >= 100) {
+          deaths -= 100;
+          boxOpen(boxType)
+        }
+        break;
+      case 2:
+        if (deaths >= 1000) {
+          deaths -= 1000;
+          boxOpen(boxType)
+        }
+        break;
+      
     }
   }
 
@@ -310,7 +289,14 @@
     }
     return {level: lev, xp: constants.levelUps[i]-j, desc: pet.pet.description.replace(/\{Pet Level\}/g, lev.toString())}
   }
-
+  function salvage(pet: number) {
+    if (confirm(`Are you sure you want to salvage your ${pets[ownedPets[pet][0]].name} for ${pets[ownedPets[pet][0]].salvage} deaths?`)) {
+      curPet--;
+      ownedPets = ownedPets.filter((a, i) => i !== pet);
+      
+    }
+    
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -331,6 +317,7 @@
   </div>
   <div class="hand" bind:this={hand} unselectable>
     <img src={handimg} alt="Hand" />
+    <img src={pets?.[ownedPets?.[curPet]?.[0]]?.source ?? ""} alt="" class="pet-hand">
   </div>
   {#each notifs as notif}
     <Notif label={notif.label} style={notif.style} pos={notifPos[notif.time]}></Notif>
@@ -370,12 +357,13 @@
     Current Pet: {curPet === -1 ? "None" : boughtPets[curPet].pet.name}<br>
     Level: {getLevels(boughtPets[curPet]).level}<br>
     EXP to next Level: {getLevels(boughtPets[curPet]).xp}<br>
-    Description: {getLevels(boughtPets[curPet]).desc}
+    Description: {getLevels(boughtPets[curPet]).desc}<br>
+    <button on:click={() => salvage(curPet)}>Salvage</button>
     <hr>
     <div class="shop-items">
       {#each boughtPets as pet}
         <div class="shop-panel equip">
-          <button on:click={() => equipPet(pet.i)}>
+          <button on:click={() => equipPet(pet.i)} disabled={pet.i === curPet}>
             <img src={pet.pet.source} alt={pet.pet.name} class="shop-item equip"><br>
             Equip {pet.pet.name} | Level {getLevels(pet).level}
           </button>
