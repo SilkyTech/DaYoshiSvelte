@@ -28,7 +28,7 @@ This will start pulling the code from Github.
 > A VPN may be required because it is likely for the request to time out
 ## After downloading the server
 Run `yarn` in the folder to download all the packages.
-> If that doesn't exist then download it from `npm`- from node.js here: https://nodejs.org/en/download/ - if when there is an error in console saying: 'yarn' is not recognized as an internal or external command,
+> If that doesn't exist then download it from `npm`- from node.js here: https://nodejs.org/en/download/ - if there is an error in console saying: 'yarn' is not recognized as an internal or external command,
 
 ## Launching the app
 To run the server locally, run `yarn run dev`.
