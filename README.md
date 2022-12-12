@@ -39,3 +39,4 @@ If you want to host it on the local network then use `yarn run dev --host`
 # BUGS
 This is still a buggy website, with some teething issues.
 Make sure to use the `Issues` tab if you find any :)
+[Issues Tab](https://github.com/SilkyTech/DaYoshiSvelte/issues)
