@@ -120,6 +120,7 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
+  background-color: rgb(57, 57, 57);
   z-index: 15;
   transition: right 200ms;
 }
@@ -133,6 +134,8 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
+  max-width: 20vw;
+  background-color: rgb(57, 57, 57);
   z-index: 15;
   transition: right 200ms;
 }
@@ -159,6 +162,7 @@ body {
   height: 100vh;
   overflow: auto;
   width: 282px;
+  justify-items: center;
 }
 
 .shop-panel {
@@ -175,4 +179,22 @@ body {
 }
 .shop-panel.normal > button {
   background-color: green;
+}
+
+.gambling {
+  width: 90vw;
+  height: 128px;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  z-index: 20;
+  gap: 1rem;
+  transition: left 2s;
+  left: 0;
+}
+.gambling > .gamble-panel > img {
+  height: 128px;
+}
+.gambling > .gamble-panel.chosen {
+  border: 1rem solid red;
 }/*# sourceMappingURL=app.css.map */

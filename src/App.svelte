@@ -7,7 +7,8 @@
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
   let handimg: string = "hand/hand.png";
-  let shopactive: boolean = false, petmenuactive: boolean = false;
+  let shopactive: boolean = false, petmenuactive: boolean = false, boxscroll: boolean = false;
+
   let mouse = { x: 0, y: 0 };
   let frame = 0;
   let notifs: {label: string, style: string, uuid: string, time: number}[] = [];
@@ -31,21 +32,31 @@
 
   let pets: {
     name: string,
-    id: number,
     perks: (level: number) => {
       hitMul?: number,
       hitAdd?: number,
     },
-    source: string
+    source: string,
+    description: string,
   }[] = [
     {
       name: "Blue Baby Yoshi",
-      id: 1,
       perks: (level) => ({hitAdd: level*0.03}),
-      source: "pet/bluebabyyoshi.png"
+      source: "pet/bluebabyyoshi.png",
+      description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.03*{Pet Level} more damage."
+    }, {
+      name: "Green Baby Yoshi",
+      perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.01}),
+      source: "pet/greenbabyyoshi.png",
+      description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.01*{Pet Level}."
+    }, {
+      name: "Pink Baby Yoshi",
+      perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
+      description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
+      source: "pet/pinkbabyyoshi.png"
     }
   ]
-  let ownedPets: [number, number][] = [[0, 0]]
+  let ownedPets: [number, number][] = []
 
   let curSkin = {
     hit: 1,
@@ -60,6 +71,8 @@
   let boughtSkins = new Set([0, 1, 2])
   let curPet: number = -1;
 
+  let boxLeft = 0;
+
   loadSave()
 
   function getDamage() {
@@ -72,7 +85,7 @@
         base += outcome.hitAdd
       }
       if (outcome.hitMul) {
-        base *= outcome.hitMul
+        base *= outcome.hitMul + 1
       }
     }
     return base;
@@ -92,7 +105,7 @@
         block: parts[5].split(",")[2],
         hit: parts[5].split(",")[1]
       }
-      usedDev = Boolean(parts[6]);
+      usedDev = (parts[6] === "true" ? true : false);
       ownedPets = parts[7]?.split(',')?.map((a: string) => a.split("!").map(b => +b)) ?? []
       curPet = isNaN(+parts[8]) ? -1 : +parts[8]
     }
@@ -130,11 +143,10 @@
       createNotif("Blocked!", "")
     } else {
       hits++;
-      createNotif(`Normal Hit | -${getDamage()} HP`, "")
+      createNotif(`Normal Hit | -${getDamage().toFixed(2)} HP`, "")
       yoshiimg = getSkin().hit[1]
       hp -= getDamage();
       if (curPet !== -1) ownedPets[curPet][1]++;
-      console.log(curPet)
     }
 
     if (hp < 1) {
@@ -201,13 +213,11 @@
       deaths -= skins[ind][3];
       boughtSkins.add(ind)
       boughtSkins = boughtSkins
-      // console.log(`bought skin: ${ind}`, boughtSkins)
       saveSave()
     }
   }
 
   function equipSkin(skin: number) {
-    // console.log(skin)
     let skin$ = skins[skin]
     curSkin[skin$[0]] = skin
   }
@@ -244,8 +254,39 @@
   }
 
   function buyBox(boxType: number) {
-    console.log(boxType)
-    alert("This feature isn't implemented yet! Please remind Silkyway to implement this")
+    boxLeft = 0;
+    if (boxType === 1) {
+      if (deaths >= 100) {
+        deaths -= 100;
+        boxOpen(1)
+      }
+    }
+  }
+
+  let boxitems: [typeof pets[0], boolean][] = []
+
+  async function boxOpen(id: number) {
+    let things = constants.boxChances[id];
+    let uncollapsed = []
+    things.forEach(a => {
+      for (let i = 0; i < a[1]; i++) uncollapsed.push(a[0])
+    })
+
+    let chosen = Math.floor(Math.random()*uncollapsed.length) + uncollapsed.length
+    uncollapsed = uncollapsed.concat(uncollapsed).concat(uncollapsed).sort(() => Math.random()-Math.random())
+    boxscroll = true;
+    boxitems = uncollapsed.map((a, i) => [pets[a], i === chosen])
+    setTimeout(() => {
+      boxLeft = 0-(chosen*140) + window.innerWidth/2;
+      setTimeout(() => {
+        boxLeft = 0;
+        boxscroll = false;
+        ownedPets.push([uncollapsed[chosen], 0])
+        saveSave();
+        ownedPets = ownedPets
+      }, 3000)
+    }, 1000)
+    
   }
 
 
@@ -254,7 +295,7 @@
   }
 
   function getLevels(pet: typeof boughtPets[0]) {
-    if (pet === undefined || pet === null) return {level: -1, xp: -1};
+    if (pet === undefined || pet === null) return {level: -1, xp: -1, desc: ""};
     let j = pet.xp;
     let lev = 0;
     let i = 0;
@@ -267,10 +308,9 @@
       lev++;
 
     }
-    return {level: lev, xp: constants.levelUps[i]-j}
+    return {level: lev, xp: constants.levelUps[i]-j, desc: pet.pet.description.replace(/\{Pet Level\}/g, lev.toString())}
   }
 
-  console.log((() => {let sum = 0; for (let k of constants.levelUps) sum += k; return sum})())
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -284,7 +324,7 @@
     <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
     <button on:click={() => petmenuactive = !petmenuactive}>Toggle Pet Menu</button>
     <button on:click={() => setTimeout(() => {localStorage.removeItem("save"); location.reload()}, 0)}>Reset</button>
-    {#if usedDev} Used Dev :&lt;{/if}
+    {#if usedDev}<br>Used Dev :&lt;{/if}
   </div>
   <div class="yoshi" bind:this={yoshi} unselectable>
     <img src={yoshiimg} alt="Yoshi" />
@@ -329,15 +369,31 @@
     <hr>
     Current Pet: {curPet === -1 ? "None" : boughtPets[curPet].pet.name}<br>
     Level: {getLevels(boughtPets[curPet]).level}<br>
-    EXP to next Level: {getLevels(boughtPets[curPet]).xp}
+    EXP to next Level: {getLevels(boughtPets[curPet]).xp}<br>
+    Description: {getLevels(boughtPets[curPet]).desc}
     <hr>
-    {#each boughtPets as pet}
-      <div class="shop-panel equip">
-        <button on:click={() => equipPet(pet.i)}>
-          <img src={pet.pet.source} alt={pet.pet.name} class="shop-item equip"><br>
-          Equip {pet.pet.name} | Level {getLevels(pet).level}
-        </button>
-      </div>
-    {/each}
+    <div class="shop-items">
+      {#each boughtPets as pet}
+        <div class="shop-panel equip">
+          <button on:click={() => equipPet(pet.i)}>
+            <img src={pet.pet.source} alt={pet.pet.name} class="shop-item equip"><br>
+            Equip {pet.pet.name} | Level {getLevels(pet).level}
+          </button>
+        </div>
+      {/each}
+    </div>
+    
   </div>
+
+  {#if boxscroll}
+    <div class="gambling" style={`left: ${boxLeft}px`}>
+      {#each boxitems as item}
+        <div class={"gamble-panel" + (item[1] ? " chosen" : "")}>
+          <img src={item[0].source} alt=""><br>
+          <span>{item[0].name}</span>
+        </div>
+        
+      {/each}
+    </div>
+  {/if}
 </main>
