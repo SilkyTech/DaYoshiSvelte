@@ -174,10 +174,10 @@ export const pets: {
         perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
         description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
         source: "pet/pinkbabyyoshi.png",
-        salvage: 70
+        salvage: 75
     }, {
         name: "Glowing Baby Yoshi",
-        perks: (level) => ({hitAdd: level*Math.random()/20+7, hitMul: level*Math.random()/70}),
+        perks: (level) => ({hitAdd: level*Math.random()/20+level/100, hitMul: level*Math.random()/50}),
         description: "A glowing baby yoshi. Super fancy. Effects: Unknown",
         source: "pet/glowingbabyyoshi.png",
         salvage: 1000,
