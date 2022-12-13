@@ -12,13 +12,14 @@
         usedDev
     } = game
 
-    let devOn = false;
+    let showToggle = true;
+    let devOn = localStorage.getItem('topsecretdevonlyoptiononlydevswillknow') === "supersecretcodethatonlydevsknow";
     globalThis.toggleDev = (password: string) => {
         if (password === "yoshi is very happy")
         {devOn = !devOn; console.clear()}
         else console.error("Incorrect password! >:(")
     }
-    let data: string = "";
+    let data: string = "Use /toggle to toggle visibility<br>";
     let input: string;
 
     function error(msg: string, color: string = "red") {
@@ -155,12 +156,14 @@
                         log(`&nbsp;&nbsp;Level: ${getLevelsNoLocal($ownedPets[+args[2]]).level}<br>&nbsp;&nbsp;XP left: ${getLevelsNoLocal($ownedPets[+args[2]]).xp}`)
                         log(`&nbsp;&nbsp;Total XP: ${$ownedPets[+args[2]][1]}`)
                     }
-                } else if (["/save"].includes(args[1])) {
+                } else if (["/save"].includes(args[0])) {
                     SaveSystem.saveSave()
                     log(`Saved save`)
-                } else if (["/load"].includes(args[1])) {
+                } else if (["/load"].includes(args[0])) {
                     SaveSystem.loadSave()
                     log(`Loaded save`)
+                } else if (["/toggle", "/t"].includes(args[0])) {
+                    showToggle = !showToggle
                 }
                 else {
                     error(`Unknown command "${args[0]}"`)
@@ -176,11 +179,9 @@
 
 {#if devOn}
 <div class="dev" draggable="true">
-    <details>
-        <span class="data">{@html data}</span>
-        <input type="text" bind:value={input} on:keypress={keyPress}>
-        <summary>Console</summary>
-    </details>
-    
+    {#if showToggle}
+    <span class="data">{@html data}</span>
+    {/if}
+    <input type="text" bind:value={input} on:keypress={keyPress}>
 </div>
 {/if}

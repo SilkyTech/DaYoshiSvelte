@@ -183,7 +183,7 @@ export const pets: {
         salvage: 1000,
     }, {
         name: "Red Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.03, hitMul: Math.random()*level/100}),
+        perks: (level) => ({hitAdd: level*0.1, hitMul: Math.random()*level/70}),
         description: "A red baby yoshi found from the lava box, has a random chance to do more or less damage.",
         source: "pet/redbabyyoshi.png",
         salvage: 100,
