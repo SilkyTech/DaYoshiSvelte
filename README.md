@@ -40,3 +40,9 @@ If you want to host it on the local network then use `yarn run dev --host`
 This is still a buggy website, with some teething issues.
 Make sure to use the `Issues` tab if you find any :)
 [Issues Tab](https://github.com/SilkyTech/DaYoshiSvelte/issues)
+
+## Known bugs
+> The pet menu has redonkulously long scroll or empty spaces.
+> The `Shiny Yoshi Pet` has ridiculous attack damage variation.
+> Box opening has weird animations and no select box sometimes.
+> Clicks are not registering in some browsers.
