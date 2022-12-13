@@ -374,7 +374,7 @@
     <button on:click={() => petmenuactive = !petmenuactive}>Toggle Pet Menu</button>
     <button on:click={() => setTimeout(() => {localStorage.removeItem("save"); location.reload()}, 0)}>Reset</button><br>
     <button on:click={() => setTimeout(() => {localStorage.setItem("save", prompt("Save String: ")); location.reload()}, 0)}>Import Save</button>
-    <button on:click={() => setTimeout(async () => {await navigator.clipboard.writeText(localStorage.getItem("save")); alert(`Copied into clipboard: ` + localStorage.getItem("save"));}, 0)}>Export Save</button>
+    <button on:click={() => prompt(`Copy this:`, localStorage.getItem("save"))}>Export Save</button>
     {#if usedDev}<br>Used Dev :&lt;{/if}
   </div>
   <div class="yoshi" bind:this={yoshi} unselectable>
