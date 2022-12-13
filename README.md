@@ -44,7 +44,7 @@ Make sure to use the `Issues` tab if you find any :)
 ## Known bugs
   > The `Shiny Yoshi Pet` has ridiculous attack damage variation.
   
-  > Box opening has weird animations and no select box sometimes.
+  > Box opening has weird animations and no select box sometimes. Fixed in #10
 
 
 ## WONT FIX LL
