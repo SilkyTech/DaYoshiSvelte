@@ -98,7 +98,7 @@
                         }
                     } else if (["help", "h"].includes(args[1])) {
                         log(`/pet - HELP MENU<br>/pet list-pets|lp - lists all pets<br>/pet add|a {id:number} {xp:number} - adds a pet to the inventory with specified properties<br>/pet remove|rem|rm|r {index:number} - removes pet in pet inventory with index {index}<br>`
-                        + `/pet set-xp|sxp|sx {petindex:number} {xp:number}<br>/pet set-level|slevel|slev|sl {petindex:number} {level:0-50}<br>`)
+                        + `/pet set-xp|sxp|sx {petindex:number} {xp:number}<br>/pet set-level|slevel|slev|sl {petindex:number} {level:0-50}<br>/pet damage-suite|ds {id:number} {level:number} {runs:number} - runs a damage test suite<br>`)
                     } else if (["set-xp", "sxp", "sx"].includes(args[1])) {
                         if (isNaN(+args[2]) || isNaN(+args[3])) {
                             error(`Either argument 3 or 4 is not a valid number`)
@@ -124,6 +124,22 @@
                             log(`Index: ${i} | ${sPet.name}: Level ${getLevelsNoLocal(pet).level}`)
                             i++;
                         }
+                    } else if (["damage-suite", "ds"].includes(args[1])) {
+                        log(`Damage suite for ${pets[+args[2]].name}:`)
+                        for (let i = 0; i < +args[4]; i++) {
+                            let base = 1;
+                            let cPet = pets[+args[2]];
+                            let level = +args[3];
+                            let outcome = cPet.perks(level);
+                            if (outcome.hitAdd) {
+                                base += outcome.hitAdd
+                            }
+                            if (outcome.hitMul) {
+                                base *= outcome.hitMul + 1
+                            }
+                            log(`&nbsp;&nbsp;Run #${i+1} - ${base} damage dealt`)
+                        }
+                        
                     }
                 } else if (["/save"].includes(args[1])) {
                     SaveSystem.saveSave()
