@@ -24,6 +24,10 @@
   let notifs: {label: string, style: string, uuid: string, time: number}[] = [];
   let notifPos: {[time: number]: {x: number, y: number}} = {}
 
+  const instance = Math.floor(Math.random()*19999999)
+  
+  let curYoshi: number = 0;
+
   $usedDev = false;
 
   int.save.loadSave()
@@ -77,7 +81,7 @@
     let missChance = Math.random() < 0.2;
     if (missChance) {
       yoshiimg = getSkin().block[1]
-      createNotif("Blocked!", "")
+      createNotif("Blocked!", "color: grey; font-size: 1.5rem;")
     } else {
       $hits++;
       createNotif(`Normal Hit | -${getDamage().toFixed(2)} HP`, "")
@@ -87,8 +91,8 @@
     }
 
     if ($hp < 1) {
-      $hp = 100;
-      $deaths++;
+      $hp = yoshiObj.hp;
+      $deaths += yoshiObj.reward;
     }
 
     yoshi.classList.add("hit");
@@ -165,6 +169,7 @@
 
   console.log($curSkin)
 
+  $: yoshiObj = constants.yoshis[(curYoshi + constants.yoshis.length*9999) % constants.yoshis.length]
   $: boughtPets = $ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
 
   function buyBox(boxType: number) {
@@ -211,7 +216,8 @@
       setTimeout(() => {
         boxLeft = 0;
         boxscroll = false;
-        $ownedPets.push([uncollapsed[chosen], 0])
+        if (uncollapsed[chosen] !== 4) $ownedPets.push([uncollapsed[chosen], 0])
+        else createNotif(`You got nothing, sad.`, "color: red;")
         int.save.saveSave()
         $ownedPets = $ownedPets
       }, 3000)
@@ -240,6 +246,7 @@
     
   }
   let cl2;
+  let cps = 0;
   {
     let count = 0;
     let numSec = 1;
@@ -253,6 +260,7 @@
           $usedAutoclicker = true;
           int.save.saveSave()
         }
+        cps = count;
         count = 0;
         getCPS();
         
@@ -269,6 +277,22 @@
   function handleKeypress(e: KeyboardEvent) {
     // console.log(e)
   }
+  {
+    const inst = instance
+    const int = setInterval(() => {
+      if (instance !== inst) return clearInterval(int);
+      let regen = yoshiObj.regen
+      if (cps > 20) regen *= 15;
+      $hp += regen
+      if (regen > 0) {
+        if ($hp > yoshiObj.hp) {
+          $hp = yoshiObj.hp
+        }
+        else createNotif(`Regened ${regen} HP!`, "color: red;")
+      }
+    }, 1000)
+  }
+  
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -282,7 +306,7 @@
   <DevConsole></DevConsole>
   <div class="main-info">
     <img src="logo.png" alt="Da Yoshi" class="logo"><br>
-    <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${$hp}%;`}></div><span>{$hp.toFixed(2)} / 100</span></div></span><br>
+    <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${$hp / yoshiObj.hp * 100}%;`}></div><span>{$hp.toFixed(2)} / {yoshiObj.hp}</span></div></span><br>
     <span class="info-label">Hits: {$hits}</span><br>
     <span class="info-label">Deaths: {$deaths}</span><br>
     <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
@@ -293,12 +317,15 @@
       
     }, 0)
       }>Import Save</button>
-    <button on:click={() => prompt(`Copy this:`, localStorage.getItem("save"))}>Export Save</button>
+    <button on:click={() => prompt(`Copy this:`, localStorage.getItem("save"))}>Export Save</button><br>
+    <button on:click={() => {curYoshi--; setTimeout(() => $hp = yoshiObj.hp, 0)}}>Previous Yoshi</button>
+    <button on:click={() => {curYoshi++; setTimeout(() => $hp = yoshiObj.hp, 0)}}>Next Yoshi</button>
     {#if $usedDev}<br>Used Dev :&lt;{/if}
   </div>
   <div class="yoshi" bind:this={yoshi} unselectable>
     <img src={yoshiimg} alt="Yoshi" />
   </div>
+  <span class="bottom-info">{yoshiObj.name}</span>
   <div class="hand" bind:this={hand} unselectable>
     <img src={handimg} alt="Hand" />
     <img src={pets?.[ownedPets?.[$curPet]?.[0]]?.source ?? ""} alt="" class="pet-hand">

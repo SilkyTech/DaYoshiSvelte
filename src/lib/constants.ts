@@ -125,9 +125,9 @@ export const levelUps = [
 ]
 
 export const boxChances: {[id: number]: [number, number][]} = {
-    1: [[0, 19], [1, 4], [2, 1]],
-    2: [[0, 100], [1, 40], [2, 8], [3, 1]],
-    3: [[0, 100], [1, 20], [2, 8], [4, 2]]
+    1: [[0, 19], [1, 4], [2, 1], [5, 2]],
+    2: [[0, 100], [1, 40], [2, 8], [3, 1], [5, 6]],
+    3: [[0, 100], [1, 20], [2, 8], [4, 2], [5, 3]]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -187,5 +187,31 @@ export const pets: {
         description: "A red baby yoshi found from the lava box, has a random chance to do more or less damage.",
         source: "pet/redbabyyoshi.png",
         salvage: 100,
+    }, {
+        name: "Your Dad Yoshi",
+        perks: (level) => ({hitAdd: -69, hitMul: 0}),
+        description: "Your dad that went to the milk store",
+        source: "pet/yourdadyoshi.png",
+        salvage: -2
+    }
+]
+
+export const yoshis: {
+    name: string,
+    hp: number,
+    regen: number,
+    reward: number
+}[] = [
+    {
+        name: "Normal Yoshi",
+        hp: 100,
+        regen: 0,
+        reward: 1
+    },
+    {
+        name: "Buff Yoshi",
+        hp: 300,
+        regen: 3,
+        reward: 2
     }
 ]
