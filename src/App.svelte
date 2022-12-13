@@ -9,7 +9,8 @@
     hits, deaths, hp, 
     usedDev, usedAutoclicker, boughtSkins, 
     curPet, ownedPets, curSkin } = game
-  loadSave()
+  import * as int from './lib/Internal' 
+  
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
@@ -22,6 +23,8 @@
   let notifPos: {[time: number]: {x: number, y: number}} = {}
 
   $usedDev = false;
+
+  int.save.loadSave()
 
   let boxLeft = 0;
   //console.log(ownedPets)
@@ -44,64 +47,7 @@
     return base;
   }
 
-  function xor(str: string, shift: string) {
-    let newS = ""
-    str.split("").forEach((letter, i) => {
-      newS += String.fromCharCode(letter.charCodeAt(0)^(shift[i%shift.length].charCodeAt(0)))
-    })
-    return newS
-  }
-
-
-  function loadSave() {
-    let save = localStorage.getItem("save")
-    if (save !== null) {
-      try {
-        console.log(save)
-        let saveParsed = atob(save)
-        saveParsed = xor(saveParsed, "yoshiisangry")
-        let parts: any[] = saveParsed.split("|")
-        if (parts.length < 6) {return alert("Invalid Save");}
-        $hits = (+parts[0]) - (+parts[1])
-        $deaths = (+parts[2]) - (+parts[3])
-        $boughtSkins = new Set(parts[4].split(',').map(a => parseInt(a)))
-        $curSkin = {
-          normal: +parts[5].split(",")[0],
-          block: +parts[5].split(",")[2],
-          hit: +parts[5].split(",")[1]
-        }
-        $usedDev = (parts[6] === "true" ? true : false);
-        
-        if (parts[7].length !== 0) $ownedPets = parts[7]?.split(',').map((a: string) => a.split("!").map(b => +b)) ?? []
-        
-        $curPet = isNaN(+parts[8]) ? -1 : +parts[8]
-        $usedAutoclicker = (parts[9] === "true" ? true : false)
-      } catch (e) {
-        if (e instanceof DOMException) {
-          localStorage.removeItem("save")
-          alert("Your save is invalid! Resetting your save for you.")
-          location.reload()
-        }
-      }
-      
-    }
-  }
-
-  function saveSave() {
-    let r1 = Math.floor(Math.random()*9999)
-    let r2 = Math.floor(Math.random()*9999)
-    let save = [
-      $hits+r1, r1, 
-      $deaths+r2, r2, 
-      Array.from($boughtSkins).join(","), 
-      [$curSkin.normal, $curSkin.hit, $curSkin.block].join(","), 
-      $usedDev,
-      $ownedPets.map(a => a.join("!")).join(","),
-      $curPet,
-      $usedAutoclicker
-    ]
-    localStorage.setItem("save", btoa(xor(save.join("|"), "yoshiisangry")))
-  }
+  
 
   function getSkin() {
     return {
@@ -153,7 +99,7 @@
     setTimeout(() => {
       yoshiimg = getSkin().normal[1]
     }, 300)
-    saveSave()
+    int.save.saveSave()
   }
 
   function mousemove(e: MouseEvent) {
@@ -202,7 +148,7 @@
       $deaths -= skins[ind][3];
       $boughtSkins.add(ind)
       $boughtSkins = $boughtSkins
-      saveSave()
+      int.save.saveSave()
     }
   }
 
@@ -243,12 +189,12 @@
       }
     } else if (args[0] === "/") {
       if (args[1] === "rawData") {
-        console.log(xor(atob(localStorage.getItem("save")), "yoshiisangry"));
+        console.log(int.save.xor(atob(localStorage.getItem("save")), "yoshiisangry"));
         return;
       }
     }
     $usedDev = true;
-    saveSave()
+    int.save.saveSave()
     console.clear()
   }
 
@@ -256,14 +202,14 @@
     boxLeft = 0;
     switch(boxType) {
       case 1:
-        if ($deaths >= 100) {
-          $deaths -= 100;
+        if ($deaths >= 50) {
+          $deaths -= 50;
           boxOpen(boxType)
         }
         break;
       case 2:
-        if ($deaths >= 1000) {
-          $deaths -= 1000;
+        if ($deaths >= 300) {
+          $deaths -= 300;
           boxOpen(boxType)
         }
         break;
@@ -290,7 +236,7 @@
         boxLeft = 0;
         boxscroll = false;
         $ownedPets.push([uncollapsed[chosen], 0])
-        saveSave();
+        int.save.saveSave()
         $ownedPets = $ownedPets
       }, 3000)
     }, 1000)
@@ -328,7 +274,7 @@
           return false
         };
       });
-      saveSave()
+      int.save.saveSave()
     }
     
   }
@@ -344,7 +290,7 @@
       setTimeout(function() {
         if (count > 20) {
           $usedAutoclicker = true;
-          saveSave();
+          int.save.saveSave()
         }
         count = 0;
         getCPS();
@@ -425,8 +371,8 @@
   </div>
   <div class={"petmenu" + (petmenuactive ? " petmenu-active" : "")}>
     <span class="info-label">Buy Menu:</span><br>
-    <button on:click={() => buyBox(1)}>Buy Common Box | 100 Deaths</button>
-    <button on:click={() => buyBox(2)}>Buy Rare Box | 1000 Deaths</button>
+    <button on:click={() => buyBox(1)}>Buy Common Box | 50 Deaths</button>
+    <button on:click={() => buyBox(2)}>Buy Rare Box | 300 Deaths</button>
     <hr>
     Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br>
     Level: {getLevels(boughtPets[$curPet]).level}<br>
