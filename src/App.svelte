@@ -69,8 +69,9 @@
     let save = localStorage.getItem("save")
     if (save !== null) {
       try {
-        save = xor(save, "yoshiisangry")
+        console.log(save)
         let saveParsed = atob(save)
+        saveParsed = xor(saveParsed, "yoshiisangry")
         let parts: any[] = saveParsed.split("|")
         if (parts.length < 6) {return alert("Invalid Save");}
         hits = (+parts[0]) - (+parts[1])
