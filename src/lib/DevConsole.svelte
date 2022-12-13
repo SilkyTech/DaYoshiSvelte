@@ -1,11 +1,14 @@
 <script lang="ts">
     import { game } from './stores'
     import * as SaveSystem from './SaveSystem'
+  import { levelUps, pets } from './constants';
+  import { getLevelsNoLocal } from './utils';
 
     const {
         deaths,
         hits,
-        hp
+        hp,
+        ownedPets
     } = game
 
     let devOn = false;
@@ -28,8 +31,8 @@
         setTimeout(() => {
             if (e.key === "Enter") {
                 log(input, "yellow")
-                let args = input.split(" ");
-                if (args[0] === "/modify") {
+                let args = input.split(/\s+/g);
+                if (["/modify", "/m", "/mod"].includes(args[0])) {
                     if (args[1] === "deaths") {
                         if (!isNaN(parseInt(args[3]))) {
                             if (args[2] === "add") $deaths += parseInt(args[3])
@@ -60,12 +63,73 @@
                     } else {
                         error(`Unknown property "${args[1]}"`)
                     }
-                } else if (args[0] === "/view") {
+                } else if (["/view", "/v"].includes(args[0])) {
                     if (args[1] === "save") {
                         if (args[2] === "pretty") log(`Save: "${SaveSystem.xor(atob(localStorage.getItem("save")), "yoshiisangry").split("|").join("<br>")}"`)
                         else
                         log(`Save: "${SaveSystem.xor(atob(localStorage.getItem("save")), "yoshiisangry")}"`)
                     }
+                } else if (["/clear", "/cls", "/c"].includes(args[0])) {
+                    data = ""
+                } else if (["/pet", "/p"].includes(args[0])) {
+                    if (["list-pets", "lp"].includes(args[1])) {
+                        pets.forEach((pet, i) => {
+                            data += `ID: ${i} - ${pet.name}<br>`
+                        })
+                    } else if (["add", "a"].includes(args[1])) {
+                        if (isNaN(+args[2]) || isNaN(+args[3])) {
+                            error(`Either pet ID or XP level was not a number`)
+                        } else {
+                            $ownedPets.push([+args[2], +args[3]])
+                            log(`Successfully added a ${pets[+args[2]].name} to your owned pets with xp ${+args[3]}`)
+                        }
+                       
+                    } else if (["remove", "rem", "rm", "r"].includes(args[1])) {
+                        if (isNaN(+args[2])) {
+                            error(`Pet index has to be a number`)
+                        } else {
+                            if (+args[2] < 0 || +args[2]-1 > $ownedPets.length) {
+                                error(`Pet index outside of bounds (min: 0, max: ${$ownedPets.length-1})`)
+                            } else {
+                                log(`Removed pet in index: ${+args[2]}, name: ${pets[$ownedPets[+args[2]][0]].name}`)
+                                $ownedPets = $ownedPets.filter((_, i) => i !== +args[2])
+                            }
+                        }
+                    } else if (["help", "h"].includes(args[1])) {
+                        log(`/pet - HELP MENU<br>/pet list-pets|lp - lists all pets<br>/pet add|a {id:number} {xp:number} - adds a pet to the inventory with specified properties<br>/pet remove|rem|rm|r {index:number} - removes pet in pet inventory with index {index}<br>`
+                        + `/pet set-xp|sxp|sx {petindex:number} {xp:number}<br>/pet set-level|slevel|slev|sl {petindex:number} {level:0-50}<br>`)
+                    } else if (["set-xp", "sxp", "sx"].includes(args[1])) {
+                        if (isNaN(+args[2]) || isNaN(+args[3])) {
+                            error(`Either argument 3 or 4 is not a valid number`)
+                        } else {
+                            $ownedPets[+args[2]][1] = +args[3]
+                            log(`Set pet with index ${+args[2]}'s xp to ${+args[3]}`)
+                        }
+                    } else if (["set-level", "slevel", "slev", "sl"].includes(args[1])) {
+                        if (isNaN(+args[2]) || isNaN(+args[3])) {
+                            error(`Either argument 3 or 4 is not a valid number`)
+                        } else {
+                            let tot = 0;
+                            levelUps.slice(0, +args[3]).forEach(a => {
+                                tot += a;
+                            })  
+                            $ownedPets[+args[2]][1] = tot
+                            log(`Set pet with index ${+args[2]}'s xp to ${tot}`)
+                        }
+                    } else if (["list-inv", "li"].includes(args[1])) {
+                        let i = 0;
+                        for (const pet of $ownedPets) {
+                            let sPet = pets[pet[0]]
+                            log(`Index: ${i} | ${sPet.name}: Level ${getLevelsNoLocal(pet).level}`)
+                            i++;
+                        }
+                    }
+                } else if (["/save"].includes(args[1])) {
+                    SaveSystem.saveSave()
+                    log(`Saved save`)
+                } else if (["/load"].includes(args[1])) {
+                    SaveSystem.loadSave()
+                    log(`Loaded save`)
                 }
                 else {
                     error(`Unknown command "${args[0]}"`)
@@ -78,8 +142,12 @@
 </script>
 
 {#if devOn}
-<div class="dev">
-    <span class="data">{@html data}</span>
-    <input type="text" bind:value={input} on:keypress={keyPress}>
+<div class="dev" draggable="true">
+    <details>
+        <span class="data">{@html data}</span>
+        <input type="text" bind:value={input} on:keypress={keyPress}>
+        <summary>Console</summary>
+    </details>
+    
 </div>
 {/if}
