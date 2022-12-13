@@ -213,4 +213,15 @@ button {
 }
 button[disabled] {
   color: white;
+}
+
+.dev {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+  background-color: black;
+  padding: 1rem;
+  font-family: consolas, monospace;
+  color: white;
 }/*# sourceMappingURL=app.css.map */

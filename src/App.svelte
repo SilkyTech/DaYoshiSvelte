@@ -4,6 +4,7 @@
   import * as constants from "./lib/constants"
   import { skins, pets } from './lib/constants'
   import { game } from './lib/stores'
+  import DevConsole from './lib/DevConsole.svelte'
 
   const { 
     hits, deaths, hp, 
@@ -165,39 +166,6 @@
 
   $: boughtPets = $ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
 
-
-
-  globalThis.dev = (msg: string) => {
-    let args = msg.split(" ")
-    if (args[0] === "+") {
-      if (args[1] === "death") {
-        let amount = parseInt(args[2])
-        $deaths += amount
-      }
-      if (args[1] === "hit") {
-        let amount = parseInt(args[2])
-        $hits += amount
-      }
-    } else if (args[0] === "=") {
-      if (args[1] === "death") {
-        let amount = parseInt(args[2])
-        $deaths = amount
-      }
-      if (args[1] === "hit") {
-        let amount = parseInt(args[2])
-        $hits = amount
-      }
-    } else if (args[0] === "/") {
-      if (args[1] === "rawData") {
-        console.log(int.save.xor(atob(localStorage.getItem("save")), "yoshiisangry"));
-        return;
-      }
-    }
-    $usedDev = true;
-    int.save.saveSave()
-    console.clear()
-  }
-
   function buyBox(boxType: number) {
     boxLeft = 0;
     switch(boxType) {
@@ -227,9 +195,10 @@
     })
 
     let chosen = Math.floor(Math.random()*uncollapsed.length) + uncollapsed.length
+    console.log(chosen, uncollapsed.length)
     uncollapsed = uncollapsed.concat(uncollapsed).concat(uncollapsed).sort(() => Math.random()-Math.random())
-    boxscroll = true;
     boxitems = uncollapsed.map((a, i) => [pets[a], i === chosen])
+    boxscroll = true;
     setTimeout(() => {
       boxLeft = window.innerWidth*2-(chosen*140);
       setTimeout(() => {
@@ -306,7 +275,7 @@
   
 
   function handleKeypress(e: KeyboardEvent) {
-    console.log(e)
+    // console.log(e)
   }
 </script>
 
@@ -318,6 +287,7 @@
   }
 } on:mousemove={mousemove} on:keypress={handleKeypress}>
   <Intro></Intro>
+  <DevConsole></DevConsole>
   <div class="main-info">
     <img src="logo.png" alt="Da Yoshi" class="logo"><br>
     <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${$hp}%;`}></div><span>{$hp.toFixed(2)} / 100</span></div></span><br>
