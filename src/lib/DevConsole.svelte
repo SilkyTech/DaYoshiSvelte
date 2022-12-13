@@ -81,6 +81,7 @@
                             error(`Either pet ID or XP level was not a number`)
                         } else {
                             $ownedPets.push([+args[2], +args[3]])
+                            $ownedPets = $ownedPets
                             log(`Successfully added a ${pets[+args[2]].name} to your owned pets with xp ${+args[3]}`)
                         }
                        
