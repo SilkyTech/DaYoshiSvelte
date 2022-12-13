@@ -126,7 +126,8 @@ export const levelUps = [
 
 export const boxChances: {[id: number]: [number, number][]} = {
     1: [[0, 19], [1, 4], [2, 1]],
-    2: [[0, 100], [1, 40], [2, 8], [3, 1]]
+    2: [[0, 100], [1, 40], [2, 8], [3, 1]],
+    3: [[0, 100], [1, 20], [2, 8], [4, 2]]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -180,5 +181,11 @@ export const pets: {
         description: "A glowing baby yoshi. Super fancy. Effects: Unknown",
         source: "pet/glowingbabyyoshi.png",
         salvage: 1000,
+    }, {
+        name: "Red Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: Math.random()*level/100}),
+        description: "A red baby yoshi found from the lava box, has a random chance to do more or less damage.",
+        source: "pet/redbabyyoshi.png",
+        salvage: 100,
     }
 ]
