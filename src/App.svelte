@@ -256,7 +256,7 @@
     function getCPS() {
       
       setTimeout(function() {
-        if (count > 20) {
+        if (count > 25) {
           $usedAutoclicker = true;
           int.save.saveSave()
         }
