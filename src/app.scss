@@ -204,7 +204,7 @@ body {
   flex-direction: row;
   position: absolute;
   z-index: 20;
-  gap: 1rem;
+  gap: 16px;
   transition: left 2s;
   left: 0;
   & > .gamble-panel {
@@ -214,6 +214,7 @@ body {
     &.chosen {
       border: 1rem solid red;
     }
+    width: 128px;
   }
   
 }

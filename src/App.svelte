@@ -182,6 +182,12 @@
           boxOpen(boxType)
         }
         break;
+      case 3:
+        if ($deaths >= 500) {
+          $deaths -= 500;
+          boxOpen(boxType)
+        }
+        break;
       
     }
   }
@@ -201,7 +207,7 @@
     boxitems = uncollapsed.map((a, i) => [pets[a], i === chosen])
     boxscroll = true;
     setTimeout(() => {
-      boxLeft = window.innerWidth*2-(chosen*140);
+      boxLeft = 0-(128*chosen);
       setTimeout(() => {
         boxLeft = 0;
         boxscroll = false;
@@ -333,6 +339,7 @@
     <span class="info-label">Buy Menu:</span><br>
     <button on:click={() => buyBox(1)}>Buy Common Box | 50 Deaths</button>
     <button on:click={() => buyBox(2)}>Buy Rare Box | 300 Deaths</button>
+    <button on:click={() => buyBox(3)}>Buy Lava Box | 500 Deaths</button>
     <hr>
     Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br>
     Level: {getLevels(boughtPets[$curPet]).level}<br>
