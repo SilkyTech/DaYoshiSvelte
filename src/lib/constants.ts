@@ -2,7 +2,7 @@ export const levelUps = [
     50,
     100,
     150,
-    200,
+    150,
     250,
     //
     300,
@@ -176,8 +176,8 @@ export const pets: {
         salvage: 70
     }, {
         name: "Glowing Baby Yoshi",
-        perks: (level) => ({hitAdd: level*Math.random()/10, hitMul: level*Math.random()/10}),
-        description: "A glowing baby yoshi. Super fancy. Limited Edition. Effects: Unknown",
+        perks: (level) => ({hitAdd: level*Math.random()/20+7, hitMul: level*Math.random()/70}),
+        description: "A glowing baby yoshi. Super fancy. Effects: Unknown",
         source: "pet/glowingbabyyoshi.png",
         salvage: 1000,
     }

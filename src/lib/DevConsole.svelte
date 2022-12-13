@@ -2,13 +2,14 @@
     import { game } from './stores'
     import * as SaveSystem from './SaveSystem'
   import { levelUps, pets } from './constants';
-  import { getLevelsNoLocal } from './utils';
+  import { getLevelsNoLocal, median } from './utils';
 
     const {
         deaths,
         hits,
         hp,
-        ownedPets
+        ownedPets,
+        usedDev
     } = game
 
     let devOn = false;
@@ -98,7 +99,8 @@
                         }
                     } else if (["help", "h"].includes(args[1])) {
                         log(`/pet - HELP MENU<br>/pet list-pets|lp - lists all pets<br>/pet add|a {id:number} {xp:number} - adds a pet to the inventory with specified properties<br>/pet remove|rem|rm|r {index:number} - removes pet in pet inventory with index {index}<br>`
-                        + `/pet set-xp|sxp|sx {petindex:number} {xp:number}<br>/pet set-level|slevel|slev|sl {petindex:number} {level:0-50}<br>/pet damage-suite|ds {id:number} {level:number} {runs:number} - runs a damage test suite<br>`)
+                        + `/pet set-xp|sxp|sx {petindex:number} {xp:number}<br>/pet set-level|slevel|slev|sl {petindex:number} {level:0-50}<br>/pet damage-suite|ds {id:number} {level:number} {runs:number} - runs a damage test suite<br>`
+                        + ``)
                     } else if (["set-xp", "sxp", "sx"].includes(args[1])) {
                         if (isNaN(+args[2]) || isNaN(+args[3])) {
                             error(`Either argument 3 or 4 is not a valid number`)
@@ -125,7 +127,9 @@
                             i++;
                         }
                     } else if (["damage-suite", "ds"].includes(args[1])) {
-                        log(`Damage suite for ${pets[+args[2]].name}:`)
+                        log(`Damage suite for ${pets[+args[2]].name} at level ${+args[3]}:`)
+                        let total = 0;
+                        let damages = []
                         for (let i = 0; i < +args[4]; i++) {
                             let base = 1;
                             let cPet = pets[+args[2]];
@@ -138,8 +142,18 @@
                                 base *= outcome.hitMul + 1
                             }
                             log(`&nbsp;&nbsp;Run #${i+1} - ${base} damage dealt`)
+                            total += base;
+                            damages.push(base)
                         }
+                        log(`Mean: ${total/+args[4]} | Median: ${median(damages)}<br>Min: ${Math.min(...damages)} | Max: ${Math.max(...damages)}`)
+                    } else if (["info", "i"].includes(args[1])) {
+                        let sPet = pets[$ownedPets[+args[2]][0]];
                         
+                        log(`Pet number ${+args[2]}:`)
+                        log(`&nbsp;&nbsp;Name: ${sPet.name}<br>&nbsp;&nbsp;Description: ${sPet.description}`)
+                        log(`&nbsp;&nbsp;Source Image: ${sPet.source}<br>&nbsp;&nbsp;Salvage Worth: ${sPet.salvage}`)
+                        log(`&nbsp;&nbsp;Level: ${getLevelsNoLocal($ownedPets[+args[2]]).level}<br>&nbsp;&nbsp;XP left: ${getLevelsNoLocal($ownedPets[+args[2]]).xp}`)
+                        log(`&nbsp;&nbsp;Total XP: ${$ownedPets[+args[2]][1]}`)
                     }
                 } else if (["/save"].includes(args[1])) {
                     SaveSystem.saveSave()
@@ -152,6 +166,8 @@
                     error(`Unknown command "${args[0]}"`)
                 }
                 input = ""
+                $usedDev = true
+                SaveSystem.saveSave()
             }
             
         }, 0)

@@ -15,15 +15,17 @@ export function xor(str: string, shift: string) {
     return newS
 }
 
-export function loadSave() {
-    let save = localStorage.getItem("save")
+export function loadSave(save?: string): boolean {
+    if (save === undefined) {
+        save = localStorage.getItem("save")
+    }
     if (save !== null) {
         try {
             console.log(save)
             let saveParsed = atob(save)
             saveParsed = xor(saveParsed, "yoshiisangry")
             let parts: any[] = saveParsed.split("|")
-            if (parts.length < 6) {return alert("Invalid Save");}
+            if (parts.length < 6) {alert("Invalid Save"); return false}
             hits.set((+parts[0]) - (+parts[1]))
             deaths.set((+parts[2]) - (+parts[3]))
             boughtSkins.set(new Set(parts[4].split(',').map(a => parseInt(a))))
@@ -38,11 +40,14 @@ export function loadSave() {
             
             curPet.set(isNaN(+parts[8]) ? -1 : +parts[8])
             usedAutoclicker.set(parts[9] === "true" ? true : false)
+
+            return true;
         } catch (e) {
             if (e instanceof DOMException) {
-            localStorage.removeItem("save")
-            alert("Your save is invalid! Resetting your save for you.")
-            location.reload()
+                localStorage.removeItem("save")
+                alert("Your save is invalid! Resetting your save for you.")
+                location.reload()
+                return false;
             }
         }
     
