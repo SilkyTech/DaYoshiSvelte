@@ -56,10 +56,20 @@
     return base;
   }
 
+  function xor(str: string, shift: string) {
+    let newS = ""
+    str.split("").forEach((letter, i) => {
+      newS += String.fromCharCode(letter.charCodeAt(0)^(shift[i%shift.length].charCodeAt(0)))
+    })
+    return newS
+  }
+
+
   function loadSave() {
     let save = localStorage.getItem("save")
     if (save !== null) {
       try {
+        save = xor(save, "yoshiisangry")
         let saveParsed = atob(save)
         let parts: any[] = saveParsed.split("|")
         if (parts.length < 6) {return alert("Invalid Save");}
@@ -101,7 +111,7 @@
       curPet,
       usedAutoclicker
     ]
-    localStorage.setItem("save", btoa(save.join("|")))
+    localStorage.setItem("save", btoa(xor(save.join("|"), "yoshiisangry")))
   }
 
   function getSkin() {
