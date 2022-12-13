@@ -42,12 +42,12 @@ Make sure to use the `Issues` tab if you find any :)
 [Issues Tab](https://github.com/SilkyTech/DaYoshiSvelte/issues)
 
 ## Known bugs
-### Pets
-  > The pet menu has redonkulously long scroll or empty spaces.
-  
   > The `Shiny Yoshi Pet` has ridiculous attack damage variation.
   
   > Box opening has weird animations and no select box sometimes.
 
-### General
-> Clicks are not registering in some browsers.
+
+## WONT FIX LL
+> Clicks are not registering in some browsers. - POTENTIAL FIX ON THE WAY
+
+> The pet menu has redonkulously long scroll or empty spaces.
