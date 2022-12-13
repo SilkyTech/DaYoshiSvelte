@@ -44,5 +44,7 @@ Make sure to use the `Issues` tab if you find any :)
 ## Known bugs
 > The pet menu has redonkulously long scroll or empty spaces.
 > The `Shiny Yoshi Pet` has ridiculous attack damage variation.
+
 > Box opening has weird animations and no select box sometimes.
+
 > Clicks are not registering in some browsers.
