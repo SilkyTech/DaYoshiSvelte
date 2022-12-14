@@ -271,6 +271,8 @@ export const pets: {
     perks: (level: number) => {
         hitMul?: number,
         hitAdd?: number,
+        autoAdd?: number,
+        autoMul?: number,
     },
     source: string,
     description: string,
@@ -336,6 +338,12 @@ export const pets: {
         description: "An evolved goomba who hates yoshis.",
         source: "pet/galoomba.png",
         salvage: 90,
+    }, {
+        name: "Shooter GB Yoshi",
+        perks: (level) => ({autoAdd: level*0.015, autoMul: 0.015*level}),
+        description: "The green baby yoshi found a gun! I wonder what will happen now?",
+        source: "pet/greenshooteryoshi.png",
+        salvage: 70
     }
 ]
 

@@ -6,7 +6,7 @@
   import { game } from './lib/stores'
   import DevConsole from './lib/DevConsole.svelte'
   import * as int from './lib/Internal' 
-  import { getLevels } from './lib/utils'
+  import { getLevels, getLevelsNoLocal } from './lib/utils'
 
   const { 
     hits, deaths, hp, 
@@ -44,10 +44,10 @@
       let level = getLevels(cPet).level;
       let outcome = cPet.pet.perks(level);
       if (outcome.hitAdd) {
-        base += outcome.hitAdd
+        base += (outcome?.hitAdd ?? 0)
       }
       if (outcome.hitMul) {
-        base *= outcome.hitMul + 1
+        base *= (outcome?.hitMul ?? 0) + 1
       }
     }
     return base;
@@ -60,6 +60,15 @@
       hit: skins[$curSkin.hit],
       block: skins[$curSkin.block],
       normal: skins[$curSkin.normal],
+    }
+  }
+
+  function checkHealth() {
+    if ($hp < 1) {
+      createNotif(`Killed ${yoshiObj.name} | +${yoshiObj.kill} Pet XP`, `font-size: ${(Math.random()+1.5)*100}%;`)
+      $hp = yoshiObj.hp;
+      $deaths += yoshiObj.reward;
+      $ownedPets[$curPet][1] += yoshiObj.kill;
     }
   }
 
@@ -90,12 +99,7 @@
       if ($curPet !== -1) $ownedPets[$curPet][1]++;
     }
 
-    if ($hp < 1) {
-      createNotif(`Killed ${yoshiObj.name} | +${yoshiObj.kill} Pet XP`, `font-size: ${(Math.random()+1.5)*100}%;`)
-      $hp = yoshiObj.hp;
-      $deaths += yoshiObj.reward;
-      $ownedPets[$curPet][1] += yoshiObj.kill;
-    }
+    checkHealth()
 
     yoshi.classList.add("hit");
 
@@ -295,6 +299,21 @@
         }
         else createNotif(`Regened ${regen} HP!`, "color: red;")
       }
+      
+      {
+        if (constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level) !== undefined) {
+          let base = 0;
+          // console.log(constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level))
+          base += constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level)?.autoAdd ?? 0
+          base *= 1 + (constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level)?.autoMul ?? 0)
+          $hp -= base;
+          checkHealth()
+          if (base !== 0) createNotif(`-${base.toFixed(2)}HP | Pet`, `color: green;`)
+          
+        }
+        
+      }
+      
     }, 1000)
   }
   
