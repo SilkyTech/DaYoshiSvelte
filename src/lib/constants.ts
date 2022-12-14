@@ -283,7 +283,7 @@ export const pets: {
         salvage: 10
     }, {
         name: "Green Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.015}),
+        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.01}),
         source: "pet/greenbabyyoshi.png",
         description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.015*{Pet Level}.",
         salvage: 50
@@ -313,7 +313,7 @@ export const pets: {
         salvage: -2
     }, {
         name: "Rock Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.04, hitMul: Math.random()*level/100}),
+        perks: (level) => ({hitAdd: level*0.04, hitMul: Math.random()*level/60}),
         description: "A baby yoshi formed from volcanic rock, I wonder how that happened.",
         source: "pet/rockbabyyoshi.png",
         salvage: 40,
