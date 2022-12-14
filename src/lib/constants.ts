@@ -295,7 +295,7 @@ export const pets: {
         salvage: 75
     }, {
         name: "Glowing Baby Yoshi",
-        perks: (level) => ({hitAdd: level*Math.random()/20+level/100+7, hitMul: level*Math.random()/50}),
+        perks: (level) => ({hitAdd: level*Math.random()/10 + level/15, hitMul: level*Math.random()/70}),
         description: "A glowing baby yoshi. Super fancy. Effects: Unknown",
         source: "pet/glowingbabyyoshi.png",
         salvage: 1000,
