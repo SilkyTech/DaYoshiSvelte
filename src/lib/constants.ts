@@ -337,5 +337,11 @@ export const yoshis: {
         hp: 300,
         regen: 1,
         reward: 2
+    },
+    {
+        name: "Aunt Yoshi",
+        hp: 69420,
+        regen: 5,
+        reward: 6
     }
 ]
