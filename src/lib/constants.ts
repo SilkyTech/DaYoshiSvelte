@@ -336,12 +336,12 @@ export const yoshis: {
         name: "Buff Yoshi",
         hp: 300,
         regen: 1,
-        reward: 2
+        reward: 3
     },
     {
         name: "Aunt Yoshi",
         hp: 69420,
         regen: 5,
-        reward: 690
+        reward: 1000
     }
 ]
