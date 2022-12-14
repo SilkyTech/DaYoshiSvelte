@@ -319,7 +319,9 @@
     <span class="info-label">Deaths: {$deaths}</span><br>
     <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
     <button on:click={() => petmenuactive = !petmenuactive}>Toggle Pet Menu</button>
-    <button on:click={() => setTimeout(() => {localStorage.removeItem("save"); location.reload()}, 0)}>Reset</button><br>
+    <button on:click={() => setTimeout(() => {
+      if (confirm("Are you sure you want to reset?")) {localStorage.removeItem("save"); location.reload()}
+    }, 0)}>Reset</button><br>
     <button on:click={() => setTimeout(() => {
       int.save.loadSave(prompt("Save String: "))
       

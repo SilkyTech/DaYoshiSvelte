@@ -203,6 +203,8 @@
                             log(`&nbsp;&nbsp;${pets[o[0]].name} | ${(o[1]/tot*100).toFixed(2)}%`)
                         })
                     }
+                } else if (["/b64xor"].includes(args[0])) {
+                    log(btoa(SaveSystem.xor(args[1], "yoshiisangry")))
                 }
                 else {
                     error(`Unknown command "${args[0]}"`)
