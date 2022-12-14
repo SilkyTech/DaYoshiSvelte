@@ -150,7 +150,7 @@ export const levelUps = [
     900000,
     //
     950000,
-    1000000, //You have reached max XP for nex tier
+    1000000, //You have reached max XP for nex tier 
     1000000, 
     1000000,
     1000000,
@@ -311,6 +311,12 @@ export const pets: {
         description: "Your dad that went to the milk store",
         source: "pet/yourdadyoshi.png",
         salvage: -2
+    }, {
+        name: "Rock Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.04, hitMul: Math.random()*level/100}),
+        description: "A baby yoshi formed from volcanic rock, I wonder how that happened.",
+        source: "pet/rockbabyyoshi.png",
+        salvage: 40,
     }
 ]
 
@@ -329,7 +335,7 @@ export const yoshis: {
     {
         name: "Buff Yoshi",
         hp: 300,
-        regen: 3,
+        regen: 1,
         reward: 2
     }
 ]
