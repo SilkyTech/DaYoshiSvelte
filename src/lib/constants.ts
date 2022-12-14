@@ -245,7 +245,7 @@ export const levelUps = [
 export const boxChances: {[id: number]: [number, number][]} = {
     1: [[0, 19], [1, 4], [2, 1], [5, 2]],
     2: [[0, 100], [1, 40], [2, 8], [3, 1], [5, 6]],
-    3: [[0, 100], [1, 20], [2, 8], [4, 2], [5, 3]]
+    3: [[0, 50], [6, 30], [1, 20], [2, 8], [4, 2], [5, 3]]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
