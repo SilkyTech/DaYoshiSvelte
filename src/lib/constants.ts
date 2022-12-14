@@ -245,7 +245,7 @@ export const levelUps = [
 export const boxChances: {[id: number]: [number, number][]} = {
     1: [[0, 19], [1, 4], [2, 1], [5, 2]],
     2: [[0, 100], [1, 40], [2, 8], [3, 1], [5, 6]],
-    3: [[0, 50], [6, 30], [1, 20], [2, 8], [4, 2], [5, 3]]
+    3: [[0, 30], [6, 30], [1, 20], [7, 10], [2, 8], [4, 2], [5, 3]]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -300,10 +300,10 @@ export const pets: {
         source: "pet/glowingbabyyoshi.png",
         salvage: 1000,
     }, {
-        name: "Red Baby Yoshi",
+        name: "Obsidian Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.1, hitMul: Math.random()*level/70}),
-        description: "A red baby yoshi found from the lava box, has a random chance to do more or less damage.",
-        source: "pet/redbabyyoshi.png",
+        description: "A obsidian baby yoshi found from the lava box, has a random chance to do more or less damage.",
+        source: "pet/obsidianbabyyoshi.png",
         salvage: 100,
     }, {
         name: "Your Dad Yoshi",
@@ -317,6 +317,12 @@ export const pets: {
         description: "A baby yoshi formed from volcanic rock, I wonder how that happened.",
         source: "pet/rockbabyyoshi.png",
         salvage: 40,
+    }, {
+        name: "Red Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.05, hitMul: Math.random()*level/95}),
+        description: "A baby yoshi formed from lava, why is it living.",
+        source: "pet/redbabyyoshi.png",
+        salvage: 60,
     }
 ]
 
