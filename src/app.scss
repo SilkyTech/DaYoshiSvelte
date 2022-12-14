@@ -209,13 +209,13 @@ body {
   transition: left 2s;
   left: 0;
   & > .gamble-panel {
+    width: 128px;
     & > img {
-      height: 128px;
+      width: 128px;
     }
     &.chosen {
       border: 1rem solid red;
     }
-    width: 128px;
   }
   
 }

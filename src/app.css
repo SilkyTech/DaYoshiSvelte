@@ -206,7 +206,7 @@ body {
   width: 128px;
 }
 .gambling > .gamble-panel > img {
-  height: 128px;
+  width: 128px;
 }
 .gambling > .gamble-panel.chosen {
   border: 1rem solid red;

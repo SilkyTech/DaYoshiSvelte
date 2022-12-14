@@ -220,7 +220,7 @@
     boxitems = uncollapsed.map((a, i) => [pets[a], i === chosen])
     boxscroll = true;
     setTimeout(() => {
-      boxLeft = 0-(128*chosen);
+      boxLeft = 0-(140*chosen);
       setTimeout(() => {
         boxLeft = 0;
         boxscroll = false;
