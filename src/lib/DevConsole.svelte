@@ -1,7 +1,7 @@
 <script lang="ts">
     import { game } from './stores'
     import * as SaveSystem from './SaveSystem'
-  import { levelUps, pets } from './constants';
+  import { boxChances, levelUps, pets } from './constants';
   import { getLevelsNoLocal, median } from './utils';
 
     const {
@@ -147,6 +147,7 @@
                             damages.push(base)
                         }
                         log(`Mean: ${total/+args[4]} | Median: ${median(damages)}<br>Min: ${Math.min(...damages)} | Max: ${Math.max(...damages)}`)
+     
                     } else if (["info", "i"].includes(args[1])) {
                         let sPet = pets[$ownedPets[+args[2]][0]];
                         
@@ -155,6 +156,34 @@
                         log(`&nbsp;&nbsp;Source Image: ${sPet.source}<br>&nbsp;&nbsp;Salvage Worth: ${sPet.salvage}`)
                         log(`&nbsp;&nbsp;Level: ${getLevelsNoLocal($ownedPets[+args[2]]).level}<br>&nbsp;&nbsp;XP left: ${getLevelsNoLocal($ownedPets[+args[2]]).xp}`)
                         log(`&nbsp;&nbsp;Total XP: ${$ownedPets[+args[2]][1]}`)
+                    } else if (["all-suite", "as"].includes(args[1])) {
+                        let outcomes: {mean: number, name: string}[] = []               
+                        
+                        for (const l of pets) {
+                            log(`Damage suite for ${l.name} at level ${+args[2]}:`)
+                            let total = 0;
+                            let damages = []
+                            for (let i = 0; i < +args[3]; i++) {
+                                let base = 1;
+                                let level = +args[3];
+                                let outcome = l.perks(level);
+                                if (outcome.hitAdd) {
+                                    base += outcome.hitAdd
+                                }
+                                if (outcome.hitMul) {
+                                    base *= outcome.hitMul + 1
+                                }
+                                log(`&nbsp;&nbsp;Run #${i+1} - ${base} damage dealt`)
+                                total += base;
+                                damages.push(base)
+                            }
+                            log(`Mean: ${total/+args[3]} | Median: ${median(damages)}<br>Min: ${Math.min(...damages)} | Max: ${Math.max(...damages)}`)
+                            outcomes.push({mean: total/+args[3], name: l.name})
+                        }
+
+                        outcomes.sort((a, b) => b.mean-a.mean).forEach((out, i) => {
+                            log(`#${i+1} | ${out.name} - ${out.mean} Damage (Average)`)
+                        })
                     }
                 } else if (["/save"].includes(args[0])) {
                     SaveSystem.saveSave()
@@ -164,6 +193,16 @@
                     log(`Loaded save`)
                 } else if (["/toggle", "/t"].includes(args[0])) {
                     showToggle = !showToggle
+                } else if (["/boxchances", "/bc"].includes(args[0])) {
+                    for (let id in boxChances) {
+                        let obj = boxChances[id]
+                        log(`Box ${id} : Chances`)
+                        let tot = 0;
+                        obj.forEach(a => tot += a[1])
+                        obj.forEach(o => {
+                            log(`&nbsp;&nbsp;${pets[o[0]].name} | ${(o[1]/tot*100).toFixed(2)}%`)
+                        })
+                    }
                 }
                 else {
                     error(`Unknown command "${args[0]}"`)
@@ -178,10 +217,10 @@
 </script>
 
 {#if devOn}
-<div class="dev" draggable="true">
+<div class="dev" draggable="true" style={showToggle ? "height: 100vh;" : ""}>
+    <input type="text" bind:value={input} on:keypress={keyPress}>
     {#if showToggle}
     <span class="data">{@html data}</span>
     {/if}
-    <input type="text" bind:value={input} on:keypress={keyPress}>
 </div>
 {/if}

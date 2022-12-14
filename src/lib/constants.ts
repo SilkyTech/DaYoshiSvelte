@@ -283,14 +283,14 @@ export const pets: {
         salvage: 10
     }, {
         name: "Green Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.01}),
+        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.015}),
         source: "pet/greenbabyyoshi.png",
-        description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.01*{Pet Level}.",
+        description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.015*{Pet Level}.",
         salvage: 50
     }, {
         name: "Pink Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
-        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.02}),
+        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.02*{Pet Level}.",
         source: "pet/pinkbabyyoshi.png",
         salvage: 75
     }, {

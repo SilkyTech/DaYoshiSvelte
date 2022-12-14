@@ -236,6 +236,10 @@ button {
   padding: 1rem;
   font-family: consolas, monospace;
   color: white;
+  
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .bottom-info {
