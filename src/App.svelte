@@ -195,6 +195,12 @@
           boxOpen(boxType)
         }
         break;
+      case 4:
+        if ($deaths >= 700) {
+          $deaths -= 700;
+          boxOpen(boxType)
+        }
+        break;
       
     }
   }
@@ -369,6 +375,7 @@
     <button on:click={() => buyBox(1)}>Buy Common Box | 50 Deaths</button>
     <button on:click={() => buyBox(2)}>Buy Rare Box | 300 Deaths</button>
     <button on:click={() => buyBox(3)}>Buy Lava Box | 500 Deaths</button>
+    <button on:click={() => buyBox(4)}>Buy Mario Box | 700 Deaths</button>
     <hr>
     Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br>
     Level: {getLevels(boughtPets[$curPet]).level}<br>

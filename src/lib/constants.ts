@@ -245,7 +245,8 @@ export const levelUps = [
 export const boxChances: {[id: number]: [number, number][]} = {
     1: [[0, 19], [1, 4], [2, 1], [5, 2]],
     2: [[0, 100], [1, 40], [2, 8], [3, 1], [5, 6]],
-    3: [[0, 30], [6, 30], [1, 20], [7, 10], [2, 8], [4, 2], [5, 3]]
+    3: [[0, 30], [6, 30], [1, 20], [7, 10], [2, 8], [4, 2], [5, 3]],
+    4: [[0, 8], [8, 30], [9, 2], [1, 16]]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -323,6 +324,18 @@ export const pets: {
         description: "A baby yoshi formed from lava, why is it living.",
         source: "pet/redbabyyoshi.png",
         salvage: 60,
+    }, {
+        name: "Goomba",
+        perks: (level) => ({hitAdd: level*0.02, hitMul: 0.02*level + Math.random()}),
+        description: "A goomba that doesn't like yoshis.",
+        source: "pet/goomba.png",
+        salvage: 40,
+    }, {
+        name: "Galoomba",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: 0.03*level + Math.random()}),
+        description: "An evolved goomba who hates yoshis.",
+        source: "pet/galoomba.png",
+        salvage: 90,
     }
 ]
 
