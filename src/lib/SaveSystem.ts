@@ -21,7 +21,6 @@ export function loadSave(save?: string): boolean {
     }
     if (save !== null) {
         try {
-            console.log(save)
             let saveParsed = atob(save)
             saveParsed = xor(saveParsed, "yoshiisangry")
             let parts: any[] = saveParsed.split("|")

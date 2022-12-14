@@ -28,10 +28,18 @@
     function log(msg: string, color: string = "white") {
         data += `<span style="color: ${color};">${msg}</span><br>`
     }
+    let prevCmds = []
+    let ind = 0;
 
     function keyPress(e: KeyboardEvent) {
         setTimeout(() => {
-            if (e.key === "Enter") {
+            console.log(e)
+            if (e.key === "ArrowUp") {
+                ind++
+                if (ind > prevCmds.length) ind = prevCmds.length
+                input = prevCmds[prevCmds.length-ind]
+            } else if (e.key === "Enter") {
+                ind = 0;
                 log(input, "yellow")
                 let args = input.split(/\s+/g);
                 if (["/modify", "/m", "/mod"].includes(args[0])) {
@@ -205,22 +213,71 @@
                     }
                 } else if (["/b64xor"].includes(args[0])) {
                     log(btoa(SaveSystem.xor(args[1], "yoshiisangry")))
+                } else if (["/help"].includes(args[0])) {
+                    log(`== commands ==`)
+                    log((`\t/m(od(ify)) deaths|hp|hits add|set {amount:number}<br>`
+                    + "\t/v(iew) save (pretty)<br>"
+                    + "\t/c(lear)<br>"
+                    + "\t/p(et) - Check /pet help<br>"
+                    + "\t/save /load - self explanatory<br>"
+                    + "\t/t(oggle)<br>"
+                    + "\t/boxchances|/bc - Shows percentages for all boxes<br>"
+                    + "\t/b64xor encrypts a string into save file format<br>"
+                    + "\t/help<br>").replace(/\t/g, "&nbsp;&nbsp;"))
                 }
                 else {
                     error(`Unknown command "${args[0]}"`)
                 }
+                prevCmds.push(input)
                 input = ""
                 $usedDev = true
                 SaveSystem.saveSave()
+            } else {
+                ind = 0;
             }
             
         }, 0)
     }
+
+    const sayMessage = () => {
+        const messages = [
+            "=== imagine trying to hack this ===",
+            "-== Arms weak like moms spaghetti ==-",
+            "-=- What if, you were smart? -=-",
+            "=-= 'Z2V0IGplYmFpdGVk' =-=",
+            "==- The save code format isnt hard -==",
+            "*=* Woah, a moron appears *=*",
+            "=*= Walter White makes [REDACTED] =*=",
+            "*== The dev team is actually quite small ==*",
+            "==* Only silky and daniel have access *==",
+            "pdp This is quite bruh qbq",
+            ">>> Neighbours being the definition of annoying <<<",
+            "<>< Me when i want banana ><>",
+            "><> Get ~~~~~~~'ed <><"
+        ]
+
+        let msg = messages[Math.floor(Math.random() * messages.length)]
+        let styles = []
+        let letters = []
+
+        msg.split("").forEach(letter => {
+            styles.push(`font-size: ${Math.random()/3 + 1}rem; color: #${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)};`)
+            letters.push("%c" + letter)
+        })
+        console.log("\n" + letters.join(""), ...styles)
+    }
+
+    setInterval(() => {
+        if (Math.random() < 0.1) {
+            sayMessage()
+        }
+    }, 10000)
+    sayMessage()
 </script>
 
 {#if devOn}
 <div class="dev" draggable="true" style={showToggle ? "height: 100vh;" : ""}>
-    <input type="text" bind:value={input} on:keypress={keyPress}>
+    <input type="text" bind:value={input} on:keydown={keyPress}>
     {#if showToggle}
     <span class="data">{@html data}</span>
     {/if}

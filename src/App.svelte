@@ -168,9 +168,6 @@
 
   $: boughtNums = Array.from($boughtSkins).map((a, i) => [skins[a], a]).sort((a, b) => a[0][3] - b[0][3]) as [["normal" | "hit" | "block", string, string, number], number][]
   $: enumSkins = skins.map((a, i) => [a, i, $boughtSkins.has(i)]) as [["normal" | "hit" | "block", string, string, number], number, boolean][]
-
-  console.log($curSkin)
-
   $: yoshiObj = constants.yoshis[(curYoshi + constants.yoshis.length*9999) % constants.yoshis.length]
   $: boughtPets = $ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
 
