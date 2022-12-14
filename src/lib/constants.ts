@@ -289,8 +289,8 @@ export const pets: {
         salvage: 50
     }, {
         name: "Pink Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
-        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.02}),
+        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.02*{Pet Level}.",
         source: "pet/pinkbabyyoshi.png",
         salvage: 75
     }, {
