@@ -324,24 +324,28 @@ export const yoshis: {
     name: string,
     hp: number,
     regen: number,
-    reward: number
+    reward: number,
+    kill: number,
 }[] = [
     {
         name: "Normal Yoshi",
         hp: 100,
         regen: 0,
-        reward: 1
+        reward: 1, 
+        kill: 5,
     },
     {
         name: "Buff Yoshi",
         hp: 300,
         regen: 1,
-        reward: 2
+        reward: 2,
+        kill: 15,
     },
     {
         name: "Aunt Yoshi",
         hp: 69420,
         regen: 5,
-        reward: 690
+        reward: 690,
+        kill: 2000,
     }
 ]

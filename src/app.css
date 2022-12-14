@@ -91,6 +91,7 @@ body {
   z-index: 10;
   text-align: center;
   pointer-events: none;
+  transform: translate(-50%, 0px);
 }
 
 .bar-full {
@@ -226,10 +227,19 @@ button[disabled] {
   background-color: black;
   padding: 1rem;
   font-family: consolas, monospace;
+  font-size: 0.9rem;
   color: white;
   overflow: auto;
   display: flex;
   flex-direction: column-reverse;
+}
+.dev > input {
+  border: none;
+  outline: none !important;
+  background-color: black;
+  color: white;
+  font-family: consolas, monospace;
+  font-size: 0.9rem;
 }
 
 .bottom-info {

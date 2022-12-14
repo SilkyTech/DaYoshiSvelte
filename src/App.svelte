@@ -91,8 +91,10 @@
     }
 
     if ($hp < 1) {
+      createNotif(`Killed ${yoshiObj.name} | +${yoshiObj.kill} Pet XP`, `font-size: ${(Math.random()+1.5)*100}%;`)
       $hp = yoshiObj.hp;
       $deaths += yoshiObj.reward;
+      $ownedPets[$curPet][1] += yoshiObj.kill;
     }
 
     yoshi.classList.add("hit");
