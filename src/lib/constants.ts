@@ -277,20 +277,20 @@ export const pets: {
 }[] = [
     {
         name: "Blue Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.03}),
+        perks: (level) => ({hitAdd: level*0.04}),
         source: "pet/bluebabyyoshi.png",
-        description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.03*{Pet Level} more damage.",
+        description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.04*{Pet Level} more damage.",
         salvage: 10
     }, {
         name: "Green Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.01}),
+        perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.02}),
         source: "pet/greenbabyyoshi.png",
-        description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.01*{Pet Level}.",
+        description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.02*{Pet Level}.",
         salvage: 50
     }, {
         name: "Pink Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.03}),
-        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.03*{Pet Level}.",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.025}),
+        description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.025*{Pet Level}.",
         source: "pet/pinkbabyyoshi.png",
         salvage: 75
     }, {
@@ -307,13 +307,13 @@ export const pets: {
         salvage: 100,
     }, {
         name: "Your Dad Yoshi",
-        perks: (level) => ({hitAdd: -69, hitMul: 0}),
+        perks: (level) => ({hitAdd: -70, hitMul: 0}),
         description: "Your dad that went to the milk store",
         source: "pet/yourdadyoshi.png",
         salvage: -2
     }, {
         name: "Rock Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.04, hitMul: Math.random()*level/100}),
+        perks: (level) => ({hitAdd: level*0.05, hitMul: Math.random()*level/100}),
         description: "A baby yoshi formed from volcanic rock, I wonder how that happened.",
         source: "pet/rockbabyyoshi.png",
         salvage: 40,
