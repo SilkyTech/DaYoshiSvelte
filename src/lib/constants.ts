@@ -277,9 +277,9 @@ export const pets: {
 }[] = [
     {
         name: "Blue Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.04}),
+        perks: (level) => ({hitAdd: level*0.045}),
         source: "pet/bluebabyyoshi.png",
-        description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.04*{Pet Level} more damage.",
+        description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.045*{Pet Level} more damage.",
         salvage: 10
     }, {
         name: "Green Baby Yoshi",
@@ -313,7 +313,7 @@ export const pets: {
         salvage: -2
     }, {
         name: "Rock Baby Yoshi",
-        perks: (level) => ({hitAdd: level*0.04, hitMul: Math.random()*level/100}),
+        perks: (level) => ({hitAdd: level*0.045, hitMul: Math.random()*level/100}),
         description: "A baby yoshi formed from volcanic rock, I wonder how that happened.",
         source: "pet/rockbabyyoshi.png",
         salvage: 40,
