@@ -354,6 +354,10 @@ button {
     transform: translate(2px, 2px);
     opacity: 1;
   }
+
+  & > button {
+    border-radius: 1rem;
+  }
 }
 
 .tooltip {

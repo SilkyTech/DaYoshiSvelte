@@ -30,7 +30,8 @@ import { game, Inventory, itemIds } from '../stores'
                     <img src={item.img} alt={item.id}>
                 </Tooltip>
                 {#if itemIds[item.id].type === "sword" }
-                    <button on:click={() => {$equipment.sword = item.id}}>Equip</button>
+                    <button on:click={() => {$equipment.sword = item.id}}
+                        disabled={$equipment.sword === item.id}>Equip</button>
                 {/if}
             </div>
         {/each}
