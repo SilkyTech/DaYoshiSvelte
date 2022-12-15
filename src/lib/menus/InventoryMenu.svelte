@@ -4,7 +4,8 @@ import { game, Inventory, itemIds } from '../stores'
   import Tooltip from '../Tooltip.svelte';
 
     let {
-        inventory
+        inventory,
+        equipment,
     } = game;
 
     let active = false;
@@ -28,7 +29,9 @@ import { game, Inventory, itemIds } from '../stores'
                 <Tooltip tooltip={itemIds[item.id].desc}>
                     <img src={item.img} alt={item.id}>
                 </Tooltip>
-                
+                {#if itemIds[item.id].type === "sword" }
+                    <button on:click={() => {$equipment.sword = item.id}}>Equip</button>
+                {/if}
             </div>
         {/each}
     </div>

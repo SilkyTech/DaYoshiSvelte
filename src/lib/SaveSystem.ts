@@ -5,7 +5,7 @@ import { get } from 'svelte/store'
 const { 
     hits, deaths, hp, 
     usedDev, usedAutoclicker, boughtSkins, 
-    curPet, ownedPets, curSkin, inventory } = game
+    curPet, ownedPets, curSkin, inventory, equipment } = game
 
 export function xor(str: string, shift: string) {
     let newS = ""
@@ -53,10 +53,23 @@ export function loadSave(save?: string): boolean {
                 dupe({id: Object.keys(itemIds)[+a.split("!")[0]] as keyof typeof itemIds}, +a.split("!")[1])
             ) ?? []).forEach(a => {
                 newInv.push(...a)
-            })
+            });
             
 
             inventory.set(newInv)
+
+            let equipmentString = parts[11];
+            if (equipmentString !== undefined) {
+                let seperating = equipmentString.split("!");
+                let sword = Object.keys(itemIds)[(+(seperating[0]) === -1 ? undefined : +(seperating[0]))] as keyof typeof itemIds
+                let cloak = Object.keys(itemIds)[(+(seperating[1]) === -1 ? undefined : +(seperating[1]))] as keyof typeof itemIds
+                let necklace = Object.keys(itemIds)[(+(seperating[2]) === -1 ? undefined : +(seperating[2]))] as keyof typeof itemIds
+                equipment.set({
+                    sword: sword,
+                    cloak: cloak,
+                    necklace: necklace
+                })
+            }
 
             return true;
         } catch (e) {
@@ -83,7 +96,8 @@ export function saveSave() {
         get(ownedPets).map(a => a.join("!")).join(","),
         get(curPet),
         get(usedAutoclicker),
-        Inventory.from(get(inventory)).getItems().map(a => `${Object.keys(itemIds).indexOf(a.id)}!${a.amount}`)
+        Inventory.from(get(inventory)).getItems().map(a => `${Object.keys(itemIds).indexOf(a.id)}!${a.amount}`),
+        `${Object.keys(itemIds).indexOf(get(equipment).sword)}!${Object.keys(itemIds).indexOf(get(equipment).cloak)}!${Object.keys(itemIds).indexOf(get(equipment).necklace)}`
     ]
     localStorage.setItem("save", btoa(xor(save.join("|"), "yoshiisangry")))
 }

@@ -3,7 +3,7 @@
   import Intro from './lib/Intro.svelte'
   import * as constants from "./lib/constants"
   import { skins, pets } from './lib/constants'
-  import { game, type Item } from './lib/stores'
+  import { game, itemIds, type Item } from './lib/stores'
   import DevConsole from './lib/DevConsole.svelte'
   import * as int from './lib/Internal' 
   import { getLevels, getLevelsNoLocal } from './lib/utils'
@@ -14,7 +14,7 @@
   const { 
     hits, deaths, hp, 
     usedDev, usedAutoclicker, boughtSkins, 
-    curPet, ownedPets, curSkin, inventory } = game
+    curPet, ownedPets, curSkin, inventory, equipment } = game
   
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
@@ -45,6 +45,10 @@
   
   function getDamage() {
     let base = 1;
+    if (itemIds?.[$equipment.sword]?.type === "sword") {
+      //@ts-ignore
+      base += itemIds[$equipment.sword].damage
+    }
     if ($curPet !== -1) {
       let cPet = boughtPets[$curPet];
       let level = getLevels(cPet).level;
