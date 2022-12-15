@@ -17,6 +17,7 @@ export class Inventory {
         items.forEach(_ => {
             amount++;
         })
+        console.log(id, itemIds)
         return {
             item: id,
             amount: amount,
@@ -32,6 +33,7 @@ export class Inventory {
         let out: {id: Item["id"], amount: number, img: string}[] = []
 
         typeSet.forEach(a => {
+            if (a === undefined) return;
             let amount = this.getItem(a).amount;
             out.push({id: a, amount: amount, img: this.getItem(a).img})
         })
@@ -44,10 +46,16 @@ export type Item = {
 }
 
 export const itemIds = {
-    "Yoshi Sludge": {desc: "Some sludge resembling yoshi.", img: "items/export/Yoshi Sludge.png"},
-    "Buff Yoshi Sludge": {desc: "The sludge is angry. Don't ask me how.", img: "items/export/Buff Yoshi Sludge.png"},
-    "Yoshi Steel": {desc: "Pure pressure condensed yoshi sludge into steel.", img: "items/export/Yoshi Steel.png"},
-    "Pancake": {desc: "Pancake. Dropped from Aunt Yoshi.", img: "items/export/Pancake.png"}
+    "Yoshi Sludge": {desc: "Some sludge resembling yoshi.", img: "items/export/Yoshi Sludge.png", type: "item"},
+    "Buff Yoshi Sludge": {desc: "The sludge is angry. Don't ask me how.", img: "items/export/Buff Yoshi Sludge.png", type: "item"},
+    "Yoshi Steel": {desc: "Pure pressure condensed yoshi sludge into steel.", img: "items/export/Yoshi Steel.png", type: "item"},
+    "Pancake": {desc: "Pancake. Dropped from Aunt Yoshi.", img: "items/export/Pancake.png", type: "item"},
+    "Flimsy Yoshi Sword": {
+        desc: "A flimsy sword crafted from yoshi sludge and yoshi steel. Made by an amateur.", 
+        img: "items/export/sword/yoshi/Flimsy Yoshi Sword.png",
+        type: "sword",
+        damage: 1
+    }
 } as const;
 
 class Game {
@@ -62,6 +70,15 @@ class Game {
         public ownedPets: Writable<[number, number][]> = writable([]),
         public curSkin: Writable<{hit: number, block: number, normal: number}> = writable({hit: 1, block: 2, normal: 0}),
         public inventory: Writable<Item[]> = writable([]),
+        public equipment: Writable<{
+            sword: keyof typeof itemIds | undefined,
+            necklace: keyof typeof itemIds | undefined,
+            cloak: keyof typeof itemIds | undefined,
+        }> = writable({
+            sword: undefined,
+            necklace: undefined,
+            cloak: undefined
+        }),
     ) { }
 
     get pInventory() {

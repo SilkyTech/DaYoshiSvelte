@@ -70,7 +70,7 @@
         setTimeout(() => {
             boxLeft = 0;
             boxscroll = false;
-            if (uncollapsed[chosen] !== 4)
+            if (uncollapsed[chosen] !== 5)
             $ownedPets.push([uncollapsed[chosen], 0]);
             else parent.createNotif(`You got nothing, sad.`, "color: red;");
             int.save.saveSave();
