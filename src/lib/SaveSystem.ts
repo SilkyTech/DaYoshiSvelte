@@ -1,11 +1,11 @@
 
-import { game } from './stores'
+import { game, Inventory, itemIds, type Item } from './stores'
 import { get } from 'svelte/store'
 
 const { 
     hits, deaths, hp, 
     usedDev, usedAutoclicker, boughtSkins, 
-    curPet, ownedPets, curSkin } = game
+    curPet, ownedPets, curSkin, inventory } = game
 
 export function xor(str: string, shift: string) {
     let newS = ""
@@ -13,6 +13,14 @@ export function xor(str: string, shift: string) {
         newS += String.fromCharCode(letter.charCodeAt(0)^(shift[i%shift.length].charCodeAt(0)))
     })
     return newS
+}
+
+function dupe<T>(p: T, amount: number) {
+    let o = []
+    for (let i = 0; i < amount; i++) {
+        o.push(p)
+    }
+    return o;
 }
 
 export function loadSave(save?: string): boolean {
@@ -23,7 +31,7 @@ export function loadSave(save?: string): boolean {
         try {
             let saveParsed = atob(save)
             saveParsed = xor(saveParsed, "yoshiisangry")
-            let parts: any[] = saveParsed.split("|")
+            let parts: string[] = saveParsed.split("|")
             if (parts.length < 6) {alert("Invalid Save"); return false}
             hits.set((+parts[0]) - (+parts[1]))
             deaths.set((+parts[2]) - (+parts[3]))
@@ -35,10 +43,20 @@ export function loadSave(save?: string): boolean {
             })
             usedDev.set(parts[6] === "true" ? true : false);
             
-            if (parts[7].length !== 0) ownedPets.set(parts[7]?.split(',').map((a: string) => a.split("!").map(b => +b)) ?? [])
+            if (parts[7].length !== 0) ownedPets.set(parts[7]?.split(',').map((a: string) => a.split("!").map(b => +b)) as any ?? [])
             
             curPet.set(isNaN(+parts[8]) ? -1 : +parts[8])
             usedAutoclicker.set(parts[9] === "true" ? true : false)
+            let newInv: Item[] = [];
+
+            (parts[10]?.split(",")?.map((a: string) => 
+                dupe({id: Object.keys(itemIds)[+a.split("!")[0]] as keyof typeof itemIds}, +a.split("!")[1])
+            ) ?? []).forEach(a => {
+                newInv.push(...a)
+            })
+            
+
+            inventory.set(newInv)
 
             return true;
         } catch (e) {
@@ -64,7 +82,8 @@ export function saveSave() {
         get(usedDev),
         get(ownedPets).map(a => a.join("!")).join(","),
         get(curPet),
-        get(usedAutoclicker)
+        get(usedAutoclicker),
+        Inventory.from(get(inventory)).getItems().map(a => `${Object.keys(itemIds).indexOf(a.id)}!${a.amount}`)
     ]
     localStorage.setItem("save", btoa(xor(save.join("|"), "yoshiisangry")))
 }

@@ -3,22 +3,28 @@
   import Intro from './lib/Intro.svelte'
   import * as constants from "./lib/constants"
   import { skins, pets } from './lib/constants'
-  import { game } from './lib/stores'
+  import { game, type Item } from './lib/stores'
   import DevConsole from './lib/DevConsole.svelte'
   import * as int from './lib/Internal' 
   import { getLevels, getLevelsNoLocal } from './lib/utils'
+  import Shop from './lib/menus/Shop.svelte';
+  import PetShop from './lib/menus/PetShop.svelte';
+  import InventoryMenu from './lib/menus/InventoryMenu.svelte'
 
   const { 
     hits, deaths, hp, 
     usedDev, usedAutoclicker, boughtSkins, 
-    curPet, ownedPets, curSkin } = game
+    curPet, ownedPets, curSkin, inventory } = game
   
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
   let petfloat: HTMLImageElement; 
   let handimg: string = "hand/hand.png";
-  let shopactive: boolean = false, petmenuactive: boolean = false, boxscroll: boolean = false;
+  
+  let shopComponent: Shop;
+  let petmenuComponent: PetShop;
+  let inventoryComponent: InventoryMenu;
 
   let mouse = { x: 0, y: 0 };
   let frame = 0;
@@ -32,11 +38,10 @@
   $usedDev = false;
 
   int.save.loadSave()
-
-  let boxLeft = 0;
   //console.log(ownedPets)
   
   //console.log(ownedPets)
+  $: boughtPets = $ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
   
   function getDamage() {
     let base = 1;
@@ -70,6 +75,19 @@
       $hp = yoshiObj.hp;
       $deaths += yoshiObj.reward;
       $ownedPets[$curPet][1] += yoshiObj.kill;
+
+      let inflated: Item["id"][] = []
+
+      yoshiObj.drops.forEach(a => {
+        for (let i = 0; i < a[1]; i++) {
+          inflated.push(a[0])
+        }
+      })
+
+      let reward = inflated[Math.floor(Math.random()*inflated.length)];
+      $inventory.push({"id": reward});
+      $inventory = $inventory
+      createNotif(`You got a ${reward} from killing ${yoshiObj.name}!`, "color: blue; font-size: 1.7rem;")
     }
   }
 
@@ -136,10 +154,10 @@
     if (petfloat?.style !== undefined) {
       petfloat.style.left = (window.innerWidth/2 + Math.sin(frame*0.001)*250) + "px";
       petfloat.style.top = (window.innerHeight/2 + Math.sin(frame*0.0005)*300) + "px";
-    } else console.log(petfloat.style)
+    }
   }
 
-  function createNotif(label: string, style: string) {
+  export function createNotif(label: string, style: string) {
     let uu = Math.floor(Math.random()*9999999999).toString()
     let t = Date.now()
     notifPos[t] = mouse
@@ -156,109 +174,9 @@
 
     
   }
-
-  setInterval(tick, 0);
-
-  function buySkin(ind: number) {
-    if ($boughtSkins.has(ind)) return;
-    if ($deaths >= skins[ind][3]) {
-      $deaths -= skins[ind][3];
-      $boughtSkins.add(ind)
-      $boughtSkins = $boughtSkins
-      int.save.saveSave()
-    }
-  }
-
-  function equipSkin(skin: number) {
-    let skin$ = skins[skin]
-    $curSkin[skin$[0]] = skin
-    
-  }
-
-  $: boughtNums = Array.from($boughtSkins).map((a, i) => [skins[a], a]).sort((a, b) => a[0][3] - b[0][3]) as [["normal" | "hit" | "block", string, string, number], number][]
-  $: enumSkins = skins.map((a, i) => [a, i, $boughtSkins.has(i)]) as [["normal" | "hit" | "block", string, string, number], number, boolean][]
-  $: yoshiObj = constants.yoshis[(curYoshi + constants.yoshis.length*9999) % constants.yoshis.length]
-  $: boughtPets = $ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
-
-  function buyBox(boxType: number) {
-    boxLeft = 0;
-    switch(boxType) {
-      case 1:
-        if ($deaths >= 50) {
-          $deaths -= 50;
-          boxOpen(boxType)
-        }
-        break;
-      case 2:
-        if ($deaths >= 300) {
-          $deaths -= 300;
-          boxOpen(boxType)
-        }
-        break;
-      case 3:
-        if ($deaths >= 500) {
-          $deaths -= 500;
-          boxOpen(boxType)
-        }
-        break;
-      case 4:
-        if ($deaths >= 700) {
-          $deaths -= 700;
-          boxOpen(boxType)
-        }
-        break;
-      
-    }
-  }
-
-  let boxitems: [typeof pets[0], boolean][] = []
-
-  async function boxOpen(id: number) {
-    let things = constants.boxChances[id];
-    let uncollapsed = []
-    things.forEach(a => {
-      for (let i = 0; i < a[1]; i++) uncollapsed.push(a[0])
-    })
-
-    let chosen = Math.floor(Math.random()*uncollapsed.length) + uncollapsed.length
-    console.log(chosen, uncollapsed.length)
-    uncollapsed = uncollapsed.concat(uncollapsed).concat(uncollapsed).sort(() => Math.random()-Math.random())
-    boxitems = uncollapsed.map((a, i) => [pets[a], i === chosen])
-    boxscroll = true;
-    setTimeout(() => {
-      boxLeft = 0-(140*chosen);
-      setTimeout(() => {
-        boxLeft = 0;
-        boxscroll = false;
-        if (uncollapsed[chosen] !== 4) $ownedPets.push([uncollapsed[chosen], 0])
-        else createNotif(`You got nothing, sad.`, "color: red;")
-        int.save.saveSave()
-        $ownedPets = $ownedPets
-      }, 3000)
-    }, 1000)
-    
-  }
-
-
-  function equipPet(id: number): void {
-    $curPet = id
-  }
-
   
-  function salvage(pet: number) {
-    if (confirm(`Are you sure you want to salvage your ${pets[$ownedPets[pet][0]].name} for ${pets[$ownedPets[pet][0]].salvage} deaths?`)) {
-      $curPet--;
-      $ownedPets = $ownedPets.filter((a, i) => {
-        if (i !== pet) return true;
-        else {
-          $deaths += pets[a[0]].salvage
-          return false
-        };
-      });
-      int.save.saveSave()
-    }
-    
-  }
+  setInterval(tick, 0);
+  $: yoshiObj = constants.yoshis[(curYoshi + constants.yoshis.length*9999) % constants.yoshis.length]
   let cl2;
   let cps = 0;
   {
@@ -338,11 +256,13 @@
     <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${$hp / yoshiObj.hp * 100}%;`}></div><span>{$hp.toFixed(2)} / {yoshiObj.hp}</span></div></span><br>
     <span class="info-label">Hits: {$hits}</span><br>
     <span class="info-label">Deaths: {$deaths}</span><br>
-    <button on:click={() => shopactive = !shopactive}>Toggle Shop</button>
-    <button on:click={() => petmenuactive = !petmenuactive}>Toggle Pet Menu</button>
+    <button on:click={() => shopComponent.toggle()}>Toggle Shop</button>
+    <button on:click={() => petmenuComponent.toggle()}>Toggle Pet Menu</button>
+    <button on:click={() => inventoryComponent.toggle()}>Toggle Inventory</button>
+    <br>
     <button on:click={() => setTimeout(() => {
       if (confirm("Are you sure you want to reset?")) {localStorage.removeItem("save"); location.reload()}
-    }, 0)}>Reset</button><br>
+    }, 0)}>Reset</button>
     <button on:click={() => setTimeout(() => {
       int.save.loadSave(prompt("Save String: "))
       
@@ -364,70 +284,8 @@
   {#each notifs as notif}
     <Notif label={notif.label} style={notif.style} pos={notifPos[notif.time]}></Notif>
   {/each}
-  <div class={"shop " + (shopactive ? "shop-active" : "")}>
-    <div class="shop-items">
-      {#each enumSkins as skin}
-      {#if !skin[2]}
-        <div class={"shop-panel " + skin[0][0]}>
-          
-          <button on:click={() => buySkin(skin[1])} >
-            <img src={skin[0][1]} alt={skin[0][2]} class={"shop-item "}><br>
-            Buy {skin[0][2]} for {skin[0][3]} deaths | {skin[0][0]}
-          </button>
-          
-        </div>
-      {:else}
-        <div class="shop-panel equip">
-          
-          <button on:click={() => equipSkin(skin[1])} disabled={
-            $curSkin.normal === skin[1] || $curSkin.hit === skin[1] || $curSkin.block === skin[1]
-          }>
-            <img src={skin[0][1]} alt={skin[0][2]} class="shop-item equip"><br>
-              Equip {skin[0][2]} | {skin[0][0]} Type
-            </button>
-          
-        </div>
-      
-      {/if}
-      
-      {/each}
-    </div>
-  </div>
-  <div class={"petmenu" + (petmenuactive ? " petmenu-active" : "")}>
-    <span class="info-label">Buy Menu:</span><br>
-    <button on:click={() => buyBox(1)}>Buy Common Box | 50 Deaths</button>
-    <button on:click={() => buyBox(2)}>Buy Rare Box | 300 Deaths</button>
-    <button on:click={() => buyBox(3)}>Buy Lava Box | 500 Deaths</button>
-    <button on:click={() => buyBox(4)}>Buy Mario Box | 700 Deaths</button>
-    <hr>
-    Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br>
-    Level: {getLevels(boughtPets[$curPet]).level}<br>
-    EXP to next Level: {getLevels(boughtPets[$curPet]).xp}<br>
-    Description: {getLevels(boughtPets[$curPet]).desc}<br>
-    <button on:click={() => salvage($curPet)}>Salvage</button>
-    <hr>
-    <div class="shop-items">
-      {#each boughtPets as pet}
-        <div class="shop-panel equip">
-          <button on:click={() => equipPet(pet.i)} disabled={pet.i === $curPet}>
-            <img src={pet.pet.source} alt={pet.pet.name} class="shop-item equip"><br>
-            Equip {pet.pet.name} | Level {getLevels(pet).level}
-          </button>
-        </div>
-      {/each}
-    </div>
-    
-  </div>
-
-  {#if boxscroll}
-    <div class="gambling" style={`left: ${boxLeft}px`}>
-      {#each boxitems as item}
-        <div class={"gamble-panel" + (item[1] ? " chosen" : "")}>
-          <img src={item[0].source} alt=""><br>
-          <span>{item[0].name}</span>
-        </div>
-        
-      {/each}
-    </div>
-  {/if}
+  <Shop bind:this={shopComponent}></Shop>
+  <PetShop bind:this={petmenuComponent} parent={this}></PetShop>
+  <InventoryMenu bind:this={inventoryComponent}></InventoryMenu>
+  
 </main>

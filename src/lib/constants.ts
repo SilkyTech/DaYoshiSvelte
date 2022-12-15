@@ -1,3 +1,5 @@
+import type { Item } from "./stores"
+
 export const levelUps = [
     50,
     100,
@@ -283,13 +285,13 @@ export const pets: {
         perks: (level) => ({hitAdd: level*0.045}),
         source: "pet/bluebabyyoshi.png",
         description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.045*{Pet Level} more damage.",
-        salvage: 10
+        salvage: 10,
     }, {
         name: "Green Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.02}),
         source: "pet/greenbabyyoshi.png",
         description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.025*{Pet Level}.",
-        salvage: 50
+        salvage: 50,
     }, {
         name: "Pink Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.02}),
@@ -353,6 +355,7 @@ export const yoshis: {
     regen: number,
     reward: number,
     kill: number,
+    drops: [Item["id"], number][]
 }[] = [
     {
         name: "Normal Yoshi",
@@ -360,6 +363,7 @@ export const yoshis: {
         regen: 0,
         reward: 1, 
         kill: 5,
+        drops: [["Yoshi Sludge", 5]]
     },
     {
         name: "Buff Yoshi",
@@ -367,6 +371,7 @@ export const yoshis: {
         regen: 1,
         reward: 3,
         kill: 15,
+        drops: [["Yoshi Sludge", 5], ["Buff Yoshi Sludge", 10], ["Yoshi Steel", 2]]
     },
     {
         name: "Aunt Yoshi",
@@ -374,5 +379,6 @@ export const yoshis: {
         regen: 5,
         reward: 1000,
         kill: 2000,
+        drops: []
     }
 ]

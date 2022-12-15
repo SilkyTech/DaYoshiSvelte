@@ -8,15 +8,15 @@ export function getLevels(pet: any) {
     let i = 0;
     for (; i < constants.levelUps.length; i++) {
         const xpReq = constants.levelUps[i];
-        if (j < xpReq) {
-        break;
-        }
-        j -= xpReq;
-        lev++;
+            if (j < xpReq) {
+                break;
+            }
+            j -= xpReq;
+            lev++;
 
+        }
+        return {level: lev, xp: constants.levelUps[i]-j, desc: pet.pet.description.replace(/\{Pet Level\}/g, lev.toString())}
     }
-    return {level: lev, xp: constants.levelUps[i]-j, desc: pet.pet.description.replace(/\{Pet Level\}/g, lev.toString())}
-}
 
 export function getLevelsNoLocal(pet: any[]) {
     let xp: number = pet[1];

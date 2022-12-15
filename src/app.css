@@ -274,4 +274,85 @@ button[disabled] {
   width: 16vh;
   transform: translate(-50%, -50%);
   z-index: 2;
+}
+
+.inventorymenu {
+  padding: 1rem;
+  bottom: -100%;
+  position: absolute;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 30vh;
+  width: 100vw;
+  background-color: rgb(57, 57, 57);
+  z-index: 16;
+  transition: bottom 200ms;
+}
+.inventorymenu.inventorymenu-active {
+  bottom: 0;
+}
+
+.inventory-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  max-width: 90vw;
+}
+
+.inventory-title {
+  font-size: 2rem;
+}
+
+.inventory-panel {
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: 1rem;
+  transition: transform 100ms;
+}
+.inventory-panel > * > img {
+  width: 128px;
+  height: 128px;
+  border-radius: 1rem;
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: pixelated;
+}
+.inventory-panel:hover {
+  transform: scale(1.1);
+}
+.inventory-panel > .inventory-panel-title {
+  position: absolute;
+  transform: translate(2px, 100px);
+  z-index: 20;
+}
+.inventory-panel > .inventory-panel-amount {
+  position: absolute;
+  z-index: 20;
+  font-size: 2rem;
+  transform: translate(2px, 2px);
+  opacity: 1;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  display: inline;
+  /* Position the tooltip */
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }/*# sourceMappingURL=app.css.map */
