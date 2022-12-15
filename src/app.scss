@@ -158,7 +158,28 @@ body {
 }
 
 .intro {
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  position: absolute;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: black;
+  z-index: 50;
+  flex-direction: column;
+
+  & > img {
+    width: 50vw;
+  }
+
+  & > button {
+    width: 30vw;
+    height: 128px;
+    font-size: 3.5rem;
+    border-radius: 5rem;
+  }
 }
 
 .shop-item {
@@ -259,4 +280,11 @@ button {
   left: 50%;
   transform: translate(-50%, 0px);
   font-size: 1.5rem;
+}
+
+.pet-hand {
+  position: absolute;
+  width: 16vh;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }

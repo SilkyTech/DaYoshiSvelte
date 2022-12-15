@@ -16,6 +16,7 @@
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
   let hand: HTMLDivElement;
+  let petfloat: HTMLImageElement; 
   let handimg: string = "hand/hand.png";
   let shopactive: boolean = false, petmenuactive: boolean = false, boxscroll: boolean = false;
 
@@ -132,6 +133,10 @@
 
     if (hand?.style !== undefined) 
       hand.style.top = (mouse.y + Math.sin(frame*0.01)*5)+"px";
+    if (petfloat?.style !== undefined) {
+      petfloat.style.left = (window.innerWidth/2 + Math.sin(frame*0.001)*250) + "px";
+      petfloat.style.top = (window.innerHeight/2 + Math.sin(frame*0.0005)*300) + "px";
+    } else console.log(petfloat.style)
   }
 
   function createNotif(label: string, style: string) {
@@ -326,7 +331,7 @@
     cl2(e)
   }
 } on:mousemove={mousemove} on:keypress={handleKeypress}>
-  <Intro></Intro>
+  <!-- <Intro></Intro> -->
   <DevConsole></DevConsole>
   <div class="main-info">
     <img src="logo.png" alt="Da Yoshi" class="logo"><br>
@@ -354,8 +359,8 @@
   <span class="bottom-info">{yoshiObj.name}</span>
   <div class="hand" bind:this={hand} unselectable>
     <img src={handimg} alt="Hand" />
-    <img src={pets?.[ownedPets?.[$curPet]?.[0]]?.source ?? ""} alt="" class="pet-hand">
   </div>
+  <img src={pets?.[$ownedPets?.[$curPet]?.[0]]?.source ?? ""} alt="" class="pet-hand" bind:this={petfloat} />
   {#each notifs as notif}
     <Notif label={notif.label} style={notif.style} pos={notifPos[notif.time]}></Notif>
   {/each}
