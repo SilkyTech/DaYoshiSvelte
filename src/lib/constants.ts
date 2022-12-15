@@ -346,6 +346,12 @@ export const pets: {
         description: "The green baby yoshi found a gun! I wonder what will happen now?",
         source: "pet/greenshooteryoshi.png",
         salvage: 70
+    }, {
+        name: "Termiyoshi",
+        perks: (level) => ({autoAdd: level*100000000, autoMul: 0.01}),
+        description: "Admin only.",
+        source: "pet/redjujuyoshi.png",
+        salvage: -69
     }
 ]
 
