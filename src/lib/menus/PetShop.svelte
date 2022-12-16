@@ -132,7 +132,7 @@
   <div class="shop-items">
     {#each boughtPets as pet}
       <div class="shop-panel equip">
-        <button on:click={() => equipPet(pet.i)} disabled={pet.i === $curPet || !($ownedPets[$curPet]?.[0] === 11 && !$usedDev)}>
+        <button on:click={() => equipPet(pet.i)} disabled={pet.i === $curPet || (ownedPets[pet.i] === 11 && !$usedDev)}>
           <img
             src={pet.pet.source}
             alt={pet.pet.name}
