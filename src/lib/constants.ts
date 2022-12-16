@@ -402,7 +402,7 @@ export const yoshis: {
         regen: 1,
         reward: 3,
         kill: 15,
-        drops: [["Yoshi Sludge", 9], ["Buff Yoshi Sludge", 17], ["Yoshi Steel", 2]]
+        drops: [["Yoshi Sludge", 16], ["Buff Yoshi Sludge", 7], ["Yoshi Steel", 2]]
     },
     {
         name: "Aunt Yoshi",
