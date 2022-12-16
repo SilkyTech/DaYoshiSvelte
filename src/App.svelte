@@ -14,7 +14,7 @@
   const { 
     hits, deaths, hp, 
     usedDev, usedAutoclicker, boughtSkins, 
-    curPet, ownedPets, curSkin, inventory, equipment } = game
+    curPet, ownedPets, curSkin, inventory, equipment, } = game
   
   let yoshi: HTMLDivElement;
   let yoshiimg: string = "idle/yoshi.png";
@@ -234,7 +234,9 @@
           // console.log(constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level))
           base += constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level)?.autoAdd ?? 0
           base *= 1 + (constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level)?.autoMul ?? 0)
-          $hp -= base;
+          if ($ownedPets[$curPet][0] === 10 && !$usedDev) {
+            createNotif(`Sorry you aren't supposed to have this.`, "")
+          } else $hp -= base;
           checkHealth()
           if (base !== 0) createNotif(`-${base.toFixed(2)}HP | Pet`, `color: green;`)
           
