@@ -143,6 +143,7 @@ export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, 
     [[["Yoshi Thread", 7], ["Yoshi Ball", 6], ["Buff Yoshi Sludge", 36], ["Yoshi Steel", 26]], ["Raggedy Yoshi Cloak", 1]],
     [[["Raggedy Yoshi Cloak", 1], ["Yoshi Thread", 14], ["Yoshi Ball", 12], ["Buff Yoshi Ball", 3], ["Yoshi Steel", 86]], ["Yoshi Cloak", 1]],
     [[["Yoshi Cloak", 1], ["Yoshi Thread", 34], ["Yoshi Ball", 24], ["Buff Yoshi Ball", 9], ["Yoshi Steel", 168]], ["Well Woven Yoshi Cloak", 1]],
+    [[["Yoshi Thread", 20], ["Pancake", 100], ["Yoshi Steel", 45]], ["Pancake Necklace", 1]]
 ]
 
 class Game {
