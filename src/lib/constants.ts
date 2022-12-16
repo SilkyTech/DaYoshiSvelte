@@ -416,7 +416,7 @@ export const yoshis: {
         name: "B(r)owser",
         hp: 100000,
         regen: 10,
-        rewar: 1500,
+        reward: 1500,
         kill: 2500,
     }
 ]
