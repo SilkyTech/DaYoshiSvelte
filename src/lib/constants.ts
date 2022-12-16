@@ -367,8 +367,8 @@ export const pets: {
         salvage: 200,
     }, {
         name: "Blue Goomba Stack",
-        perks: (level) => ({autoAdd: level*0.1, autoMul: 0.1*level + Math.Random()}),
-        description: "Goomba, but 4 of them and blue. MORE POWAR",
+        perks: (level) => ({autoAdd: level*0.08, autoMul: 0.08*level + Math.Random()}),
+        description: "Goomba x 4",
         source: "pet/goombastack.png",
         salvage: 120,
     }
