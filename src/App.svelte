@@ -229,7 +229,7 @@
       
       {
         //console.log($ownedPets, $curPet)
-        if (constants.pets[$ownedPets[$curPet]?.[0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level) !== undefined) {
+        if (constants.pets[$ownedPets[$curPet]?.[0]]?.perks(getLevelsNoLocal($ownedPets[$curPet]).level) !== undefined) {
           let base = 0;
           // console.log(constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level))
           base += constants.pets[$ownedPets[$curPet][0]].perks(getLevelsNoLocal($ownedPets[$curPet]).level)?.autoAdd ?? 0

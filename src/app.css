@@ -336,6 +336,9 @@ button[disabled] {
   transform: translate(2px, 2px);
   opacity: 1;
 }
+.inventory-panel.notenough {
+  background-color: rgba(54, 1, 1, 0.3);
+}
 .inventory-panel > button {
   border-radius: 1rem;
 }

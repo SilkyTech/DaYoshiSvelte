@@ -2,6 +2,7 @@
     import { Inventory, itemIds, recipes, type Item } from "../stores";
     import Tooltip from "../Tooltip.svelte";
     import { game } from "../stores"
+  import App from "../../App.svelte";
 
     let {
         pInventory,
@@ -44,7 +45,7 @@
     <button disabled={index === recipes.length-1} on:click={() => index++}>Next Recipe</button><br>
 
     {#each curRecipe[0] as item}
-        <div class="inventory-panel">
+        <div class={"inventory-panel" + (pInventory.getItem(item[0]).amount < item[1] ? " notenough" : "")}>
             <span class="inventory-panel-title">{item[0]}</span>
             <span class="inventory-panel-amount">{item[1]}</span>
             <Tooltip tooltip={itemIds[item[0]].desc}>

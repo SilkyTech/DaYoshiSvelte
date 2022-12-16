@@ -355,6 +355,10 @@ button {
     opacity: 1;
   }
 
+  &.notenough {
+    background-color: rgba(54, 1, 1, 0.3);
+  }
+
   & > button {
     border-radius: 1rem;
   }
