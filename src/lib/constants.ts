@@ -410,7 +410,7 @@ export const yoshis: {
         regen: 5,
         reward: 1000,
         kill: 2000,
-        drops: [["Pancake", 1], ["Yoshi Thread", 4]]
+        drops: [["Pancake", 2], ["Yoshi Thread", 11]]
     }, {
         name: "B(r)owser",
         hp: 100000,

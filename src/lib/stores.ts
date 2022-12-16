@@ -124,6 +124,12 @@ export const itemIds = {
         type: "candy", desc: "A browser droped by B(r)owser. Part of the browser collection. 20,000 pet xp.",
         img: "items/export/Firefox.png",
         xp: 20000
+    },
+    "Pancake Necklace": {
+        type: "necklace",
+        desc: "A necklace made out of pancakes. Why doesn't it expire? I don't know.",
+        img: "items/export/necklace/Pancake Necklace.png",
+        damage: 0.6
     }
 } as const;
 

@@ -53,6 +53,11 @@
                         disabled={$equipment.cloak === item.id}>Equip</button>
                 {/if}
 
+                {#if itemIds[item.id].type === "necklace" }
+                    <button on:click={() => {$equipment.necklace = item.id}}
+                        disabled={$equipment.necklace === item.id}>Equip</button>
+                {/if}
+
                 {#if itemIds[item.id].type === "candy" }
                     <button on:click={() => {useCandy(itemIds[item.id], item.id)}}>Use</button>
                 {/if}

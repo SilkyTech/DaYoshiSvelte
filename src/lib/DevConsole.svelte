@@ -31,7 +31,6 @@
 
     function keyPress(e: KeyboardEvent) {
         setTimeout(() => {
-            console.log(e)
             if (e.key === "ArrowUp") {
                 ind++
                 if (ind > prevCmds.length) ind = prevCmds.length
