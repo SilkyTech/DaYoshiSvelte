@@ -359,6 +359,12 @@ export const pets: {
         description: "Admin only.",
         source: "pet/redjujuyoshi.png",
         salvage: -69
+    }, {
+        name: "Grass Baby Yoshi",
+        perks: (level) => ({autoAdd: level*0.03, autoMul: 0.02*level}),
+        description: "Grass yoshi, the gamers ultimate nemisis.",
+        source: "pet/grassbabyyoshi.png",
+        salvage: 200
     }
 ]
 

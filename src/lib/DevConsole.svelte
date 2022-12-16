@@ -1,15 +1,17 @@
 <script lang="ts">
-    import { game } from './stores'
+    import { game, Inventory, itemIds } from './stores'
     import * as SaveSystem from './SaveSystem'
   import { boxChances, levelUps, pets } from './constants';
   import { getLevelsNoLocal, median } from './utils';
+  import App from '../App.svelte';
 
     const {
         deaths,
         hits,
         hp,
         ownedPets,
-        usedDev
+        usedDev,
+        inventory
     } = game
 
     let showToggle = true;
@@ -224,6 +226,16 @@
                     + "\t/boxchances|/bc - Shows percentages for all boxes<br>"
                     + "\t/b64xor encrypts a string into save file format<br>"
                     + "\t/help<br>").replace(/\t/g, "&nbsp;&nbsp;"))
+                } else if (["/inv", "/i"].includes(args[0])) {
+                    if (["add", "a"].includes(args[1])) {
+                        let newInv = Inventory.from($inventory);
+                        newInv.addItem(Object.keys(itemIds)[+args[2]] as keyof typeof itemIds, +args[3])
+                        $inventory = newInv.items
+                    } else if (["list", "l"].includes(args[1])) {
+                        Object.keys(itemIds).forEach((a, i) => {
+                            log(`#${i} - ${a}`)
+                        })
+                    }
                 }
                 else {
                     error(`Unknown command "${args[0]}"`)
