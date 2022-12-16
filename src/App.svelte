@@ -49,6 +49,10 @@
       //@ts-ignore
       base += itemIds[$equipment.sword].damage
     }
+    if (itemIds?.[$equipment.cloak]?.type === "cloak") {
+      //@ts-ignore
+      base += itemIds[$equipment.cloak].damage
+    }
     if ($curPet !== -1) {
       let cPet = boughtPets[$curPet];
       let level = getLevels(cPet).level;
