@@ -125,11 +125,23 @@ export const itemIds = {
         img: "items/export/Firefox.png",
         xp: 20000
     },
+    "Broken Pancake Necklace": {
+        type: "necklace",
+        desc: "A broken necklace with a single pancake. How doesn't it fall off? I don't know.",
+        img: "items/export/necklace/Broken Pancake Necklace.png",
+        damage: 0.6
+    },
+    "Sorta Broken Pancake Necklace": {
+        type: "necklace",
+        desc: "A necklace made out of pancakes. Why does it work? I don't know.",
+        img: "items/export/necklace/Sorta Broken Pancake Necklace.png",
+        damage: 1.2
+    },
     "Pancake Necklace": {
         type: "necklace",
         desc: "A necklace made out of pancakes. Why doesn't it expire? I don't know.",
         img: "items/export/necklace/Pancake Necklace.png",
-        damage: 0.6
+        damage: 1.8
     }
 } as const;
 
@@ -143,7 +155,10 @@ export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, 
     [[["Yoshi Thread", 7], ["Yoshi Ball", 6], ["Buff Yoshi Sludge", 36], ["Yoshi Steel", 26]], ["Raggedy Yoshi Cloak", 1]],
     [[["Raggedy Yoshi Cloak", 1], ["Yoshi Thread", 14], ["Yoshi Ball", 12], ["Buff Yoshi Ball", 3], ["Yoshi Steel", 86]], ["Yoshi Cloak", 1]],
     [[["Yoshi Cloak", 1], ["Yoshi Thread", 34], ["Yoshi Ball", 24], ["Buff Yoshi Ball", 9], ["Yoshi Steel", 168]], ["Well Woven Yoshi Cloak", 1]],
-    [[["Yoshi Thread", 20], ["Pancake", 100], ["Yoshi Steel", 45]], ["Pancake Necklace", 1]]
+    [[["Yoshi Thread", 20], ["Pancake", 20], ["Yoshi Steel", 45]], ["Broken Pancake Necklace", 1]],
+    [[["Broken Pancake Necklace", 1], ["Yoshi Thread", 50], ["Pancake", 50], ["Yoshi Steel", 90]], ["Sorta Broken Pancake Necklace", 1]],
+    [[["Sorta Broken Pancake Necklace", 1], ["Yoshi Thread", 20], ["Pancake", 100], ["Yoshi Steel", 130]], ["Pancake Necklace", 1]],
+    
 ]
 
 class Game {
