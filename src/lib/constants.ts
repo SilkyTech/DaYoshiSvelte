@@ -352,19 +352,25 @@ export const pets: {
         perks: (level) => ({autoAdd: level*0.015, autoMul: 0.015*level}),
         description: "The green baby yoshi found a gun! I wonder what will happen now?",
         source: "pet/greenshooteryoshi.png",
-        salvage: 70
+        salvage: 70,
     }, {
         name: "No yoshi",
         perks: (level) => ({autoAdd: level*0, autoMul: 0}),
         description: "Why did you get that ron.",
         source: "pet/yourdadyoshi.png",
-        salvage: -69
+        salvage: -69,
     }, {
         name: "Grass Baby Yoshi",
         perks: (level) => ({autoAdd: level*0.03, autoMul: 0.02*level}),
         description: "Grass yoshi, the gamers ultimate nemisis.",
         source: "pet/grassbabyyoshi.png",
-        salvage: 200
+        salvage: 200,
+    }, {
+        name: "Blue Goomba Stack",
+        perks: (level) => ({autoAdd: level*0.06, hitMul: 0.06*level + Math.random()}),
+        description: "Goomba, but 4 of them and blue. MORE POWAR",
+        source: "pet/goombastack.png",
+        salvage: 80,
     }
 ]
 
@@ -399,6 +405,13 @@ export const yoshis: {
         reward: 1000,
         kill: 2000,
         drops: [["Pancake", 1]]
+    }, {
+        name: "Placeholder Yoshi",
+        hp: Infinity,
+        regen: Infinity,
+        reward: Infinity,
+        kill: Infinity
+        drops: [["Yoshi Sludge", Infinity], ["Buff Yoshi Sludge", Infinity], ["Yoshi Steel", Infinity], ["Pancake", Infinity]]
     }
 ]
 
