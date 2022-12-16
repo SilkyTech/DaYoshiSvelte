@@ -84,13 +84,33 @@ export const itemIds = {
         img: "items/export/sword/yoshi/Sturdy Yoshi Sword.png",
         type: "sword",
         damage: 3
+    },
+    "Yoshi Ball": {
+        desc: "A condensed ball of yoshi sludge. Might be edible.",
+        img: "items/export/Yoshi Ball.png",
+        type: "item"
+    },
+    "Buff Yoshi Ball": {
+        desc: "A condensed ball of buff yoshi sludge. Might be edible.",
+        img: "items/export/Buff Yoshi Ball.png",
+        type: "item"
+    },
+    "Yoshi Apple": {
+        type: "candy",
+        desc: "Lots of buff yoshi ball smooshed together into candy. Grants 50,000 pet exp.",
+        img: "items/export/Yoshi Apple.png",
+        xp: 50000
     }
 } as const;
 
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
     [[["Yoshi Steel", 10], ["Yoshi Sludge", 30]], ["Flimsy Yoshi Sword", 1]],
     [[["Flimsy Yoshi Sword", 1], ["Yoshi Steel", 30], ["Yoshi Sludge", 100], ["Buff Yoshi Sludge", 50]], ["Normal Yoshi Sword", 1]],
-    [[["Normal Yoshi Sword", 1], ["Yoshi Steel", 100], ["Yoshi Sludge", 200], ["Buff Yoshi Sludge", 100]], ["Sturdy Yoshi Sword", 1]]
+    [[["Normal Yoshi Sword", 1], ["Yoshi Steel", 100], ["Yoshi Sludge", 200], ["Buff Yoshi Sludge", 100]], ["Sturdy Yoshi Sword", 1]],
+    [[["Yoshi Sludge", 100]], ["Yoshi Ball", 1]],
+    [[["Buff Yoshi Sludge", 100]], ["Buff Yoshi Ball", 1]],
+    [[["Yoshi Ball", 20], ["Buff Yoshi Ball", 20]], ["Yoshi Apple", 1]],
+
 ]
 
 class Game {

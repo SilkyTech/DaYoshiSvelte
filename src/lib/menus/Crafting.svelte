@@ -16,9 +16,9 @@
     }
     
     $: curRecipe = recipes[index]
-    $: _canCraft = !canCraft($inventory)
+    $: _canCraft = !canCraft($inventory, index)
 
-    function canCraft(inv: Item[]) {
+    function canCraft(_: Item[], __: any) {
         for (let i = 0; i < recipes[index][0].length; i++) {
             const a = recipes[index][0][i];
             console.log(pInventory.getItem(a[0]).amount, )

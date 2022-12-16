@@ -7,6 +7,7 @@
     let {
         inventory,
         equipment,
+        curPet, ownedPets
     } = game;
 
     let craftingMenuComponent: Crafting;
@@ -19,6 +20,15 @@
 
     $: pInventory = Inventory.from($inventory)
     $: pInventoryItems = pInventory.getItems()
+
+    function useCandy(item: typeof itemIds[keyof typeof itemIds], id: keyof typeof itemIds) {
+        if (item.type === "candy") {
+            let newInv = Inventory.from($inventory)
+            newInv.removeItem(id, 1);
+            $ownedPets[$curPet][1] += item.xp;
+            $inventory = newInv.items
+        }
+    }
 </script>
 
 <div class={"inventorymenu" + (active ? " inventorymenu-active" : "")}>
@@ -36,6 +46,10 @@
                 {#if itemIds[item.id].type === "sword" }
                     <button on:click={() => {$equipment.sword = item.id}}
                         disabled={$equipment.sword === item.id}>Equip</button>
+                {/if}
+
+                {#if itemIds[item.id].type === "candy" }
+                    <button on:click={() => {useCandy(itemIds[item.id], item.id)}}>Use</button>
                 {/if}
             </div>
         {/each}
