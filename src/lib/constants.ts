@@ -411,7 +411,13 @@ export const yoshis: {
         regen: Infinity,
         reward: Infinity,
         kill: Infinity,
-        drops: [["Yoshi Apple", 1]]
+        drops: [["Yoshi Apple", 69]]
+    }, {
+        name: "B(r)owser",
+        hp: 100000,
+        regen: 10,
+        rewar: 1500,
+        kill: 2500,
     }
 ]
 
