@@ -377,6 +377,11 @@ export const pets: {
         description: "Dropped from the belly of B(r)owser, somehow",
         source: "pet/Bowser_Jr.png",
         salvage: 150
+    }, {
+        name: "Hype Yoshi",
+        perks: (level) => ({autoAdd: level*69420, hitMul: 69420*level + Math.random()*69420, hitAdd: level*69420, hitMul: 69420*level + Math.random()*69420}),
+        description: "Admin pet, how did you get one?",
+        salvage: 69420,
     }
 ]
 
