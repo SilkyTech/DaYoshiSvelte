@@ -410,7 +410,7 @@ export const yoshis: {
         hp: Infinity,
         regen: Infinity,
         reward: Infinity,
-        kill: Infinity
+        kill: Infinity,
         drops: [["Yoshi Sludge", Infinity], ["Buff Yoshi Sludge", Infinity], ["Yoshi Steel", Infinity], ["Pancake", Infinity]]
     }
 ]
