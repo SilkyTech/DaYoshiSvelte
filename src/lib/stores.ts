@@ -68,19 +68,19 @@ export const itemIds = {
     "Yoshi Steel": {desc: "Pure pressure condensed yoshi sludge into steel.", img: "items/export/Yoshi Steel.png", type: "item"},
     "Pancake": {desc: "Pancake. Dropped from Aunt Yoshi.", img: "items/export/Pancake.png", type: "item"},
     "Flimsy Yoshi Sword": {
-        desc: "A flimsy sword crafted from yoshi sludge and yoshi steel. Made by an amateur.", 
+        desc: "A flimsy sword crafted from yoshi sludge and yoshi steel. Made by an amateur. ", 
         img: "items/export/sword/yoshi/Flimsy Yoshi Sword.png",
         type: "sword",
         damage: 1
     },
     "Normal Yoshi Sword": {
-        desc: "A sword crafted from yoshi sludge and yoshi steel. Refined by a blacksmith.", 
+        desc: "A sword crafted from yoshi sludge and yoshi steel. Refined by a blacksmith. ", 
         img: "items/export/sword/yoshi/Normal Yoshi Sword.png",
         type: "sword",
         damage: 2
     },
     "Sturdy Yoshi Sword": {
-        desc: "A sword crafted from yoshi sludge and yoshi steel. Refined by a master blacksmith.", 
+        desc: "A sword crafted from yoshi sludge and yoshi steel. Refined by a master blacksmith. ", 
         img: "items/export/sword/yoshi/Sturdy Yoshi Sword.png",
         type: "sword",
         damage: 3
@@ -103,21 +103,21 @@ export const itemIds = {
     },
     "Raggedy Yoshi Cloak": {
         type: "cloak",
-        desc: "A raggedy yoshi cloak. Might increase your damage somehow. (Base Damage + 1)",
+        desc: "A raggedy yoshi cloak. Might increase your damage somehow. ",
         img: "items/export/cloak/Raggedy Yoshi Cloak.png",
-        damage: 1
+        damage: 0.6
     },
     "Yoshi Cloak": {
         type: "cloak",
-        desc: "A normal yoshi cloak. Might increase your damage somehow. (Base Damage + 1.2)",
+        desc: "A normal yoshi cloak. Might increase your damage somehow. ",
         img: "items/export/cloak/Yoshi Cloak.png",
-        damage: 1.2
+        damage: 1.4
     },
     "Well Woven Yoshi Cloak": {
         type: "cloak",
-        desc: "A lovely Yoshi cloak. Helps during winter. Might increase your damage somehow. (Base Damage + 1.5)",
+        desc: "A lovely Yoshi cloak. Helps during winter. Might increase your damage somehow. ",
         img: "items/export/cloak/Well Woven Yoshi Cloak.png",
-        damage: 1.5
+        damage: 2.5
     }, 
     "Yoshi Thread": {type: "item", desc: "Some thread made Aunt Yoshi. Made with care.", img: "items/export/Yoshi Thread.png"},
     "Firefox": {
