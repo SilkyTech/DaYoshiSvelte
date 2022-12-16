@@ -337,13 +337,13 @@ export const pets: {
         salvage: 60,
     }, {
         name: "Goomba",
-        perks: (level) => ({hitAdd: level*0.02, hitMul: 0.02*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.0175, hitMul: 0.0175*level + Math.random()}),
         description: "A goomba that doesn't like yoshis.",
         source: "pet/goomba.png",
         salvage: 40,
     }, {
         name: "Galoomba",
-        perks: (level) => ({hitAdd: level*0.03, hitMul: 0.03*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.0275, hitMul: 0.0275*level + Math.random()}),
         description: "An evolved goomba who hates yoshis.",
         source: "pet/galoomba.png",
         salvage: 90,
@@ -367,10 +367,14 @@ export const pets: {
         salvage: 200,
     }, {
         name: "Blue Goomba Stack",
-        perks: (level) => ({hitAdd: level*0.045, hitMul: 0.045*level + Math.random()}),
-        description: "Goomba x 4",
+        perks: (level) => ({hitAdd: level*0.03, hitMul: 0.03*level + Math.random()}),
+        description: "Goomba x 4, but not 4x damage",
         source: "pet/goombastack.png",
         salvage: 120,
+    }, {
+        name: "Bowser Jr.",
+        perks: (level) => ({hitAdd: level*0.025, hitMul: 0.045*level + Math.random()}),
+        description: "Dropped from the belly of B(r)owser, somehow"
     }
 ]
 
