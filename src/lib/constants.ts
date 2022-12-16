@@ -367,7 +367,7 @@ export const pets: {
         salvage: 200,
     }, {
         name: "Blue Goomba Stack",
-        perks: (level) => ({autoAdd: level*0.08, autoMul: 0.08*level + Math.Random()}),
+        perks: (level) => ({autoAdd: level*0.08, autoMul: 0.08*level + Math.random()}),
         description: "Goomba x 4",
         source: "pet/goombastack.png",
         salvage: 120,
@@ -411,7 +411,7 @@ export const yoshis: {
         regen: Infinity,
         reward: Infinity,
         kill: Infinity,
-        drops: [["Yoshi Sludge", Infinity], ["Buff Yoshi Sludge", Infinity], ["Yoshi Steel", Infinity], ["Pancake", Infinity]]
+        drops: [["Yoshi Apple", 1]]
     }
 ]
 
