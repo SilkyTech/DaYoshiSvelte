@@ -373,7 +373,7 @@ export const pets: {
         salvage: 120,
     }, {
         name: "Bowser Jr.",
-        perks: (level) => ({hitAdd: level*0.025, hitMul: 0.045*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.03, hitMul: 0.045*level + Math.random()}),
         description: "Dropped from the belly of B(r)owser, somehow",
         source: "pet/Bowser_Jr.png"
     }
