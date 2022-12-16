@@ -255,7 +255,7 @@ export const boxes: {[id: number]: [string, string, number]} = {
     1: ["Common Box", "box/commonbox.png", 50],
     2: ["Rare Box", "box/rarebox.png", 300],
     3: ["Lava Box", "box/lavabox.png", 500],
-    4: ["Mario Box","box/commonbox.png", 700], // TODO: add mario box texture
+    4: ["Mario Box","box/mariobox.png", 700], // TODO: add mario box texture
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
