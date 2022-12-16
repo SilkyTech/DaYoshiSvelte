@@ -383,7 +383,7 @@ export const yoshis: {
         name: "Aunt Yoshi",
         hp: 69420,
         regen: 5,
-        reward: 1000,
+        reward: 500,
         kill: 2000,
         drops: [["Pancake", 1]]
     }

@@ -1,12 +1,15 @@
 <script lang="ts">
     import { each } from 'svelte/internal';
-import { game, Inventory, itemIds } from '../stores'
-  import Tooltip from '../Tooltip.svelte';
+    import { game, Inventory, itemIds } from '../stores'
+    import Tooltip from '../Tooltip.svelte';
+    import Crafting from './Crafting.svelte'
 
     let {
         inventory,
         equipment,
     } = game;
+
+    let craftingMenuComponent: Crafting;
 
     let active = false;
 
@@ -19,7 +22,8 @@ import { game, Inventory, itemIds } from '../stores'
 </script>
 
 <div class={"inventorymenu" + (active ? " inventorymenu-active" : "")}>
-    <span class="inventory-title">Inventory</span>
+    <span class="inventory-title">Inventory</span><button on:click={() => craftingMenuComponent.toggle()}>Toggle crafting menu</button>
+    
     <hr>
     <div class="inventory-container">
         {#each pInventoryItems as item}
@@ -27,7 +31,7 @@ import { game, Inventory, itemIds } from '../stores'
                 <span class="inventory-panel-title">{item.id}</span>
                 <span class="inventory-panel-amount">{item.amount}</span>
                 <Tooltip tooltip={itemIds[item.id].desc}>
-                    <img src={item.img} alt={item.id}>
+                    <img src={item.img} alt={item.id.toString()}>
                 </Tooltip>
                 {#if itemIds[item.id].type === "sword" }
                     <button on:click={() => {$equipment.sword = item.id}}
@@ -38,3 +42,4 @@ import { game, Inventory, itemIds } from '../stores'
     </div>
     
 </div>  
+<Crafting bind:this={craftingMenuComponent}></Crafting>

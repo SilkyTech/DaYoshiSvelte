@@ -17,7 +17,7 @@ export class Inventory {
         items.forEach(_ => {
             amount++;
         })
-        console.log(id, itemIds)
+
         return {
             item: id,
             amount: amount,
@@ -40,6 +40,23 @@ export class Inventory {
 
         return out
     }
+
+    removeItem(id: keyof typeof itemIds, amount: number) {
+        for (let i = 0; i < amount; i++) {
+            const index = this.items.map(a => a.id).indexOf(id);
+            if (index > -1) { // only splice array when item is found
+                this.items.splice(index, 1); // 2nd parameter means remove one item only
+            } else return false
+        }
+
+        return true;
+    }
+
+    addItem(id: keyof typeof itemIds, amount: number) {
+        for (let _ = 0; _ < amount; _++) {
+            this.items.push({id: id})
+        }
+    }
 }
 export type Item = {
     id: keyof typeof itemIds
@@ -57,6 +74,10 @@ export const itemIds = {
         damage: 1
     }
 } as const;
+
+export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
+    [[["Yoshi Steel", 10], ["Yoshi Sludge", 30]], ["Flimsy Yoshi Sword", 1]]
+]
 
 class Game {
     constructor(
