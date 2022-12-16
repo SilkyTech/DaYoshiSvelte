@@ -100,7 +100,26 @@ export const itemIds = {
         desc: "Lots of buff yoshi ball smooshed together into candy. Grants 50,000 pet exp.",
         img: "items/export/Yoshi Apple.png",
         xp: 50000
-    }
+    },
+    "Raggedy Yoshi Cloak": {
+        type: "cloak",
+        desc: "A raggedy yoshi cloak. Might increase your damage somehow. (Base Damage + 1)",
+        img: "items/export/cloak/Raggedy Yoshi Cloak.png",
+        damage: 1
+    },
+    "Yoshi Cloak": {
+        type: "cloak",
+        desc: "A normal yoshi cloak. Might increase your damage somehow. (Base Damage + 1.2)",
+        img: "items/export/cloak/Yoshi Cloak.png",
+        damage: 1.2
+    },
+    "Well Woven Yoshi Cloak": {
+        type: "cloak",
+        desc: "A lovely Yoshi cloak. Helps during winter. Might increase your damage somehow. (Base Damage + 1.5)",
+        img: "items/export/cloak/Well Woven Yoshi Cloak.png",
+        damage: 1.5
+    }, 
+    "Yoshi Thread": {type: "item", desc: "Some thread made Aunt Yoshi. Made with care.", img: "items/export/Yoshi Thread.png"}
 } as const;
 
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
@@ -110,7 +129,9 @@ export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, 
     [[["Yoshi Sludge", 100]], ["Yoshi Ball", 1]],
     [[["Buff Yoshi Sludge", 100]], ["Buff Yoshi Ball", 1]],
     [[["Yoshi Ball", 20], ["Buff Yoshi Ball", 20]], ["Yoshi Apple", 1]],
-
+    [[["Yoshi Thread", 50], ["Yoshi Ball", 6], ["Buff Yoshi Sludge", 36], ["Yoshi Steel", 26]], ["Raggedy Yoshi Cloak", 1]],
+    [[["Raggedy Yoshi Cloak", 1], ["Yoshi Thread", 100], ["Yoshi Ball", 12], ["Buff Yoshi Ball", 3], ["Yoshi Steel", 86]], ["Yoshi Cloak", 1]],
+    [[["Yoshi Cloak", 1], ["Yoshi Thread", 200], ["Yoshi Ball", 24], ["Buff Yoshi Ball", 9], ["Yoshi Steel", 168]], ["Well Woven Yoshi Cloak", 1]],
 ]
 
 class Game {

@@ -255,7 +255,7 @@ export const boxes: {[id: number]: [string, string, number]} = {
     1: ["Common Box", "box/commonbox.png", 50],
     2: ["Rare Box", "box/rarebox.png", 300],
     3: ["Lava Box", "box/lavabox.png", 500],
-    4: ["Mario Box","box/mariobox.png", 700], // TODO: add mario box texture
+    4: ["Mario Box","box/mariobox.png", 700], 
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -375,7 +375,8 @@ export const pets: {
         name: "Bowser Jr.",
         perks: (level) => ({hitAdd: level*0.03, hitMul: 0.045*level + Math.random()}),
         description: "Dropped from the belly of B(r)owser, somehow",
-        source: "pet/Bowser_Jr.png"
+        source: "pet/Bowser_Jr.png",
+        salvage: 150
     }
 ]
 
@@ -409,7 +410,7 @@ export const yoshis: {
         regen: 5,
         reward: 1000,
         kill: 2000,
-        drops: [["Pancake", 1]]
+        drops: [["Pancake", 1], ["Yoshi Thread", 4]]
     }, {
         name: "B(r)owser",
         hp: 100000,
