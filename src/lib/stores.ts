@@ -125,13 +125,13 @@ export const itemIds = {
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
     [[["Yoshi Steel", 10], ["Yoshi Sludge", 30]], ["Flimsy Yoshi Sword", 1]],
     [[["Flimsy Yoshi Sword", 1], ["Yoshi Steel", 30], ["Yoshi Sludge", 100], ["Buff Yoshi Sludge", 50]], ["Normal Yoshi Sword", 1]],
-    [[["Normal Yoshi Sword", 1], ["Yoshi Steel", 100], ["Yoshi Sludge", 200], ["Buff Yoshi Sludge", 100]], ["Sturdy Yoshi Sword", 1]],
+    [[["Normal Yoshi Sword", 1], ["Yoshi Steel", 75], ["Yoshi Sludge", 220], ["Buff Yoshi Sludge", 170]], ["Sturdy Yoshi Sword", 1]],
     [[["Yoshi Sludge", 100]], ["Yoshi Ball", 1]],
     [[["Buff Yoshi Sludge", 100]], ["Buff Yoshi Ball", 1]],
     [[["Yoshi Ball", 20], ["Buff Yoshi Ball", 20]], ["Yoshi Apple", 1]],
-    [[["Yoshi Thread", 50], ["Yoshi Ball", 6], ["Buff Yoshi Sludge", 36], ["Yoshi Steel", 26]], ["Raggedy Yoshi Cloak", 1]],
-    [[["Raggedy Yoshi Cloak", 1], ["Yoshi Thread", 100], ["Yoshi Ball", 12], ["Buff Yoshi Ball", 3], ["Yoshi Steel", 86]], ["Yoshi Cloak", 1]],
-    [[["Yoshi Cloak", 1], ["Yoshi Thread", 200], ["Yoshi Ball", 24], ["Buff Yoshi Ball", 9], ["Yoshi Steel", 168]], ["Well Woven Yoshi Cloak", 1]],
+    [[["Yoshi Thread", 7], ["Yoshi Ball", 6], ["Buff Yoshi Sludge", 36], ["Yoshi Steel", 26]], ["Raggedy Yoshi Cloak", 1]],
+    [[["Raggedy Yoshi Cloak", 1], ["Yoshi Thread", 14], ["Yoshi Ball", 12], ["Buff Yoshi Ball", 3], ["Yoshi Steel", 86]], ["Yoshi Cloak", 1]],
+    [[["Yoshi Cloak", 1], ["Yoshi Thread", 34], ["Yoshi Ball", 24], ["Buff Yoshi Ball", 9], ["Yoshi Steel", 168]], ["Well Woven Yoshi Cloak", 1]],
 ]
 
 class Game {
