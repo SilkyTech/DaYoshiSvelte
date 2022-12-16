@@ -16,11 +16,7 @@
 
     let showToggle = true;
     let devOn = localStorage.getItem('topsecretdevonlyoptiononlydevswillknow') === "supersecretcodethatonlydevsknow";
-    globalThis.toggleDev = (password: string) => {
-        if (password === "yoshi is very happy")
-        {devOn = !devOn; console.clear()}
-        else console.error("Incorrect password! >:(")
-    }
+    eval(`var _0x47ee85=_0x5227;function _0x3bbf(){var _0x1c3ccd=['clear','34324zCJvjm','32914570FrPkQR','258464hhDLoR','2192100mnTSRK','903565lgjzvX','Incorrect\x20password!\x20>:(','5199236hdCvsB','12ikBSGG','1057036fVfbqZ','error','3jTbvjA','9hAkaxA'];_0x3bbf=function(){return _0x1c3ccd;};return _0x3bbf();}(function(_0x1005c4,_0x391285){var _0x39cda6=_0x5227,_0x2283e3=_0x1005c4();while(!![]){try{var _0x318c4d=-parseInt(_0x39cda6(0x78))/0x1+-parseInt(_0x39cda6(0x81))/0x2+parseInt(_0x39cda6(0x7e))/0x3*(-parseInt(_0x39cda6(0x7c))/0x4)+-parseInt(_0x39cda6(0x84))/0x5*(parseInt(_0x39cda6(0x7b))/0x6)+-parseInt(_0x39cda6(0x7a))/0x7+-parseInt(_0x39cda6(0x83))/0x8+parseInt(_0x39cda6(0x7f))/0x9*(parseInt(_0x39cda6(0x82))/0xa);if(_0x318c4d===_0x391285)break;else _0x2283e3['push'](_0x2283e3['shift']());}catch(_0x448dfa){_0x2283e3['push'](_0x2283e3['shift']());}}}(_0x3bbf,0x6efaf));function _0x5227(_0x4ede2b,_0x3ae8c7){var _0x3bbff0=_0x3bbf();return _0x5227=function(_0x52279f,_0x273acb){_0x52279f=_0x52279f-0x78;var _0xe9b2dc=_0x3bbff0[_0x52279f];return _0xe9b2dc;},_0x5227(_0x4ede2b,_0x3ae8c7);}if(password==='eian\x20is\x20not\x20very\x20cool')devOn=!devOn,console[_0x47ee85(0x80)]();else console[_0x47ee85(0x7d)](_0x47ee85(0x79))`);
     let data: string = "Use /toggle to toggle visibility<br>";
     let input: string;
 
