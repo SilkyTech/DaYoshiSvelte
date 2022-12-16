@@ -6,9 +6,10 @@
         usedDev, usedAutoclicker, boughtSkins, 
         curPet, ownedPets, curSkin } = game
     import * as constants from '../constants'
-    import { pets } from '../constants'
+    import { boxes, pets } from '../constants'
     import * as int from '../Internal'
     import { getLevels } from '../utils';
+  import Tooltip from '../Tooltip.svelte';
     
     let boxscroll: boolean = false;
     export let parent: App;
@@ -111,11 +112,16 @@
 </script>
 
 <div class={"petmenu" + (petmenuactive ? " petmenu-active" : "")}>
-  <span class="info-label">Buy Menu:</span><br />
-  <button on:click={() => buyBox(1)}>Buy Common Box | 50 Deaths</button>
-  <button on:click={() => buyBox(2)}>Buy Rare Box | 300 Deaths</button>
-  <button on:click={() => buyBox(3)}>Buy Lava Box | 500 Deaths</button>
-  <button on:click={() => buyBox(4)}>Buy Mario Box | 700 Deaths</button>
+    <span class="info-label">Buy Menu:</span><br />
+    <div class="shop-items">
+    {#each Object.keys(boxes) as i}
+    <button class="boxbuy" on:click={() => buyBox(+i)}>
+        <img src={boxes[i][1]} alt=""><br>
+            
+        Buy {boxes[i][0]} for {boxes[i][2]} Deaths
+    </button>
+    {/each}
+    </div>
   <hr />
   Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br />
   Level: {getLevels(boughtPets[$curPet]).level}<br />

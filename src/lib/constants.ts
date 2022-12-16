@@ -251,6 +251,13 @@ export const boxChances: {[id: number]: [number, number][]} = {
     4: [[0, 8], [8, 30], [9, 2], [1, 16], [10, 5]]
 }
 
+export const boxes: {[id: number]: [string, string, number]} = {
+    1: ["Common Box", "box/commonbox.png", 50],
+    2: ["Rare Box", "box/rarebox.png", 300],
+    3: ["Lava Box", "box/lavabox.png", 500],
+    4: ["Mario Box","box/commonbox.png", 700], // TODO: add mario box texture
+}
+
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
     ["normal", "idle/yoshi.png", "Normal Yoshi", -1],
     ["hit", "hit/sadyoshi.png", "Sad Yoshi", -1],
@@ -388,3 +395,4 @@ export const yoshis: {
         drops: [["Pancake", 1]]
     }
 ]
+

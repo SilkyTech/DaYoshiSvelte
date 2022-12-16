@@ -144,7 +144,8 @@ body {
   flex-direction: column;
   max-width: 20vw;
   background-color: rgb(57, 57, 57);
-  
+  overflow-y: auto;
+  height: 100vh;
   z-index: 15;
   transition: right 200ms;
 
@@ -191,8 +192,6 @@ body {
   display: grid;
   gap: 8px 8px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(666, 1fr);
-  height: 100vh;
   overflow: auto;
   width: calc(94px * 3);
   justify-items: center;
@@ -200,6 +199,7 @@ body {
 
 .shop-panel {
   width: 78px;
+  
   
   & > button {
     border-radius: 0.5rem;
@@ -397,5 +397,13 @@ button {
   transition: bottom 200ms;
   &.craftingmenu-active {
     bottom: calc(30vh + 32px);
+  }
+}
+
+.boxbuy  {
+  width: 80px;
+  & > img {
+    width: 64px;
+    
   }
 }
