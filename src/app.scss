@@ -294,9 +294,9 @@ button {
   bottom: -100%;
   position: absolute;
   display: block;
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 30vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 35vh;
   width: 100vw;
   background-color: rgb(57, 57, 57);
   z-index: 16;
