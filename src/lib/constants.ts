@@ -379,7 +379,7 @@ export const pets: {
         salvage: 150
     }, {
         name: "Hype Yoshi",
-        perks: (level) => ({autoAdd: level*69420, hitMul: 69420*level + Math.random()*69420, hitAdd: level*69420}),
+        perks: (level) => ({autoAdd: level*69420*69, hitMul: 69420*level + Math.random()*69420, hitAdd: level*69420}),
         description: "Admin pet, how did you get one?",
         source: "pet/HypeYoshi.png",
         salvage: 69420,
@@ -408,7 +408,7 @@ export const yoshis: {
         regen: 1,
         reward: 3,
         kill: 15,
-        drops: [["Yoshi Sludge", 16], ["Buff Yoshi Sludge", 9], ["Yoshi Steel", 3]]
+        drops: [["Yoshi Sludge", 16], ["Buff Yoshi Sludge", 9], ["Yoshi Steel", 5]]
     },
     {
         name: "Aunt Yoshi",
@@ -430,7 +430,7 @@ export const yoshis: {
         regen: Infinity,
         reward: Infinity,
         kill: Infinity,
-        drops: [["Yoshi Apple", 69]]
+        drops: [["Yoshi Apple", 69420]]
     }
 ]
 
