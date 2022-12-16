@@ -72,11 +72,25 @@ export const itemIds = {
         img: "items/export/sword/yoshi/Flimsy Yoshi Sword.png",
         type: "sword",
         damage: 1
+    },
+    "Normal Yoshi Sword": {
+        desc: "A sword crafted from yoshi sludge and yoshi steel. Refined by a blacksmith.", 
+        img: "items/export/sword/yoshi/Normal Yoshi Sword.png",
+        type: "sword",
+        damage: 2
+    },
+    "Sturdy Yoshi Sword": {
+        desc: "A sword crafted from yoshi sludge and yoshi steel. Refined by a master blacksmith.", 
+        img: "items/export/sword/yoshi/Sturdy Yoshi Sword.png",
+        type: "sword",
+        damage: 3
     }
 } as const;
 
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
-    [[["Yoshi Steel", 10], ["Yoshi Sludge", 30]], ["Flimsy Yoshi Sword", 1]]
+    [[["Yoshi Steel", 10], ["Yoshi Sludge", 30]], ["Flimsy Yoshi Sword", 1]],
+    [[["Flimsy Yoshi Sword", 1], ["Yoshi Steel", 30], ["Yoshi Sludge", 100], ["Buff Yoshi Sludge", 50]], ["Normal Yoshi Sword", 1]],
+    [[["Normal Yoshi Sword", 1], ["Yoshi Steel", 100], ["Yoshi Sludge", 200], ["Buff Yoshi Sludge", 100]], ["Sturdy Yoshi Sword", 1]]
 ]
 
 class Game {
