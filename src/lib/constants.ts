@@ -354,10 +354,10 @@ export const pets: {
         source: "pet/greenshooteryoshi.png",
         salvage: 70
     }, {
-        name: "Termiyoshi",
-        perks: (level) => ({autoAdd: level*100000000, autoMul: 0.01}),
-        description: "Admin only.",
-        source: "pet/redjujuyoshi.png",
+        name: "No yoshi",
+        perks: (level) => ({autoAdd: level*0, autoMul: 0}),
+        description: "Why did you get that ron.",
+        source: "pet/yourdadyoshi.png",
         salvage: -69
     }, {
         name: "Grass Baby Yoshi",
