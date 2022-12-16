@@ -119,7 +119,12 @@ export const itemIds = {
         img: "items/export/cloak/Well Woven Yoshi Cloak.png",
         damage: 1.5
     }, 
-    "Yoshi Thread": {type: "item", desc: "Some thread made Aunt Yoshi. Made with care.", img: "items/export/Yoshi Thread.png"}
+    "Yoshi Thread": {type: "item", desc: "Some thread made Aunt Yoshi. Made with care.", img: "items/export/Yoshi Thread.png"},
+    "Firefox": {
+        type: "candy", desc: "A browser droped by B(r)owser. Part of the browser collection. 20,000 pet xp.",
+        img: "items/export/Firefox.png",
+        xp: 20000
+    }
 } as const;
 
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [

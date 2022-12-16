@@ -402,7 +402,7 @@ export const yoshis: {
         regen: 1,
         reward: 3,
         kill: 15,
-        drops: [["Yoshi Sludge", 16], ["Buff Yoshi Sludge", 7], ["Yoshi Steel", 2]]
+        drops: [["Yoshi Sludge", 16], ["Buff Yoshi Sludge", 9], ["Yoshi Steel", 3]]
     },
     {
         name: "Aunt Yoshi",
@@ -417,7 +417,7 @@ export const yoshis: {
         regen: 10,
         reward: 1500,
         kill: 2500,
-        drops: [["Yoshi Apple", 1]]
+        drops: [["Firefox", 1]]
     }, {
         name: "Placeholder Yoshi",
         hp: Infinity,

@@ -96,6 +96,12 @@
       $inventory.push({"id": reward});
       $inventory = $inventory
       createNotif(`You got a ${reward} from killing ${yoshiObj.name}!`, "color: blue; font-size: 1.7rem;")
+
+      if (yoshiObj.name === "B(r)owser") {
+        if (Math.random() < 0.005) {
+          
+        }
+      }
     }
   }
 
