@@ -249,7 +249,8 @@ export const boxChances: {[id: number]: [number, number][]} = {
     2: [[0, 100], [1, 40], [2, 8], [3, 1], [5, 6]],
     3: [[0, 30], [6, 30], [1, 20], [7, 10], [2, 8], [4, 2], [5, 3]],
     4: [[0, 16], [8, 30], [9, 2], [1, 16], [10, 7], [12, 6], [13, 1]],
-    5: [[1, 35], [2, 16], [17, 30], [16, 8], [6, 30], [4, 12], [18, 1], [5, 30]]
+    5: [[1, 35], [2, 16], [17, 30], [16, 8], [6, 30], [4, 12], [18, 1], [5, 30]],
+    6: [[20, 1], [5, 30], [21, 10], [21, 17], [6, 15], [4, 7]]
 }
 
 export const boxes: {[id: number]: [string, string, number]} = {
@@ -257,7 +258,8 @@ export const boxes: {[id: number]: [string, string, number]} = {
     2: ["Rare Box", "box/rarebox.png", 300],
     3: ["Lava Box", "box/lavabox.png", 500],
     4: ["Mario Box","box/mariobox.png", 700], 
-    5: ["Nature Box", "box/commonbox.png", 1200]
+    5: ["Nature Box", "box/commonbox.png", 1200],
+    6: ["Mineral Box", "box/commonbox.png", 2000],
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -430,6 +432,29 @@ export const pets: {
         source: "pet/goombastackpromax.png",
         salvage: 300,
         rarity: "mythical"
+    },
+    // Epic Box
+    {
+        name: "Eian Yoshi",
+        perks: (level) => ({hitAdd: level*0.53, hitMul: 0.056*level}),
+        description: "Pure luck and pure cringe condensed into a yoshi.",
+        source: "pet/epicbox/eianbabyyoshi.png",
+        salvage: 350,
+        rarity: "mythical"
+    }, {
+        name: "Emerald Yoshi",
+        perks: (level) => ({hitAdd: level*0.50, hitMul: 0.07*level*Math.random()}),
+        description: "Yoshi made out of emeralds. Very hard.",
+        salvage: 370,
+        rarity: "epic",
+        source: "pet/epicbox/emeraldyoshi.png"
+    }, {
+        name: "Bronze Yoshi",
+        perks: (level) => ({hitAdd: level*0.41, hitMul: 0.043*level*Math.random()}),
+        description: "Bronze yoshi from the Bronze Age.",
+        salvage: 250,
+        rarity: "uncommon",
+        source: "pet/epicbox/bronzeyoshi.png"
     }
 ]
 
@@ -459,8 +484,8 @@ export const yoshis: {
     },
     {
         name: "Aunt Yoshi",
-        hp: 69420,
-        regen: 5,
+        hp: 50000,
+        regen: 6,
         reward: 1000,
         kill: 2000,
         drops: [["Pancake", 2], ["Yoshi Thread", 11]]
@@ -471,6 +496,13 @@ export const yoshis: {
         reward: 1500,
         kill: 2500,
         drops: [["Firefox", 1]]
+    }, {
+        name: "Body Builder Yoshi",
+        hp: 200000,
+        regen: 15,
+        reward: 3500,
+        kill: 7500,
+        drops: [["Yoshi Steel", 1]]
     }, {
         name: "Placeholder Yoshi",
         hp: Infinity,

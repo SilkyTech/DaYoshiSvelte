@@ -102,6 +102,7 @@
     Level: {getLevels(boughtPets[$curPet]).level}<br />
     EXP to next Level: {getLevels(boughtPets[$curPet]).xp}<br />
     Description: {getLevels(boughtPets[$curPet]).desc}<br />
+    Rarity: {boughtPets[$curPet].pet.rarity}<br />
     <button on:click={() => salvage($curPet)}>Salvage</button>
     <hr>
     <div class="pets">
