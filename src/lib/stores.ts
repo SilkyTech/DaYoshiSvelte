@@ -145,7 +145,25 @@ export const itemIds = {
     }, 
     "Cube of Pure Steel": {type: "item", desc: "A pure block of steel.", img: "items/export/Cube of Pure Steel.png"},
     "Dumbbell": {type: "item", desc: "Dumbbells, dropped from Body Builder Yoshi.", img: "items/export/Dumbbell.png"},
-    "Iron Yoshi Apple": {type: "candy", desc: "A yoshi apple coated in Yoshi Steel. Binded together by sweat. 500,000 pet XP.", img: "items/export/Iron Yoshi Apple.png", xp: 500000}
+    "Iron Yoshi Apple": {type: "candy", desc: "A yoshi apple coated in Yoshi Steel. Binded together by sweat. 500,000 pet XP.", img: "items/export/Iron Yoshi Apple.png", xp: 500000},
+    "Flimsy Steel Longsword": {
+        type: "sword",
+        desc: "A flimsy steel longsword. Is quite jagged.",
+        img: "items/export/sword/steellong/Flimsy Steel Longsword.png",
+        damage: 2.6,
+    },
+    "Steel Longsword": {
+        type: "sword",
+        desc: "A normal steel longsword. Works quite well against heavy yoshis, not so well with smaller ones.",
+        img: "items/export/sword/steellong/Steel Longsword.png",
+        damage: 3.4,
+    },
+    "Sturdy Steel Longsword": {
+        type: "sword",
+        desc: "A sturdy steel longsword. Will leave permanent scars on enemy yoshis",
+        img: "items/export/sword/steellong/Sturdy Steel Longsword.png",
+        damage: 4.2,
+    },
 } as const;
 
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
@@ -162,7 +180,11 @@ export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, 
     [[["Broken Pancake Necklace", 1], ["Yoshi Thread", 50], ["Pancake", 18], ["Yoshi Steel", 90]], ["Sorta Broken Pancake Necklace", 1]],
     [[["Sorta Broken Pancake Necklace", 1], ["Yoshi Thread", 100], ["Pancake", 29], ["Yoshi Steel", 130]], ["Pancake Necklace", 1]],
     [[["Yoshi Steel", 100], ["Yoshi Sludge", 500]], ["Cube of Pure Steel", 1]],
-    [[["Cube of Pure Steel", 10], ["Yoshi Apple", 5], ["Dumbbell", 10]], ["Iron Yoshi Apple", 1]]
+    [[["Cube of Pure Steel", 10], ["Yoshi Apple", 5], ["Dumbbell", 10]], ["Iron Yoshi Apple", 1]],
+    [[["Cube of Pure Steel", 7], ["Dumbbell", 13], ["Yoshi Sludge", 600], ["Buff Yoshi Sludge", 300]], ["Flimsy Steel Longsword", 1]],
+    [[["Flimsy Steel Longsword", 1], ["Cube of Pure Steel", 14], ["Dumbbell", 28], ["Yoshi Sludge", 1200], ["Buff Yoshi Sludge", 700]], ["Steel Longsword", 1]],
+    [[["Steel Longsword", 1], ["Cube of Pure Steel", 30], ["Dumbbell", 40], ["Yoshi Sludge", 2000], ["Buff Yoshi Sludge", 1000]], ["Sturdy Steel Longsword", 1]],
+
 ]
 
 class Game {

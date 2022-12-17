@@ -502,7 +502,7 @@ export const yoshis: {
         regen: 15,
         reward: 3500,
         kill: 7500,
-        drops: [["Yoshi Steel", 1]]
+        drops: [["Dumbbell", 99], ["Iron Yoshi Apple", 1]]
     }, {
         name: "Placeholder Yoshi",
         hp: Infinity,
