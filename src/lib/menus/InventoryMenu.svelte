@@ -11,7 +11,6 @@
         curPet, ownedPets
     } = game;
 
-    let craftingMenuComponent: Crafting;
     let modal: Modal;
 
     export function open() {
@@ -30,48 +29,75 @@
         }
     }
 
-    
+    const notypecheck = (x:any)=>x;
 </script>
 
 <Modal bind:this={modal}>
-    <span class="inventory-title">Inventory</span><button on:click={() => craftingMenuComponent.toggle()}>Toggle crafting menu</button>
-    
+    <span class="inventory-title">Inventory</span>
     <hr>
     Equipment:
     <br>
     <table id="equipment">
         <tr>
-            <th>Sword</th>
-            <th>Cloak</th>
-            <th>Necklace</th>
+            <td>Sword</td>
+            <td>Cloak</td>
+            <td>Necklace</td>
         </tr>
         <tr>
-            <th>
+            <td>
                 <div class="inventory-panel">
                     <span style="font-weight: 400;" class="inventory-panel-amount">1</span>
                     <span style="font-weight: 400; font-size: 1rem" class="inventory-panel-title">{$equipment.sword ?? "None"}</span>
                     {#if $equipment.sword !== undefined} <img src={itemIds[$equipment.sword]?.img ?? ""} alt={$equipment.sword}> {/if}
                 </div>
-            </th>
-            <th>
+            </td>
+            <td>
                 <div class="inventory-panel">
                     <span style="font-weight: 400;" class="inventory-panel-amount">1</span>
                     <span style="font-weight: 400; font-size: 1rem" class="inventory-panel-title">{$equipment.cloak ?? "None"}</span>
                     {#if $equipment.cloak !== undefined} <img src={itemIds[$equipment.cloak]?.img ?? ""} alt={$equipment.cloak}> {/if}
                 </div>    
-            </th>
-            <th>
+            </td>
+            <td>
                 <div class="inventory-panel">
                     <span style="font-weight: 400;" class="inventory-panel-amount">1</span>
                     <span style="font-weight: 400; font-size: 1rem" class="inventory-panel-title">{$equipment.necklace ?? "None"}</span>
                     {#if $equipment.necklace !== undefined} <img src={itemIds[$equipment.necklace]?.img ?? ""} alt={$equipment.necklace}> {/if}
                 </div>    
-            </th>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {#if $equipment.sword !== undefined} 
+                +{notypecheck(itemIds[$equipment.sword]).damage} Damage
+                {:else}
+                No sword equipped
+                {/if}
+            </td>
+            <td>
+                {#if $equipment.cloak !== undefined} 
+                +{notypecheck(itemIds[$equipment.cloak]).damage} Damage
+                {:else}
+                No cloak equipped
+                {/if}
+            </td>
+            <td>
+                {#if $equipment.necklace !== undefined} 
+                +{notypecheck(itemIds[$equipment.necklace]).damage} Damage
+                {:else}
+                No necklace equipped
+                {/if}
+            </td>
         </tr>
     </table>
-        
+
+
+    <hr>
+    Crafting:<br>
+    <Crafting></Crafting>
     <hr>
     <div class="inventory-container">
+    Inventory:<br>
         {#each pInventoryItems as item}
             <div class="inventory-panel" title={itemIds[item.id].desc} style="margin-bottom: 8px; margin-right: 8px;">
                 <span class="inventory-panel-title">{item.id}</span>
@@ -100,4 +126,3 @@
     </div>
     
 </Modal>  
-<Crafting bind:this={craftingMenuComponent}></Crafting>

@@ -40,33 +40,28 @@
         $inventory = newInv.items
     }
 </script>
-<div class={"craftingmenu" + (active ? " craftingmenu-active" : "")}>
-    <button disabled={index === 0} on:click={() => index--}>Previous Recipe</button>
-    <button disabled={index === recipes.length-1} on:click={() => index++}>Next Recipe</button><br>
 
-    {#each curRecipe[0] as item}
-        <div class={"inventory-panel" + (pInventory.getItem(item[0]).amount < item[1] ? " notenough" : "")}>
-            <span class="inventory-panel-title">{item[0]}</span>
-            <span class="inventory-panel-amount">{item[1]}</span>
-            <Tooltip tooltip={itemIds[item[0]].desc}>
-                <img src={itemIds[item[0]].img} alt={item[0].toString()}>
-            </Tooltip>
-            
-        </div>
-    {/each}
-    <svg width="128px" height="128px"
-    xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-    </svg>
-    <div class="inventory-panel">
-        <span class="inventory-panel-title">{curRecipe[1][0]}</span>
-        <span class="inventory-panel-amount">{curRecipe[1][1]}</span>
-        <Tooltip tooltip={itemIds[curRecipe[1][0]].desc}>
-            <img src={itemIds[curRecipe[1][0]].img} alt={curRecipe[1][0].toString()}>
-        </Tooltip>
+<button disabled={index === 0} on:click={() => index--}>Previous Recipe</button>
+<button disabled={index === recipes.length-1} on:click={() => index++}>Next Recipe</button><br>
+
+{#each curRecipe[0] as item}
+    <div class={"inventory-panel" + (pInventory.getItem(item[0]).amount < item[1] ? " notenough" : "")}>
+        <span class="inventory-panel-title">{item[0]}</span>
+        <span class="inventory-panel-amount">{item[1]}</span>
+        <img src={itemIds[item[0]].img} alt={item[0].toString()}>
         
-    </div><br>
-    <button 
-    disabled={_canCraft}
-    on:click={craft}>Craft</button>
-</div>  
+    </div>
+{/each}
+<svg width="128px" height="128px"
+xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+</svg>
+<div class="inventory-panel">
+    <span class="inventory-panel-title">{curRecipe[1][0]}</span>
+    <span class="inventory-panel-amount">{curRecipe[1][1]}</span>
+    <img src={itemIds[curRecipe[1][0]].img} alt={curRecipe[1][0].toString()}>
+
+</div><br>
+<button 
+disabled={_canCraft}
+on:click={craft}>Craft</button>

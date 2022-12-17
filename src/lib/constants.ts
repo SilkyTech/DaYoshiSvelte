@@ -287,7 +287,8 @@ export const pets: {
     },
     source: string,
     description: string,
-    salvage: number
+    salvage: number,
+    rarity: "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythical" | "transcendental" 
 }[] = [
     {
         name: "Blue Baby Yoshi",
@@ -295,120 +296,140 @@ export const pets: {
         source: "pet/bluebabyyoshi.png",
         description: "Blue Baby Yoshi, found from the depths of the common box. Makes you do 0.045*{Pet Level} more damage.",
         salvage: 10,
+        rarity: "common"
     }, {
         name: "Green Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.02, hitMul: level*0.02}),
         source: "pet/greenbabyyoshi.png",
         description: "Green Baby Yoshi. Makes you do 0.02*{Pet Level} more damage AND multiplies that by 0.025*{Pet Level}.",
         salvage: 50,
+        rarity: "uncommon"
     }, {
         name: "Pink Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.03, hitMul: level*0.02}),
         description: "Pink Baby Yoshi. Makes you do 0.03*{Pet Level} more damage AND multiplies that by 0.02*{Pet Level}.",
         source: "pet/pinkbabyyoshi.png",
-        salvage: 75
+        salvage: 75,
+        rarity: "rare"
     }, {
         name: "Glowing Baby Yoshi",
         perks: (level) => ({hitAdd: level*Math.random()/10 + level/15, hitMul: level*Math.random()/70}),
         description: "A glowing baby yoshi. Super fancy. Effects: Unknown",
         source: "pet/glowingbabyyoshi.png",
         salvage: 1000,
+        rarity: "legendary"
     }, {
         name: "Obsidian Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.1, hitMul: Math.random()*level/70}),
         description: "A obsidian baby yoshi found from the lava box, has a random chance to do more or less damage.",
         source: "pet/obsidianbabyyoshi.png",
         salvage: 100,
+        rarity: "legendary"
     }, {
         name: "Your Dad Yoshi",
         perks: (level) => ({hitAdd: -70, hitMul: 0}),
         description: "Your dad that went to the milk store",
         source: "pet/yourdadyoshi.png",
-        salvage: -2
+        salvage: -2,
+        rarity: "common"
     }, {
         name: "Rock Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.045, hitMul: Math.random()*level/100}),
         description: "A baby yoshi formed from volcanic rock, I wonder how that happened.",
         source: "pet/rockbabyyoshi.png",
         salvage: 40,
+        rarity: "common"
     }, {
         name: "Red Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.05, hitMul: Math.random()*level/95}),
         description: "A baby yoshi formed from lava, why is it living.",
         source: "pet/redbabyyoshi.png",
         salvage: 60,
+        rarity: "uncommon"
     }, {
         name: "Goomba",
         perks: (level) => ({hitAdd: level*0.0175, hitMul: 0.0175*level + Math.random()}),
         description: "A goomba that doesn't like yoshis.",
         source: "pet/goomba.png",
         salvage: 40,
+        rarity: "uncommon"
     }, {
         name: "Galoomba",
         perks: (level) => ({hitAdd: level*0.0275, hitMul: 0.0275*level + Math.random()}),
         description: "An evolved goomba who hates yoshis.",
         source: "pet/galoomba.png",
         salvage: 90,
+        rarity: "rare"
     }, {
         name: "Shooter GB Yoshi",
         perks: (level) => ({autoAdd: level*0.015, autoMul: 0.015*level}),
         description: "The green baby yoshi found a gun! I wonder what will happen now?",
         source: "pet/greenshooteryoshi.png",
         salvage: 70,
+        rarity: "uncommon"
     }, {
         name: "No yoshi",
         perks: (level) => ({autoAdd: level*0, autoMul: 0}),
         description: "Why did you get that ron.",
         source: "pet/yourdadyoshi.png",
         salvage: -69,
+        rarity: "transcendental"
     }, {
         name: "Grass Baby Yoshi",
         perks: (level) => ({autoAdd: level*0.03, autoMul: 0.02*level}),
         description: "Grass yoshi, the gamers ultimate nemisis.",
         source: "pet/grassbabyyoshi.png",
         salvage: 200,
+        rarity: "uncommon"
     }, {
         name: "Blue Goomba Stack",
         perks: (level) => ({hitAdd: level*0.032, hitMul: 0.04*level + Math.random()}),
         description: "Goomba x 4, but not 4x damage",
         source: "pet/goombastack.png",
         salvage: 120,
+        rarity: "legendary"
     }, {
         name: "Bowser Jr.",
         perks: (level) => ({hitAdd: level*0.03, hitMul: 0.045*level + Math.random()}),
         description: "Dropped from the belly of B(r)owser, somehow",
         source: "pet/Bowser_Jr.png",
-        salvage: 150
+        salvage: 150,
+        rarity: "mythical"
     }, {
         name: "Hype Yoshi",
         perks: (level) => ({autoAdd: level*69420*69, hitMul: 69420*level + Math.random()*69420, hitAdd: level*69420}),
         description: "Admin pet, how did you get one?",
         source: "pet/HypeYoshi.png",
         salvage: 69420,
+        rarity: "transcendental"
     }, {
         name: "Meander Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.032, hitMul: 0.036*level + Math.random()}),
         description: "A river yoshi that started meandering.",
         source: "pet/meanderbabyyoshi.png",
-        salvage: 170
+        salvage: 170,
+        rarity: "rare"
     }, {
         name: "River Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.027, hitMul: 0.031*level + Math.random()}),
         description: "A river yoshi.",
         source: "pet/riverbabyyoshi.png",
-        salvage: 100
+        salvage: 100,
+        rarity: "uncommon"
     }, {
         name: "Sky Baby Yoshi",
         perks: (level) => ({hitAdd: level*0.04, hitMul: 0.041*level + Math.random()}),
         description: "A river yoshi.",
         source: "pet/skybabyyoshi.png",
-        salvage: 220
+        salvage: 220,
+        rarity: "legendary"
     }, {
         name: "Blue Goomba Stack Pro Max",
         perks: (level) => ({hitAdd: level*0.05, hitMul: 0.05*level + Math.random()}),
         description: "A Goomba stack, x2",
         source: "pet/goombastackpromax.png",
-        salvage: 300
+        salvage: 300,
+        rarity: "mythical"
     }
 ]
 
