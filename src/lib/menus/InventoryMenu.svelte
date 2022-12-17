@@ -1,5 +1,6 @@
 <script lang="ts">
     import { each } from 'svelte/internal';
+  import Modal from '../component/Modal.svelte';
     import { game, Inventory, itemIds } from '../stores'
     import Tooltip from '../Tooltip.svelte';
     import Crafting from './Crafting.svelte'
@@ -11,11 +12,10 @@
     } = game;
 
     let craftingMenuComponent: Crafting;
+    let modal: Modal;
 
-    let active = false;
-
-    export function toggle() {
-        active = !active;
+    export function open() {
+        modal.openModal();
     }
 
     $: pInventory = Inventory.from($inventory)
@@ -31,7 +31,7 @@
     }
 </script>
 
-<div class={"inventorymenu" + (active ? " inventorymenu-active" : "")}>
+<Modal bind:this={modal}>
     <span class="inventory-title">Inventory</span><button on:click={() => craftingMenuComponent.toggle()}>Toggle crafting menu</button>
     
     <hr>
@@ -44,26 +44,26 @@
                     <img src={item.img} alt={item.id.toString()}>
                 </Tooltip>
                 {#if itemIds[item.id].type === "sword" }
-                    <button on:click={() => {$equipment.sword = item.id}}
+                    <button class="inventory-equip" on:click={() => {$equipment.sword = item.id}}
                         disabled={$equipment.sword === item.id}>Equip</button>
                 {/if}
 
                 {#if itemIds[item.id].type === "cloak" }
-                    <button on:click={() => {$equipment.cloak = item.id}}
+                    <button class="inventory-equip" on:click={() => {$equipment.cloak = item.id}}
                         disabled={$equipment.cloak === item.id}>Equip</button>
                 {/if}
 
                 {#if itemIds[item.id].type === "necklace" }
-                    <button on:click={() => {$equipment.necklace = item.id}}
+                    <button class="inventory-equip" on:click={() => {$equipment.necklace = item.id}}
                         disabled={$equipment.necklace === item.id}>Equip</button>
                 {/if}
 
                 {#if itemIds[item.id].type === "candy" }
-                    <button on:click={() => {useCandy(itemIds[item.id], item.id)}}>Use</button>
+                    <button class="inventory-equip" on:click={() => {useCandy(itemIds[item.id], item.id)}}>Use</button>
                 {/if}
             </div>
         {/each}
     </div>
     
-</div>  
+</Modal>  
 <Crafting bind:this={craftingMenuComponent}></Crafting>

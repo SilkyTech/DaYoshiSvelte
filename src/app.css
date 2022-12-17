@@ -13,6 +13,23 @@
   -webkit-text-size-adjust: 100%;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #666;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
 .yoshi {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -138,9 +155,7 @@ body {
   padding: 1rem;
   right: -100%;
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  max-width: 20vw;
+  max-width: 40vw;
   background-color: rgb(57, 57, 57);
   overflow-y: auto;
   height: 100vh;
@@ -293,10 +308,7 @@ button[disabled] {
 }
 
 .inventory-container {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  max-width: 90vw;
+  max-width: 70vw;
 }
 
 .inventory-title {
@@ -304,6 +316,7 @@ button[disabled] {
 }
 
 .inventory-panel {
+  position: relative;
   display: inline-block;
   width: 128px;
   height: 128px;
@@ -340,6 +353,15 @@ button[disabled] {
 }
 .inventory-panel > button {
   border-radius: 1rem;
+}
+.inventory-panel > .inventory-equip {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.tooltip {
+  position: relative;
 }
 
 .tooltip .tooltiptext {
@@ -383,4 +405,61 @@ button[disabled] {
 }
 .boxbuy > img {
   width: 64px;
+}
+
+.curved-button {
+  padding: 8px 16px 8px 16px;
+  border-radius: 1rem;
+}
+
+.modal-blur {
+  width: 100vw;
+  min-height: 100vh;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  transition: top 200ms;
+}
+.modal-blur.modal-open {
+  top: 0;
+  opacity: 1;
+}
+
+.modal-content {
+  min-width: 50vw;
+  min-height: 60vh;
+  max-width: 80vw;
+  max-height: 80vh;
+  background-color: rgba(210, 210, 210, 0.2);
+  padding: 2rem;
+  border-radius: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pet-icon {
+  width: 128px;
+  height: 128px;
+  display: inline-block;
+  border-radius: 1rem;
+  position: relative;
+}
+.pet-icon > img {
+  height: 100px;
+  width: auto;
+}
+.pet-icon > .pet-level {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+.pet-icon > .pet-name {
+  position: absolute;
+  top: 8px;
+  left: 8px;
 }/*# sourceMappingURL=app.css.map */

@@ -10,6 +10,8 @@
     import * as int from '../Internal'
     import { getLevels } from '../utils';
   import Tooltip from '../Tooltip.svelte';
+  import CurvedButton from '../component/CurvedButton.svelte';
+  import Modal from '../component/Modal.svelte';
     
     let boxscroll: boolean = false;
     export let parent: App;
@@ -29,6 +31,7 @@
     let boxitems: [typeof pets[0], boolean][] = [];
 
     async function boxOpen(id: number) {
+        modal.closeModal();
         let things = constants.boxChances[id];
         let uncollapsed = [];
         things.forEach((a) => {
@@ -54,6 +57,7 @@
             else parent.createNotif(`You got nothing, sad.`, "color: red;");
             int.save.saveSave();
             $ownedPets = $ownedPets;
+            modal.openModal();
         }, 3000);
         }, 1000);
     }
@@ -82,14 +86,39 @@
         }
     }
     
-    export function toggle() {
-        petmenuactive = !petmenuactive;
+    export function open() {
+        modal.openModal()
     }
+
+    let modal: Modal;
 
     $: boughtPets = $ownedPets.map((p, i) => ({xp: p[1], pet: pets[p[0]], i: i}))
 </script>
 
-<div class={"petmenu" + (petmenuactive ? " petmenu-active" : "")}>
+<Modal bind:this={modal}>
+    <h1>Pet Menu:</h1>
+    <hr>
+    Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br />
+    Level: {getLevels(boughtPets[$curPet]).level}<br />
+    EXP to next Level: {getLevels(boughtPets[$curPet]).xp}<br />
+    Description: {getLevels(boughtPets[$curPet]).desc}<br />
+    <button on:click={() => salvage($curPet)}>Salvage</button>
+    <hr>
+    <div class="pets">
+        {#each boughtPets as pet}
+        <button class="pet-icon" on:click={() => equipPet(pet.i)} disabled={pet.i === $curPet || (ownedPets[pet.i] === 11 && !$usedDev)}>
+            <span class="pet-name">{pet.pet.name}</span>
+            <img
+            src={pet.pet.source}
+            alt={pet.pet.name}
+            class="shop-item equip"
+        /><br />
+        <span class="pet-level">Level {getLevels(pet).level}</span>
+        </button>
+        {/each}
+    </div>
+        
+    <hr>
     <span class="info-label">Buy Menu:</span><br />
     <div class="shop-items">
     {#each Object.keys(boxes) as i}
@@ -100,28 +129,10 @@
     </button>
     {/each}
     </div>
-  <hr />
-  Current Pet: {$curPet === -1 ? "None" : boughtPets[$curPet].pet.name}<br />
-  Level: {getLevels(boughtPets[$curPet]).level}<br />
-  EXP to next Level: {getLevels(boughtPets[$curPet]).xp}<br />
-  Description: {getLevels(boughtPets[$curPet]).desc}<br />
-  <button on:click={() => salvage($curPet)}>Salvage</button>
-  <hr />
-  <div class="shop-items">
-    {#each boughtPets as pet}
-      <div class="shop-panel equip">
-        <button on:click={() => equipPet(pet.i)} disabled={pet.i === $curPet || (ownedPets[pet.i] === 11 && !$usedDev)}>
-          <img
-            src={pet.pet.source}
-            alt={pet.pet.name}
-            class="shop-item equip"
-          /><br />
-          Equip {pet.pet.name} | Level {getLevels(pet).level}
-        </button>
-      </div>
-    {/each}
-  </div>
-</div>
+  
+    <hr />
+    
+</Modal>
 
 {#if boxscroll}
     <div class="gambling" style={`left: ${boxLeft}px`}>

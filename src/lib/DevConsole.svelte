@@ -14,7 +14,7 @@
         inventory
     } = game
 
-    let showToggle = true;
+    let showToggle = false;
     let devOn = localStorage.getItem('topsecretdevonlyoptiononlydevswillknow') === "supersecretcodethatonlydevsknow";
 
     let data: string = "Use /toggle to toggle visibility<br>";
