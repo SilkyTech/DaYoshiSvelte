@@ -436,21 +436,21 @@ export const pets: {
     // Epic Box
     {
         name: "Eian Yoshi",
-        perks: (level) => ({hitAdd: level*0.53, hitMul: 0.056*level}),
+        perks: (level) => ({hitAdd: level*0.05, hitMul: 0.05*level}),
         description: "Pure luck and pure cringe condensed into a yoshi.",
         source: "pet/epicbox/eianbabyyoshi.png",
         salvage: 350,
         rarity: "mythical"
     }, {
         name: "Emerald Yoshi",
-        perks: (level) => ({hitAdd: level*0.50, hitMul: 0.07*level*Math.random()}),
+        perks: (level) => ({hitAdd: level*0.050, hitMul: 0.07*level*Math.random()}),
         description: "Yoshi made out of emeralds. Very hard.",
         salvage: 370,
         rarity: "epic",
         source: "pet/epicbox/emeraldyoshi.png"
     }, {
         name: "Bronze Yoshi",
-        perks: (level) => ({hitAdd: level*0.41, hitMul: 0.043*level*Math.random()}),
+        perks: (level) => ({hitAdd: level*0.034, hitMul: 0.035*level*Math.random()}),
         description: "Bronze yoshi from the Bronze Age.",
         salvage: 250,
         rarity: "uncommon",
