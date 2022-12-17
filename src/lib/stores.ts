@@ -142,7 +142,10 @@ export const itemIds = {
         desc: "A necklace made out of pancakes. Why doesn't it expire? I don't know.",
         img: "items/export/necklace/Pancake Necklace.png",
         damage: 1.8
-    }
+    }, 
+    "Cube of Pure Steel": {type: "item", desc: "A pure block of steel.", img: "items/export/Cube of Pure Steel.png"},
+    "Dumbbell": {type: "item", desc: "Dumbbells, dropped from Body Builder Yoshi.", img: "items/export/Dumbbell.png"},
+    "Iron Yoshi Apple": {type: "candy", desc: "A yoshi apple coated in Yoshi Steel. Binded together by sweat. 500,000 pet XP.", img: "items/export/Iron Yoshi Apple.png", xp: 500000}
 } as const;
 
 export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, number]][] = [
@@ -158,7 +161,8 @@ export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, 
     [[["Yoshi Thread", 20], ["Pancake", 8], ["Yoshi Steel", 45]], ["Broken Pancake Necklace", 1]],
     [[["Broken Pancake Necklace", 1], ["Yoshi Thread", 50], ["Pancake", 18], ["Yoshi Steel", 90]], ["Sorta Broken Pancake Necklace", 1]],
     [[["Sorta Broken Pancake Necklace", 1], ["Yoshi Thread", 100], ["Pancake", 29], ["Yoshi Steel", 130]], ["Pancake Necklace", 1]],
-    
+    [[["Yoshi Steel", 100], ["Yoshi Sludge", 500]], ["Cube of Pure Steel", 1]],
+    [[["Cube of Pure Steel", 10], ["Yoshi Apple", 5], ["Dumbbell", 10]], ["Iron Yoshi Apple", 1]]
 ]
 
 class Game {
