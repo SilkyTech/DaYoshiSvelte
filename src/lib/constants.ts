@@ -405,7 +405,7 @@ export const pets: {
         salvage: 220
     }, {
         name: "Blue Goomba Stack Pro Max",
-        perks: (level) => ({hitAdd: level*0.5, hitMul: 0.5*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.05, hitMul: 0.05*level + Math.random()}),
         description: "A Goomba stack, x2",
         source: "pet/goombastackpromax.png",
         salvage: 300
