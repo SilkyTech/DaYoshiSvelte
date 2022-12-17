@@ -248,7 +248,8 @@ export const boxChances: {[id: number]: [number, number][]} = {
     1: [[0, 19], [1, 4], [2, 1], [5, 2]],
     2: [[0, 100], [1, 40], [2, 8], [3, 1], [5, 6]],
     3: [[0, 30], [6, 30], [1, 20], [7, 10], [2, 8], [4, 2], [5, 3]],
-    4: [[0, 16], [8, 30], [9, 2], [1, 16], [10, 7], [12, 6], [13, 1]]
+    4: [[0, 16], [8, 30], [9, 2], [1, 16], [10, 7], [12, 6], [13, 1]],
+    5: [[1, 15], [2, 7], [17, 18], [16, 1], [6, 10], [4, 4]]
 }
 
 export const boxes: {[id: number]: [string, string, number]} = {
@@ -256,6 +257,7 @@ export const boxes: {[id: number]: [string, string, number]} = {
     2: ["Rare Box", "box/rarebox.png", 300],
     3: ["Lava Box", "box/lavabox.png", 500],
     4: ["Mario Box","box/mariobox.png", 700], 
+    5: ["Nature Box", "box/commonbox.png", 1200]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -383,6 +385,18 @@ export const pets: {
         description: "Admin pet, how did you get one?",
         source: "pet/HypeYoshi.png",
         salvage: 69420,
+    }, {
+        name: "Meander Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.035, hitMul: 0.045*level + Math.random()}),
+        description: "A river yoshi that started meandering.",
+        source: "pet/meanderbabyyoshi.png",
+        salvage: 170
+    }, {
+        name: "River Baby Yoshi",
+        perks: (level) => ({hitAdd: level*0.027, hitMul: 0.031*level + Math.random()}),
+        description: "A river yoshi.",
+        source: "pet/riverbabyyoshi.png",
+        salvage: 100
     }
 ]
 

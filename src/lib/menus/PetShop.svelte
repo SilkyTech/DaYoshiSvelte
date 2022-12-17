@@ -20,31 +20,9 @@
         
     function buyBox(boxType: number) {
         boxLeft = 0;
-        switch (boxType) {
-        case 1:
-            if ($deaths >= 50) {
-            $deaths -= 50;
-            boxOpen(boxType);
-            }
-            break;
-        case 2:
-            if ($deaths >= 300) {
-            $deaths -= 300;
-            boxOpen(boxType);
-            }
-            break;
-        case 3:
-            if ($deaths >= 500) {
-            $deaths -= 500;
-            boxOpen(boxType);
-            }
-            break;
-        case 4:
-            if ($deaths >= 700) {
-            $deaths -= 700;
-            boxOpen(boxType);
-            }
-            break;
+        if ($deaths >= constants.boxes[boxType][2]) {
+            $deaths -= constants.boxes[boxType][2]
+            boxOpen(boxType)
         }
     }
 
