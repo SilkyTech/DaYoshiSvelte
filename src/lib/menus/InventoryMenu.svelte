@@ -2,7 +2,7 @@
     import { each } from 'svelte/internal';
   import Modal from '../component/Modal.svelte';
     import { game, Inventory, itemIds } from '../stores'
-    import Tooltip from '../Tooltip.svelte';
+    import Tooltip from '../component/Tooltip.svelte';
     import Crafting from './Crafting.svelte'
 
     let {
@@ -29,20 +29,54 @@
             $inventory = newInv.items
         }
     }
+
+    
 </script>
 
 <Modal bind:this={modal}>
     <span class="inventory-title">Inventory</span><button on:click={() => craftingMenuComponent.toggle()}>Toggle crafting menu</button>
     
     <hr>
+    Equipment:
+    <br>
+    <table id="equipment">
+        <tr>
+            <th>Sword</th>
+            <th>Cloak</th>
+            <th>Necklace</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="inventory-panel">
+                    <span style="font-weight: 400;" class="inventory-panel-amount">1</span>
+                    <span style="font-weight: 400; font-size: 1rem" class="inventory-panel-title">{$equipment.sword ?? "None"}</span>
+                    {#if $equipment.sword !== undefined} <img src={itemIds[$equipment.sword]?.img ?? ""} alt={$equipment.sword}> {/if}
+                </div>
+            </th>
+            <th>
+                <div class="inventory-panel">
+                    <span style="font-weight: 400;" class="inventory-panel-amount">1</span>
+                    <span style="font-weight: 400; font-size: 1rem" class="inventory-panel-title">{$equipment.cloak ?? "None"}</span>
+                    {#if $equipment.cloak !== undefined} <img src={itemIds[$equipment.cloak]?.img ?? ""} alt={$equipment.cloak}> {/if}
+                </div>    
+            </th>
+            <th>
+                <div class="inventory-panel">
+                    <span style="font-weight: 400;" class="inventory-panel-amount">1</span>
+                    <span style="font-weight: 400; font-size: 1rem" class="inventory-panel-title">{$equipment.necklace ?? "None"}</span>
+                    {#if $equipment.necklace !== undefined} <img src={itemIds[$equipment.necklace]?.img ?? ""} alt={$equipment.necklace}> {/if}
+                </div>    
+            </th>
+        </tr>
+    </table>
+        
+    <hr>
     <div class="inventory-container">
         {#each pInventoryItems as item}
-            <div class="inventory-panel">
+            <div class="inventory-panel" title={itemIds[item.id].desc} style="margin-bottom: 8px; margin-right: 8px;">
                 <span class="inventory-panel-title">{item.id}</span>
                 <span class="inventory-panel-amount">{item.amount}</span>
-                <Tooltip tooltip={itemIds[item.id].desc}>
-                    <img src={item.img} alt={item.id.toString()}>
-                </Tooltip>
+                <img src={item.img} alt={item.id.toString()}>
                 {#if itemIds[item.id].type === "sword" }
                     <button class="inventory-equip" on:click={() => {$equipment.sword = item.id}}
                         disabled={$equipment.sword === item.id}>Equip</button>

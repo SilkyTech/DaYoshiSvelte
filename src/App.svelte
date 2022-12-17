@@ -293,6 +293,7 @@
   <Modal bind:this={settingsMenu}>
     <h1>Settings Menu</h1>
     <hr>
+    <h3>Save Options:</h3>
     <CurvedButton onclick={() => setTimeout(() => {
       if (confirm("Are you sure you want to reset?")) {localStorage.removeItem("save"); location.reload()}
     }, 0)}>Reset Save</CurvedButton><br>
@@ -302,7 +303,8 @@
     }, 0)
       }>Import Save</CurvedButton><br>
     <CurvedButton onclick={() => prompt(`Copy this:`, localStorage.getItem("save"))}>Export Save</CurvedButton><br>
-    
+    <!-- <h3>Potato PC options:</h3>
+    <span class="option-label">Enable notifications at cursor: </span><input type="checkbox"> -->
   </Modal>
 
   <div class="yoshi" bind:this={yoshi} unselectable>

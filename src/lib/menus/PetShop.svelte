@@ -120,7 +120,6 @@
         
     <hr>
     <span class="info-label">Buy Menu:</span><br />
-    <div class="shop-items">
     {#each Object.keys(boxes) as i}
     <button class="boxbuy" on:click={() => buyBox(+i)}>
         <img src={boxes[i][1]} alt=""><br>
@@ -128,7 +127,6 @@
         Buy {boxes[i][0]} for {boxes[i][2]} Deaths
     </button>
     {/each}
-    </div>
   
     <hr />
     

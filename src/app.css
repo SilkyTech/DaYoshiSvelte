@@ -282,6 +282,7 @@ button[disabled] {
   left: 50%;
   transform: translate(-50%, 0px);
   font-size: 1.5rem;
+  z-index: 15;
 }
 
 .pet-hand {
@@ -325,7 +326,7 @@ button[disabled] {
   border-radius: 1rem;
   transition: transform 100ms;
 }
-.inventory-panel > * > img {
+.inventory-panel > img {
   width: 128px;
   height: 128px;
   border-radius: 1rem;
@@ -338,14 +339,16 @@ button[disabled] {
 }
 .inventory-panel > .inventory-panel-title {
   position: absolute;
-  transform: translate(2px, 100px);
+  top: 8px;
+  left: 8px;
   z-index: 20;
 }
 .inventory-panel > .inventory-panel-amount {
   position: absolute;
+  bottom: 8px;
+  right: 8px;
   z-index: 20;
   font-size: 2rem;
-  transform: translate(2px, 2px);
   opacity: 1;
 }
 .inventory-panel.notenough {
@@ -448,6 +451,19 @@ button[disabled] {
   display: inline-block;
   border-radius: 1rem;
   position: relative;
+  background-color: rgba(99, 99, 99, 0.2);
+  border: none;
+  color: white;
+  transition: transform 200ms;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+.pet-icon[disabled] {
+  background-color: rgba(22, 22, 22, 0.3);
+}
+.pet-icon:hover {
+  transform: scale(1.1);
+  background-color: rgba(99, 99, 99, 0.3);
 }
 .pet-icon > img {
   height: 100px;
@@ -462,4 +478,15 @@ button[disabled] {
   position: absolute;
   top: 8px;
   left: 8px;
+  text-align: left;
+}
+
+#equipment {
+  font-size: 1.5rem;
+}
+
+th, td {
+  border: 1px solid white;
+  padding: 8px;
+  width: 80px;
 }/*# sourceMappingURL=app.css.map */
