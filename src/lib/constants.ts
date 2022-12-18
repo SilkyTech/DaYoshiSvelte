@@ -461,7 +461,7 @@ export const pets: {
     //Goomba stacks
     {
         name: "Goomba Stack Pro Max Ultra",
-        perks: (level) => ({hitAdd: level*0.075, hitMul: level*0.075*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.075, hitMul: 0.075*level + Math.random()}),
         description: "Goomba Stack Pro Max goes too far",
         salvage: 600,
         rarity: "mythical",
@@ -469,7 +469,7 @@ export const pets: {
     },
     {
         name: "Goombascraper",
-        perks: (level) => ({hitAdd: level*0.1, hitMul: level*0.1*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.1, hitMul: 0.1*level + Math.random()}),
         description: "Goomba Stack Pro Max goes too far its a skyscraper",
         salvage: 1200,
         rarity: "chromatic",
@@ -477,7 +477,7 @@ export const pets: {
     },
     {
         name: "Goombascraper Ultra",
-        perks: (level) => ({hitAdd: level*0.125, hitMul: level*0.125*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.125, hitMul: 0.125*level + Math.random()}),
         description: "Goombascraper, but more",
         salvage: 2400,
         rarity: "chromatic",
