@@ -15,7 +15,7 @@ export function getLevels(pet: any) {
             lev++;
 
         }
-        return {level: lev, xp: constants.levelUps[i]-j, desc: pet.pet.description.replace(/\{Pet Level\}/g, lev.toString())}
+        return {level: lev, next: constants.levelUps[i], xp: constants.levelUps[i]-j, desc: pet.pet.description.replace(/\{Pet Level\}/g, lev.toString())}
     }
 
 export function getLevelsNoLocal(pet: any[]) {

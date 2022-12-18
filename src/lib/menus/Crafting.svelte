@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Inventory, itemIds, recipes, type Item } from "../stores";
-    import Tooltip from "../Tooltip.svelte";
+    import Tooltip from "../component/Tooltip.svelte";
     import { game } from "../stores"
   import App from "../../App.svelte";
 

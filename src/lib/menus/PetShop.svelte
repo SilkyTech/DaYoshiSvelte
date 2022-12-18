@@ -16,7 +16,6 @@
   import { boxes, pets } from "../constants";
   import * as int from "../Internal";
   import { getLevels } from "../utils";
-  import Tooltip from "../Tooltip.svelte";
   import CurvedButton from "../component/CurvedButton.svelte";
   import Modal from "../component/Modal.svelte";
 

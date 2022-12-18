@@ -215,7 +215,10 @@ body {
 }
 
 .shop-panel {
-  width: 78px;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin: 8px;
   
   
   & > button {
@@ -385,30 +388,6 @@ button {
   }
 }
 
-.tooltip {
-  position: relative;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 5px;
-  display: inline;
-  
-  /* Position the tooltip */
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translate(0%, -50%);
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
 
 .craftingmenu {
   position: absolute;
@@ -526,4 +505,33 @@ th, td {
   border:1px solid white;
   padding: 8px;
   width: 80px;
+}
+
+.bottom-icons {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+
+  & > * > button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 101;
+  & > span {
+    font-size: 1rem;
+
+  }
 }

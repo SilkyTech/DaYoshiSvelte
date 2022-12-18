@@ -13,6 +13,7 @@
   import CurvedButton from './lib/component/CurvedButton.svelte';
   import type Modal from './lib/component/Modal.svelte';
   import Settings from './lib/menus/Settings.svelte';
+  import Tooltip from './lib/component/Tooltip.svelte';
 
   const { 
     hits, deaths, hp, 
@@ -38,6 +39,8 @@
   let frame = 0;
   let notifs: {label: string, style: string, uuid: string, time: number}[] = [];
   let notifPos: {[time: number]: {x: number, y: number}} = {}
+
+  export let logs: string[] = [];
 
   const instance = Math.floor(Math.random()*19999999)
   
@@ -91,7 +94,8 @@
 
   function checkHealth() {
     if ($hp < 1) {
-      createNotif(`Killed ${yoshiObj.name} | +${yoshiObj.kill} Pet XP`, `font-size: ${(Math.random()+1.5)*100}%;`)
+      let levels = getLevels(boughtPets[$curPet])
+      createLog(`Killed ${yoshiObj.name} +${yoshiObj.kill} Pet XP | ${levels.next-levels.xp}/${levels.next}`)
       $hp = yoshiObj.hp;
       $deaths += yoshiObj.reward;
       $ownedPets[$curPet][1] += yoshiObj.kill;
@@ -107,7 +111,7 @@
       let reward = inflated[Math.floor(Math.random()*inflated.length)];
       $inventory.push({"id": reward});
       $inventory = $inventory
-      createNotif(`You got a ${reward} from killing ${yoshiObj.name}!`, "color: blue; font-size: 1.7rem;")
+      createLog(`You got a ${reward} from killing ${yoshiObj.name}!`)
 
       if (yoshiObj.name === "B(r)owser") {
         if (Math.random() < 0.005) {
@@ -188,7 +192,7 @@
 
     let uu = Math.floor(Math.random()*9999999999).toString()
     let t = Date.now()
-    notifPos[t] = mouse
+    notifPos[t] = {x: mouse.x + Math.random()*40, y: mouse.y + Math.random()*40}
     
     
     notifs.push({
@@ -203,6 +207,16 @@
     }, 400)
 
     
+  }
+
+  export function createLog(html: string) {
+    logs.push(html);
+    logs = logs
+
+    setTimeout(() => {
+      logs.splice(logs.indexOf(html), 1);
+      logs = logs;
+    }, 3000)
   }
   
   setInterval(tick, 0);
@@ -288,16 +302,41 @@
     <span class="info-label">HP: <div class="bar-full"><div class="bar-bar" style={`width: ${$hp / yoshiObj.hp * 100}%;`}></div><span>{$hp.toFixed(2)} / {yoshiObj.hp}</span></div></span><br>
     <span class="info-label">Hits: {$hits}</span><br>
     <span class="info-label">Deaths: {$deaths}</span><br>
-    <CurvedButton onclick={() => shopComponent.toggle()}>Toggle Shop</CurvedButton>
-    <CurvedButton onclick={() => petmenuComponent.open()}>Open Pet Menu</CurvedButton>
-    <CurvedButton onclick={() => inventoryComponent.open()}>Toggle Inventory</CurvedButton>
-    <br>
-    <CurvedButton onclick={() => settingsMenu.open()}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-      <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-      <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-    </svg></CurvedButton>
+    
    
     {#if $usedDev}<br>Used Dev :&lt;{/if}
+  </div>
+
+  <div class="bottom-icons">
+    <Tooltip label="Open Inventory">
+      <CurvedButton onclick={() => shopComponent.open()}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+        <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+      </svg></CurvedButton>
+    </Tooltip>
+    
+    <!-- ^ Open Inventory -->
+    <Tooltip label="Open Pet Menu">
+      <CurvedButton onclick={() => petmenuComponent.open()}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+      </svg></CurvedButton>
+    </Tooltip>
+    <br>
+    <!-- ^ Open Pet Menu -->
+    <Tooltip label="Open Inventory">
+      <CurvedButton onclick={() => inventoryComponent.open()}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
+        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
+      </svg></CurvedButton>
+    </Tooltip>
+    
+    <!-- ^ Inventory -->
+    <Tooltip label="Open Settings">
+      <CurvedButton onclick={() => settingsMenu.open()}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+      </svg></CurvedButton>
+    </Tooltip>
+    <br>
+    <!-- ^ Settings -->
   </div>
 
   <Settings bind:this={settingsMenu}></Settings>
@@ -330,5 +369,10 @@
   <Shop bind:this={shopComponent}></Shop>
   <PetShop bind:this={petmenuComponent} parent={this}></PetShop>
   <InventoryMenu bind:this={inventoryComponent}></InventoryMenu>
-  
+
+  <div class="info">
+    {#each logs as log}
+      <span class="info-line">{@html log}</span><br>
+    {/each}
+  </div>
 </main>
