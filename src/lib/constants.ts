@@ -473,7 +473,7 @@ export const pets: {
         description: "Goomba Stack Pro Max goes too far its a skyscraper",
         salvage: 1200,
         rarity: "chromatic",
-        source: "pet/goombascraper.png"
+        source: "pet/Goombascraper.png"
     },
     {
         name: "Goombascraper Ultra",
