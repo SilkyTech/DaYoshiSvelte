@@ -141,7 +141,7 @@
   >
   <hr />
   <div class="pets">
-    {#each boughtPets as pet}
+    {#each boughtPets.sort((a, b) => b.xp-a.xp) as pet}
       <button
         class="pet-icon"
         on:click={() => equipPet(pet.i)}
