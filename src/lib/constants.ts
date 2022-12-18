@@ -466,24 +466,22 @@ export const pets: {
         salvage: 600,
         rarity: "mythical",
         source: "pet/goombastackpromaxultra.png"
-    },
-    {
+    }, {
         name: "(OLD) Goombascraper",
         perks: (level) => ({hitAdd: 0, hitMul: 0}),
-        description: "Goomba Stack Pro Max goes too far its a skyscraper",
+        description: "Goomba Stack Pro Max goes too far its a skyscraper (OLD)",
         salvage: 1200,
         rarity: "chromatic",
         source: "pet/Goombascraper.png"
-    },
-    {
+    }, {
         name: "(OLD) Goombascraper Ultra",
         perks: (level) => ({hitAdd: 0, hitMul: 0}),
-        description: "Goombascraper, but more",
+        description: "Goombascraper, but more (OLD)",
         salvage: 2400,
         rarity: "chromatic",
         source: "pet/Goombascraperultra.png"
-    },
-    // Epic Box,
+    }, 
+ //epic box pets
     {
         name: "Silver Yoshi",
         perks: (level) => ({hitAdd: level*0.037, hitMul: 0.024*level+Math.random()}),
@@ -505,7 +503,21 @@ export const pets: {
         rarity: "legendary",
         salvage: 1000,
         source: "pet/epicbox/diamondyoshi.png"
-    }
+    }, {
+        name: "Goombascraper",
+        perks: (level) => ({hitAdd: level*0.09, hitMul: level*0.09 + Math.random()}),
+        description: "Goomba Stack Pro Max goes too far its a skyscraper",
+        salvage: 1200,
+        rarity: "chromatic",
+        source: "pet/Goombascraper.png"
+    }, {
+         name: "Goombascraper Ultra",
+        perks: (level) => ({hitAdd: level*0.12, hitMul: level*0.12 + Math.random()}),
+        description: "Goombascraper, but more tall",
+        salvage: 2400,
+        rarity: "chromatic",
+        source: "pet/Goombascraperultra.png"
+    },
 ]
 
 export const yoshis: {
