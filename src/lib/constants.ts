@@ -251,7 +251,7 @@ export const boxChances: {[id: number]: [number, number][]} = {
     4: [[0, 16], [8, 30], [9, 2], [1, 16], [10, 7], [12, 6], [13, 1]],
     5: [[1, 35], [2, 16], [17, 30], [16, 8], [6, 30], [4, 12], [18, 1], [5, 30]],
     6: [[20, 1], [5, 30], [22, 27], [21, 4], [6, 15], [4, 7]],
-    7: [[5, 499], [23, 1]]
+    7: [[5, 50], [22, 22], [26, 15], [27, 6], [28, 1]]
 }
 
 export const boxes: {[id: number]: [string, string, number]} = {
@@ -372,10 +372,10 @@ export const pets: {
         salvage: 70,
         rarity: "uncommon"
     }, {
-        name: "No yoshi",
+        name: "(OLD) Termiyoshi",
         perks: (level) => ({autoAdd: level*0, autoMul: 0}),
         description: "Why did you get that ron.",
-        source: "pet/yourdadyoshi.png",
+        source: "pet/redjujuyoshi.png",
         salvage: -69,
         rarity: "transcendental"
     }, {
@@ -461,7 +461,7 @@ export const pets: {
     //Goomba stacks
     {
         name: "Goomba Stack Pro Max Ultra",
-        perks: (level) => ({hitAdd: level*0.075, hitMul: 0.075*level + Math.random()}),
+        perks: (level) => ({hitAdd: level*0.056, hitMul: 0.056*level + Math.random()}),
         description: "Goomba Stack Pro Max goes too far",
         salvage: 600,
         rarity: "mythical",
@@ -482,6 +482,29 @@ export const pets: {
         salvage: 2400,
         rarity: "chromatic",
         source: "pet/Goombascraperultra.png"
+    },
+    // Epic Box,
+    {
+        name: "Silver Yoshi",
+        perks: (level) => ({hitAdd: level*0.037, hitMul: 0.024*level+Math.random()}),
+        description: "Yoshi that is silver. These descriptions are getting ridiculous",
+        rarity: "rare",
+        salvage: 400,
+        source: "pet/epicbox/silveryoshi.png",
+    }, {
+        name: "Gold Yoshi",
+        perks: (level) => ({hitAdd: level*0.045, hitMul: 0.05*level + Math.random()}),
+        description: "A yoshi made of molten gold.",
+        rarity: "epic",
+        salvage: 500,
+        source: "pet/epicbox/goldyoshi.png",
+    }, {
+        name: "Diamond Yoshi",
+        perks: (level) => ({hitAdd: level*0.05, hitMul: 0.051*level+ Math.random()}),
+        description: "A diamond-hard yoshi.",
+        rarity: "legendary",
+        salvage: 1000,
+        source: "pet/epicbox/diamondyoshi.png"
     }
 ]
 
