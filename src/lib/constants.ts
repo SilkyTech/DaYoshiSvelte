@@ -517,7 +517,7 @@ export const pets: {
         salvage: 2400,
         rarity: "chromatic",
         source: "pet/Goombascraperultra.png"
-    }
+    },
 ]
 
 export const yoshis: {
