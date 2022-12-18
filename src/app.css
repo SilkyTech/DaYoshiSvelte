@@ -474,6 +474,7 @@ th, td {
   position: absolute;
   bottom: 16px;
   left: 16px;
+  z-index: 110;
 }
 .bottom-icons > * > button {
   width: 50px;
