@@ -60,7 +60,7 @@
         boxscroll = false;
         if (uncollapsed[chosen] !== 5)
           $ownedPets.push([uncollapsed[chosen], 0]);
-        else parent.createNotif(`You got nothing, sad.`, "color: red;");
+        else try {parent.createNotif(`You got nothing, sad.`, "color: red;")} catch {console.log("failed")};
         int.save.saveSave();
         $ownedPets = $ownedPets;
         modal.openModal();
