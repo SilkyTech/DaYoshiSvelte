@@ -548,21 +548,21 @@ export const yoshis: {
         name: "Aunt Yoshi",
         hp: 50000,
         regen: 6,
-        reward: 1000,
+        reward: 650,
         kill: 2000,
         drops: [["Pancake", 2], ["Yoshi Thread", 11]]
     }, {
         name: "B(r)owser",
         hp: 100000,
         regen: 10,
-        reward: 1500,
+        reward: 1100,
         kill: 2500,
         drops: [["Firefox", 1]]
     }, {
         name: "Body Builder Yoshi",
         hp: 200000,
         regen: 15,
-        reward: 3500,
+        reward: 2300,
         kill: 7500,
         drops: [["Dumbbell", 99], ["Iron Yoshi Apple", 1]]
     }, {

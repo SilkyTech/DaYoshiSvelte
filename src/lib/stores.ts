@@ -179,11 +179,11 @@ export const recipes: [[keyof typeof itemIds, number][], [keyof typeof itemIds, 
     [[["Yoshi Thread", 20], ["Pancake", 8], ["Yoshi Steel", 45]], ["Broken Pancake Necklace", 1]],
     [[["Broken Pancake Necklace", 1], ["Yoshi Thread", 50], ["Pancake", 18], ["Yoshi Steel", 90]], ["Sorta Broken Pancake Necklace", 1]],
     [[["Sorta Broken Pancake Necklace", 1], ["Yoshi Thread", 100], ["Pancake", 29], ["Yoshi Steel", 130]], ["Pancake Necklace", 1]],
-    [[["Yoshi Steel", 100], ["Yoshi Sludge", 500]], ["Cube of Pure Steel", 1]],
+    [[["Yoshi Steel", 100], ["Yoshi Ball", 5]], ["Cube of Pure Steel", 1]],
     [[["Cube of Pure Steel", 10], ["Yoshi Apple", 5], ["Dumbbell", 10]], ["Iron Yoshi Apple", 1]],
-    [[["Cube of Pure Steel", 7], ["Dumbbell", 13], ["Yoshi Sludge", 600], ["Buff Yoshi Sludge", 300]], ["Flimsy Steel Longsword", 1]],
-    [[["Flimsy Steel Longsword", 1], ["Cube of Pure Steel", 14], ["Dumbbell", 28], ["Yoshi Sludge", 1200], ["Buff Yoshi Sludge", 700]], ["Steel Longsword", 1]],
-    [[["Steel Longsword", 1], ["Cube of Pure Steel", 30], ["Dumbbell", 40], ["Yoshi Sludge", 2000], ["Buff Yoshi Sludge", 1000]], ["Sturdy Steel Longsword", 1]],
+    [[["Cube of Pure Steel", 7], ["Dumbbell", 15], ["Yoshi Ball", 6], ["Buff Yoshi Ball", 3]], ["Flimsy Steel Longsword", 1]],
+    [[["Flimsy Steel Longsword", 1], ["Cube of Pure Steel", 30], ["Dumbbell", 28], ["Yoshi Ball", 12], ["Buff Yoshi Ball", 7]], ["Steel Longsword", 1]],
+    [[["Steel Longsword", 1], ["Cube of Pure Steel", 30], ["Dumbbell", 100], ["Yoshi Ball", 20], ["Buff Yoshi Ball", 10]], ["Sturdy Steel Longsword", 1]],
 
 ]
 
