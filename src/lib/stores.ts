@@ -217,3 +217,20 @@ class Game {
 
 // Export a singleton
 export const game = new Game();
+
+class Settings {
+    constructor (
+        public potato: Writable<{
+            notifs: boolean,
+            petAnim: boolean,
+        }> = writable({
+            notifs: true,
+            petAnim: true
+        }),
+    ) {
+    }
+
+    
+}
+
+export const settings = new Settings()
