@@ -481,7 +481,7 @@ export const pets: {
         description: "Goombascraper, but more",
         salvage: 2400,
         rarity: "chromatic",
-        source: "pet/goombascraperultra.png"
+        source: "pet/Goombascraperultra.png"
     }
 ]
 
