@@ -466,7 +466,7 @@ export const pets: {
         source: "pet/goombastackpromaxultra.png"
     },
     {
-        name: "Goomba Stack Pro Max Ultra Extreme",
+        name: "Goombascraper",
         perks: (level) => ({hitAdd: level*0.1, hitMul: level*0.1*level + Math.random()}),
         description: "Goomba Stack Pro Max goes too far its a skyscraper",
         salvage: 1200,
@@ -474,7 +474,7 @@ export const pets: {
         source: "pet/goombascraper.png"
     },
     {
-        name: "Goomba Stack Pro Max Ultra",
+        name: "Goombascraper Ultra",
         perks: (level) => ({hitAdd: level*0.125, hitMul: level*0.125*level + Math.random()}),
         description: "Goombascraper, but more",
         salvage: 2400,
