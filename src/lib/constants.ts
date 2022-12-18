@@ -250,7 +250,8 @@ export const boxChances: {[id: number]: [number, number][]} = {
     3: [[0, 30], [6, 30], [1, 20], [7, 10], [2, 8], [4, 2], [5, 3]],
     4: [[0, 16], [8, 30], [9, 2], [1, 16], [10, 7], [12, 6], [13, 1]],
     5: [[1, 35], [2, 16], [17, 30], [16, 8], [6, 30], [4, 12], [18, 1], [5, 30]],
-    6: [[20, 1], [5, 30], [22, 27], [21, 4], [6, 15], [4, 7]]
+    6: [[20, 1], [5, 30], [22, 27], [21, 4], [6, 15], [4, 7]],
+    7: [[5, 999], [8, 100], [13, 10], [19, 2], [23, 1], [24, 1], [25, 1]]
 }
 
 export const boxes: {[id: number]: [string, string, number]} = {
@@ -260,6 +261,7 @@ export const boxes: {[id: number]: [string, string, number]} = {
     4: ["Mario Box","box/mariobox.png", 700], 
     5: ["Nature Box", "box/commonbox.png", 1200],
     6: ["Mineral Box", "box/commonbox.png", 2000],
+    7: ["Goomba Box", "pet/goomba.png", 10000]
 }
 
 export const skins: ["normal" | "hit" | "block", string, string, number][] = [
@@ -290,7 +292,7 @@ export const pets: {
     source: string,
     description: string,
     salvage: number,
-    rarity: "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythical" | "transcendental" 
+    rarity: "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythical" | "transcendental" | "chromatic"
 }[] = [
     {
         name: "Blue Baby Yoshi",
@@ -470,7 +472,7 @@ export const pets: {
         perks: (level) => ({hitAdd: level*0.1, hitMul: level*0.1*level + Math.random()}),
         description: "Goomba Stack Pro Max goes too far its a skyscraper",
         salvage: 1200,
-        rarity: "ChRoMaTiC",
+        rarity: "chromatic",
         source: "pet/goombascraper.png"
     },
     {
@@ -478,7 +480,7 @@ export const pets: {
         perks: (level) => ({hitAdd: level*0.125, hitMul: level*0.125*level + Math.random()}),
         description: "Goombascraper, but more",
         salvage: 2400,
-        rarity: "ChRoMaTiC",
+        rarity: "chromatic",
         source: "pet/goombascraperultra.png"
     }
 ]
