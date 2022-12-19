@@ -1,4 +1,5 @@
-# Dayoshi
+# Dayoshi (DEPRECATED)
+# SEE SilkyTech/Dayoshi NOW
 Now this is a repo only a few people can access.
 If you can see this then I trust you with the code access.
 
